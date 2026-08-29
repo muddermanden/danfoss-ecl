@@ -62,6 +62,8 @@ Override:
 ECL310_OUTPUT_DIR=~/varme/dumps
 ```
 
+A checked-in snapshot (Danish headers, A266.1, 29 Aug 2026) is in [examples/a266.1-sample.da.csv](examples/a266.1-sample.da.csv).
+
 ## What already exists in Home Assistant
 
 A proper A266.1 integration is still missing. Nearby work:
@@ -104,6 +106,12 @@ Do not treat ECA32 AO1–AO3 as V1/V2 unless analog actuators are actually wired
 - Function codes: 03 / 04 / 06
 - Idle TCP connections are closed by the ECL after ~75 s
 - Live sensors: scale 100. Room/DHW setpoints and gains: scale 10. Most other temperatures: scale 1
+- Identification registers are packed bytes, not a scale factor:
+  - PNU 35 software `557` → `2.45` (`major = raw >> 8`, `minor = raw & 0xFF`)
+  - PNU 34 hardware same packing (`18692` → `73.04`), **not** the production date
+  - PNU 2099 production: high byte = year−2000, low byte = ISO week → Leanheat `32.2025`
+  - PNU 2060–2063 application: prefix `'A'`, type `266`, subtype `1`, version packed like software
+  - PNU 36+37 serial (high/low)
 - `OFF` is `0` when the ON range starts at 1, and `9` when it starts at 10
 - Write support is out of scope for v0.1 (wrong motor runtime will stall a valve in end stop)
 

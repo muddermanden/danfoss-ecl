@@ -512,3 +512,26 @@ msgstr "Desired DHW comfort"
 msgid "Desired DHW saving"
 msgstr "Desired DHW saving"
 
+msgid "Software build"
+msgstr "Software build"
+
+msgid "Serial high"
+msgstr "Serial high"
+
+msgid "Serial low"
+msgstr "Serial low"
+
+msgid "Production week/year"
+msgstr "Production week/year"
+
+msgid "Application prefix"
+msgstr "Application prefix"
+
+msgid "Application type"
+msgstr "Application type"
+
+msgid "Application subtype"
+msgstr "Application subtype"
+
+msgid "Application version"
+msgstr "Application version"

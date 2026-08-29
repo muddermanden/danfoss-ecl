@@ -512,3 +512,26 @@ msgstr "Ønsket VV komfort"
 msgid "Desired DHW saving"
 msgstr "Ønsket VV spare"
 
+msgid "Software build"
+msgstr "Software-build"
+
+msgid "Serial high"
+msgstr "Serienummer høj"
+
+msgid "Serial low"
+msgstr "Serienummer lav"
+
+msgid "Production week/year"
+msgstr "Produktionsdato"
+
+msgid "Application prefix"
+msgstr "Applikationspræfiks"
+
+msgid "Application type"
+msgstr "Applikationstype"
+
+msgid "Application subtype"
+msgstr "Applikationsundertype"
+
+msgid "Application version"
+msgstr "Applikationsversion"
