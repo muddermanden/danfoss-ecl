@@ -1,15 +1,15 @@
 gruppe,navn,pnu,addr,raw,værdi,status,område
-Føler,S1 ude rå,10201,10200,2059,20.59 °C,ok,-60 … 150 °C
+Føler,S1 ude rå,10201,10200,2136,21.36 °C,ok,-60 … 150 °C
 Føler,S2 rum rå,10202,10201,19200,åben,åben,-60 … 150 °C
-Føler,S3 frem varme rå,10203,10202,2570,25.70 °C,ok,-60 … 150 °C
-Føler,S4 frem/beholder VV rå,10204,10203,5060,50.60 °C,ok,-60 … 150 °C
+Føler,S3 frem varme rå,10203,10202,2557,25.57 °C,ok,-60 … 150 °C
+Føler,S4 frem/beholder VV rå,10204,10203,5529,55.29 °C,ok,-60 … 150 °C
 Føler,S5 retur varme rå,10205,10204,19200,åben,åben,-60 … 150 °C
 Føler,S6 retur VV rå,10206,10205,19200,åben,åben,-60 … 150 °C
 Føler,S7 rå,10207,10206,0,0.00 °C,ok,-60 … 150 °C
 Føler,S8 rå,10208,10207,1,0.01 °C,ok,-60 … 150 °C
 Føler,S9 rå,10209,10208,19200,åben,åben,-60 … 150 °C
 Føler,S10 rå,10210,10209,19200,åben,åben,-60 … 150 °C
-Føler,S1 kredsvisning,11201,11200,2059,20.59 °C,ok,-60 … 150 °C
+Føler,S1 kredsvisning,11201,11200,2136,21.36 °C,ok,-60 … 150 °C
 Føler,S2 kredsvisning,11202,11201,19200,åben,åben,-60 … 150 °C
 Føler,S3 kredsvisning,11203,11202,,n/a,findes ikke,-60 … 150 °C
 Føler,S4 kredsvisning,11204,11203,,n/a,findes ikke,-60 … 150 °C
@@ -17,7 +17,7 @@ Føler,S5 kredsvisning,11205,11204,,n/a,findes ikke,-60 … 150 °C
 Føler,S6 kredsvisning,11206,11205,,n/a,findes ikke,-60 … 150 °C
 Føler,S3 ønsket frem,11253,11252,1000,10.00 °C,ok,0 … 150 °C
 Føler,S4 ønsket frem,11254,11253,,n/a,findes ikke,0 … 150 °C
-Udgang,ECA32 AO1 status %,4016,4015,359,35.9 %,ok,0 … 100 %
+Udgang,ECA32 AO1 status %,4016,4015,273,27.3 %,ok,0 … 100 %
 Udgang,ECA32 AO2 status %,4017,4016,0,0.0 %,ok,0 … 100 %
 Udgang,ECA32 AO3 status %,4018,4017,0,0.0 %,ok,0 … 100 %
 Udgang,Triac 1,4000,3999,0,OFF,ok,OFF | ON
@@ -35,8 +35,16 @@ Drift,Mode kreds 2,4202,4201,2,2,,
 Drift,Status kreds 1,4211,4210,2,2,,
 Drift,Status kreds 2,4212,4211,2,2,,
 System,Modbus-adresse,38,37,1,1,ok,1 … 247
-System,Softwareversion,35,34,557,557,,
-System,Hardware-revision,34,33,18692,18692,,
+System,Softwareversion,35,34,557,2.45,ok,
+System,Hardware-revision,34,33,18692,73.04,ok,
+System,Software-build,8,7,12214,12214,,
+System,Serienummer høj,36,35,7,7,,
+System,Serienummer lav,37,36,60434,60434,,
+System,Produktionsdato,2099,2098,6432,32.2025,ok,
+System,Applikationspræfiks,2060,2059,65,A,ok,
+System,Applikationstype,2061,2060,266,266,,
+System,Applikationsundertype,2062,2061,1,1,,
+System,Applikationsversion,2063,2062,2048,8.00,ok,
 Gulvtørring,Programafvikling,10512,10511,0,OFF,ok,OFF | ON
 Gulvtørring,Maks. pwr. fejl,10514,10513,30,30 min,ok,5 … 3000 min
 Gulvtørring,Rampe X5-X6,10903,10902,5,5,ok,OFF 1 … 20

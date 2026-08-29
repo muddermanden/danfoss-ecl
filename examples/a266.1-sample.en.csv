@@ -1,15 +1,15 @@
 group,name,pnu,addr,raw,value,status,range
-Sensors,S1 outdoor raw,10201,10200,2077,20.77 °C,ok,-60 … 150 °C
+Sensors,S1 outdoor raw,10201,10200,2148,21.48 °C,ok,-60 … 150 °C
 Sensors,S2 room raw,10202,10201,19200,open,open,-60 … 150 °C
-Sensors,S3 heating flow raw,10203,10202,2587,25.87 °C,ok,-60 … 150 °C
-Sensors,S4 DHW / tank raw,10204,10203,5148,51.48 °C,ok,-60 … 150 °C
+Sensors,S3 heating flow raw,10203,10202,2556,25.56 °C,ok,-60 … 150 °C
+Sensors,S4 DHW / tank raw,10204,10203,5537,55.37 °C,ok,-60 … 150 °C
 Sensors,S5 heating return raw,10205,10204,19200,open,open,-60 … 150 °C
 Sensors,S6 DHW return raw,10206,10205,19200,open,open,-60 … 150 °C
 Sensors,S7 raw,10207,10206,0,0.00 °C,ok,-60 … 150 °C
 Sensors,S8 raw,10208,10207,1,0.01 °C,ok,-60 … 150 °C
 Sensors,S9 raw,10209,10208,19200,open,open,-60 … 150 °C
 Sensors,S10 raw,10210,10209,19200,open,open,-60 … 150 °C
-Sensors,S1 circuit view,11201,11200,2077,20.77 °C,ok,-60 … 150 °C
+Sensors,S1 circuit view,11201,11200,2148,21.48 °C,ok,-60 … 150 °C
 Sensors,S2 circuit view,11202,11201,19200,open,open,-60 … 150 °C
 Sensors,S3 circuit view,11203,11202,,n/a,not available,-60 … 150 °C
 Sensors,S4 circuit view,11204,11203,,n/a,not available,-60 … 150 °C
@@ -17,7 +17,7 @@ Sensors,S5 circuit view,11205,11204,,n/a,not available,-60 … 150 °C
 Sensors,S6 circuit view,11206,11205,,n/a,not available,-60 … 150 °C
 Sensors,S3 desired flow,11253,11252,1000,10.00 °C,ok,0 … 150 °C
 Sensors,S4 desired flow,11254,11253,,n/a,not available,0 … 150 °C
-Outputs,ECA32 AO1 status %,4016,4015,32,3.2 %,ok,0 … 100 %
+Outputs,ECA32 AO1 status %,4016,4015,234,23.4 %,ok,0 … 100 %
 Outputs,ECA32 AO2 status %,4017,4016,0,0.0 %,ok,0 … 100 %
 Outputs,ECA32 AO3 status %,4018,4017,0,0.0 %,ok,0 … 100 %
 Outputs,Triac 1,4000,3999,0,OFF,ok,OFF | ON
@@ -35,8 +35,16 @@ Operation,Mode circuit 2,4202,4201,2,2,,
 Operation,Status circuit 1,4211,4210,2,2,,
 Operation,Status circuit 2,4212,4211,2,2,,
 System,Modbus address,38,37,1,1,ok,1 … 247
-System,Software version,35,34,557,557,,
-System,Hardware revision,34,33,18692,18692,,
+System,Software version,35,34,557,2.45,ok,
+System,Hardware revision,34,33,18692,73.04,ok,
+System,Software build,8,7,12214,12214,,
+System,Serial high,36,35,7,7,,
+System,Serial low,37,36,60434,60434,,
+System,Production week/year,2099,2098,6432,32.2025,ok,
+System,Application prefix,2060,2059,65,A,ok,
+System,Application type,2061,2060,266,266,,
+System,Application subtype,2062,2061,1,1,,
+System,Application version,2063,2062,2048,8.00,ok,
 Floor drying,Program running,10512,10511,0,OFF,ok,OFF | ON
 Floor drying,Max. power failure,10514,10513,30,30 min,ok,5 … 3000 min
 Floor drying,Ramp X5-X6,10903,10902,5,5,ok,OFF 1 … 20
