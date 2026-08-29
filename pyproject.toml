@@ -31,7 +31,7 @@ dev = ["pytest>=8"]
 ecl-dump = "danfoss_ecl.dump:main"
 
 [project.urls]
-Homepage = "https://github.com/TODO/danfoss-ecl"
+Homepage = "https://github.com/muddermanden/danfoss-ecl"
 
 [tool.setuptools.packages.find]
 where = ["src"]
