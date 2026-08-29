@@ -11,3 +11,4 @@ ecl310_a266_dump_*.csv
 .idea/
 .vscode/
 .DS_Store
+danfoss-ecl.code-workspace
