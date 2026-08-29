@@ -1,168 +1,168 @@
-group,name,pnu,addr,raw,value,status,range
-Sensors,S1 outdoor raw,10201,10200,2077,20.77 °C,ok,-60 … 150 °C
-Sensors,S2 room raw,10202,10201,19200,open,open,-60 … 150 °C
-Sensors,S3 heating flow raw,10203,10202,2587,25.87 °C,ok,-60 … 150 °C
-Sensors,S4 DHW / tank raw,10204,10203,5148,51.48 °C,ok,-60 … 150 °C
-Sensors,S5 heating return raw,10205,10204,19200,open,open,-60 … 150 °C
-Sensors,S6 DHW return raw,10206,10205,19200,open,open,-60 … 150 °C
-Sensors,S7 raw,10207,10206,0,0.00 °C,ok,-60 … 150 °C
-Sensors,S8 raw,10208,10207,1,0.01 °C,ok,-60 … 150 °C
-Sensors,S9 raw,10209,10208,19200,open,open,-60 … 150 °C
-Sensors,S10 raw,10210,10209,19200,open,open,-60 … 150 °C
-Sensors,S1 circuit view,11201,11200,2077,20.77 °C,ok,-60 … 150 °C
-Sensors,S2 circuit view,11202,11201,19200,open,open,-60 … 150 °C
-Sensors,S3 circuit view,11203,11202,,n/a,not available,-60 … 150 °C
-Sensors,S4 circuit view,11204,11203,,n/a,not available,-60 … 150 °C
-Sensors,S5 circuit view,11205,11204,,n/a,not available,-60 … 150 °C
-Sensors,S6 circuit view,11206,11205,,n/a,not available,-60 … 150 °C
-Sensors,S3 desired flow,11253,11252,1000,10.00 °C,ok,0 … 150 °C
-Sensors,S4 desired flow,11254,11253,,n/a,not available,0 … 150 °C
-Outputs,ECA32 AO1 status %,4016,4015,32,3.2 %,ok,0 … 100 %
-Outputs,ECA32 AO2 status %,4017,4016,0,0.0 %,ok,0 … 100 %
-Outputs,ECA32 AO3 status %,4018,4017,0,0.0 %,ok,0 … 100 %
-Outputs,Triac 1,4000,3999,0,OFF,ok,OFF | ON
-Outputs,Triac 2,4001,4000,0,OFF,ok,OFF | ON
-Outputs,Triac 3,4002,4001,0,OFF,ok,OFF | ON
-Outputs,Triac 4,4003,4002,1,ON,ok,OFF | ON
-Outputs,Relay 1,4006,4005,1,ON,ok,OFF | ON
-Outputs,Relay 2,4007,4006,0,OFF,ok,OFF | ON
-Outputs,Relay 3,4008,4007,0,OFF,ok,OFF | ON
-Outputs,Relay 4,4009,4008,0,OFF,ok,OFF | ON
-Outputs,Digital output bitmask 3998,3998,3997,0,0,,
-Outputs,Digital output bitmask 3999,3999,3998,72,72,,
-Operation,Mode circuit 1,4201,4200,1,1,,
-Operation,Mode circuit 2,4202,4201,2,2,,
-Operation,Status circuit 1,4211,4210,2,2,,
-Operation,Status circuit 2,4212,4211,2,2,,
-System,Modbus address,38,37,1,1,ok,1 … 247
-System,Software version,35,34,557,557,,
-System,Hardware revision,34,33,18692,18692,,
-Floor drying,Program running,10512,10511,0,OFF,ok,OFF | ON
-Floor drying,Max. power failure,10514,10513,30,30 min,ok,5 … 3000 min
-Floor drying,Ramp X5-X6,10903,10902,5,5,ok,OFF 1 … 20
-Floor drying,Ramp X7-X8,10904,10903,5,5,ok,OFF 1 … 20
-Floor drying,Application continued,10912,10911,0,OFF,ok,OFF | ON
-Floor drying,After power failure,10913,10912,0,STOP,ok,STOP | START
-Floor drying,X1,10930,10929,0,0 h,ok,0 … 1200 h
-Floor drying,X2,10931,10930,0,0 h,ok,0 … 1200 h
-Floor drying,X3,10932,10931,0,0 h,ok,0 … 1200 h
-Floor drying,X4,10933,10932,0,0 h,ok,0 … 1200 h
-Floor drying,X5,10934,10933,0,0 h,ok,0 … 1200 h
-Floor drying,X6,10935,10934,360,360 h,ok,0 … 1200 h
-Floor drying,X7,10936,10935,720,720 h,ok,0 … 1200 h
-Floor drying,X8,10937,10936,1080,1080 h,ok,0 … 1200 h
-Heating,Desired T,11004,11003,50,50 °C,ok,5 … 150 °C
-Heating,ECA address,11010,11009,0,OFF,ok,OFF | A | B
-Heating,Auto saving,11011,11010,65521,-15 °C,ok,-29 … 10 °C
-Heating,Boost,11012,11011,0,OFF,OFF,OFF 1 … 99 %
-Heating,Ramp,11013,11012,0,OFF,OFF,OFF 1 … 99 min
-Heating,Optimizer,11014,11013,9,OFF,OFF,OFF 10 … 59
-Heating,Integrator time 11015,11015,11014,0,OFF,OFF,OFF 1 … 50 s
-Heating,Slave difference,11017,11016,0,OFF,OFF,OFF 1 … 20 K
-Heating,Based on,11020,11019,0,OUT,ok,OUT | ROOM
-Heating,Total stop,11021,11020,0,OFF,ok,OFF | ON
-Heating,Pump exercise,11022,11021,1,ON,ok,OFF | ON
-Heating,Valve exercise,11023,11022,0,OFF,ok,OFF | ON
-Heating,Actuator type,11024,11023,1,GEAR,ok,ABV | GEAR
-Heating,Pre-stop,11026,11025,1,ON,ok,OFF | ON
-Heating,Const. T return limit,11028,11027,70,70 °C,ok,10 … 110 °C
-Heating,DHW return limit,11029,11028,9,OFF,OFF,OFF 10 … 110 °C
-Heating,High outdoor T X1,11031,11030,15,15 °C,ok,-60 … 20 °C
-Heating,Low limit Y1,11032,11031,50,50 °C,ok,10 … 150 °C
-Heating,Low outdoor T X2,11033,11032,65521,-15 °C,ok,-60 … 20 °C
-Heating,High limit Y2,11034,11033,60,60 °C,ok,10 … 150 °C
-Heating,Max. influence 11035,11035,11034,65516,-2.0,ok,-9.9 … 9.9
-Heating,Min. influence 11036,11036,11035,0,0.0,ok,-9.9 … 9.9
-Heating,Integrator time 11037,11037,11036,25,25 s,ok,OFF 1 … 50 s
-Heating,Pump postrun,11040,11039,3,3 min,ok,0 … 99 min
-Heating,Parallel operation,11043,11042,0,OFF,OFF,OFF 1 … 99 K
-Heating,Pump demand,11050,11049,0,OFF,ok,OFF | ON
-Heating,DHW priority,11052,11051,0,OFF,ok,OFF | ON
-Heating,Pump frost T,11077,11076,2,2 °C,ok,-10 … 20 °C
-Heating,Pump start T,11078,11077,20,20 °C,ok,5 … 40 °C
-Heating,Max. flow T,11079,11078,,n/a,not available,10 … 110 °C
-Heating,Delay 11080,11080,11079,,n/a,not available,5 … 250 s
-Heating,Priority 11085,11085,11084,0,OFF,ok,OFF | ON
-Heating,Frost protection T,11093,11092,10,10 °C,ok,5 … 40 °C
-Heating,Input type,11109,11108,0,OFF,ok,OFF | IM1 | IM2 | IM3 | IM4 | EM1 | EM2 | EM3 | EM4 | EM5
-Heating,Integrator time 11112,11112,11111,0,OFF,OFF,OFF 1 … 50 s
-Heating,Filter constant,11113,11112,10,10,ok,1 … 50
-Heating,Pulse,11114,11113,0,OFF,OFF,OFF 1 … 9999
-Heating,Units,11115,11114,0,"ml, l/h",ok,"ml, l/h | l, l/h | ml, m³/h | l, m³/h | Wh, kW | kWh, kW | kWh, MW | MWh, MW | GWh, GW"
-Heating,High limit Y2 flow,11116,11115,9999,999.9,ok,0.0 … 999.9
-Heating,Low limit Y1 flow,11117,11116,9999,999.9,ok,0.0 … 999.9
-Heating,Low outdoor T X2 flow,11118,11117,65521,-15 °C,ok,-60 … 20 °C
-Heating,High outdoor T X1 flow,11119,11118,15,15 °C,ok,-60 … 20 °C
-Heating,External override,11141,11140,0,OFF,ok,OFF | S1 | S2 | S3 | S4 | S5 | S6 | S7 | S8 | S9 | S10 | S11 | S12 | S13 | S14 | S15 | S16
-Heating,External mode,11142,11141,0,COMFORT,ok,COMFORT | SAVING | FROST PR. | CONST. T
-Heating,Upper difference,11147,11146,0,OFF,OFF,OFF 1 … 30 K
-Heating,Lower difference,11148,11147,0,OFF,OFF,OFF 1 … 30 K
-Heating,Delay 11149,11149,11148,10,10 min,ok,1 … 99 min
-Heating,Cancel T,11150,11149,30,30 °C,ok,10 … 50 °C
-Heating,Motor protection,11174,11173,9,OFF,OFF,OFF 10 … 59 min
-Heating,Heat curve slope,11175,11174,12,1.2,ok,0.1 … 4.0
-Heating,Min. temperature,11177,11176,28,28 °C,ok,10 … 150 °C
-Heating,Max. temperature,11178,11177,70,70 °C,ok,10 … 150 °C
-Heating,Heat cut-out,11179,11178,20,20 °C,ok,OFF 1 … 50 °C
-Heating,Desired room comfort,11180,11179,200,20.0 °C,ok,5.0 … 40.0 °C
-Heating,Desired room saving,11181,11180,170,17.0 °C,ok,5.0 … 40.0 °C
-Heating,Max. influence 11182,11182,11181,65496,-4.0,ok,-9.9 … 0.0
-Heating,Min. influence 11183,11183,11182,0,0.0,ok,0.0 … 9.9
-Heating,Xp,11184,11183,40,40 K,ok,5 … 250 K
-Heating,Tn,11185,11184,500,500 s,ok,1 … 999 s
-Heating,Motor running time,11186,11185,70,70 s,ok,5 … 250 s
-Heating,Neutral zone,11187,11186,1,1 K,ok,1 … 9 K
-Heating,Min. running time,11189,11188,5,5 x20ms,ok,2 … 50 x20ms
-Heating,Summer start mm,11392,11391,5,5,ok,1 … 12
-Heating,Summer start dd,11393,11392,20,20,ok,1 … 31
-Heating,Summer filter,11395,11394,250,250,ok,OFF 1 … 300
-Heating,Winter start mm,11396,11395,5,5,ok,1 … 12
-Heating,Winter start dd,11397,11396,20,20,ok,1 … 31
-Heating,Winter cut-out T,11398,11397,20,20 °C,ok,OFF 1 … 50 °C
-Heating,Winter filter,11399,11398,250,250,ok,OFF 1 … 300
-Heating,Send desired T,11500,11499,1,ON,ok,OFF | ON
-Heating,Screed circuit,11910,11909,1,ON,ok,OFF | ON
-DHW,Pump exercise,12022,12021,0,OFF,ok,OFF | ON
-DHW,Valve exercise,12023,12022,0,OFF,ok,OFF | ON
-DHW,Actuator type,12024,12023,1,GEAR,ok,ABV | GEAR
-DHW,Return limit,12030,12029,60,60 °C,ok,10 … 120 °C
-DHW,Max. influence,12035,12034,65516,-2.0,ok,-9.9 … 9.9
-DHW,Min. influence,12036,12035,0,0.0,ok,-9.9 … 9.9
-DHW,Integrator time 12037,12037,12036,25,25 s,ok,OFF 1 … 50 s
-DHW,Pump postrun,12040,12039,3,3 min,ok,0 … 99 min
-DHW,Pump frost T,12077,12076,2,2 °C,ok,-10 … 20 °C
-DHW,Pump start T,12078,12077,20,20 °C,ok,5 … 80 °C
-DHW,Priority,12085,12084,0,OFF,ok,OFF | ON
-DHW,Frost protection T,12093,12092,10,10 °C,ok,5 … 40 °C
-DHW,Opening time,12094,12093,,n/a,not available,OFF 0.1 … 25.0 s
-DHW,Closing time,12095,12094,,n/a,not available,OFF 0.1 … 25.0 s
-DHW,Tn idle,12096,12095,,n/a,not available,1 … 999 s
-DHW,Supply T idle,12097,12096,,n/a,not available,OFF | ON
-DHW,Input type,12109,12108,0,OFF,ok,OFF | IM1 | IM2 | IM3 | IM4 | EM1 | EM2 | EM3 | EM4 | EM5
-DHW,Limit 12111,12111,12110,9999,999.9,ok,0.0 … 999.9
-DHW,Integrator time 12112,12112,12111,0,OFF,OFF,OFF 1 … 50 s
-DHW,Filter constant,12113,12112,10,10,ok,1 … 50
-DHW,Pulse,12114,12113,0,OFF,OFF,OFF 1 … 9999
-DHW,Units,12115,12114,0,"ml, l/h",ok,"ml, l/h | l, l/h | ml, m³/h | l, m³/h | Wh, kW | kWh, kW | kWh, MW | MWh, MW | GWh, GW"
-DHW,Anti-bacteria day,12122,12121,0,0,ok,0 … 127
-DHW,Anti-bacteria start,12123,12122,0,0,ok,0 … 47
-DHW,Anti-bacteria duration,12124,12123,120,120 min,ok,10 … 600 min
-DHW,Anti-bacteria desired T,12125,12124,9,OFF,OFF,OFF 10 … 110 °C
-DHW,External override,12141,12140,0,OFF,ok,OFF | S1 | S2 | S3 | S4 | S5 | S6 | S7 | S8 | S9 | S10 | S11 | S12 | S13 | S14 | S15 | S16
-DHW,External mode,12142,12141,0,COMFORT,ok,COMFORT | SAVING | FROST PR.
-DHW,Upper difference,12147,12146,0,OFF,OFF,OFF 1 … 30 K
-DHW,Lower difference,12148,12147,0,OFF,OFF,OFF 1 … 30 K
-DHW,Delay,12149,12148,10,10 min,ok,1 … 99 min
-DHW,Cancel T,12150,12149,30,30 °C,ok,10 … 50 °C
-DHW,Autotuning,12173,12172,0,OFF,ok,OFF | ON
-DHW,Motor protection,12174,12173,9,OFF,OFF,OFF 10 … 59 min
-DHW,Min. temperature,12177,12176,10,10 °C,ok,10 … 150 °C
-DHW,Max. temperature,12178,12177,90,90 °C,ok,10 … 150 °C
-DHW,Xp,12184,12183,35,35 K,ok,5 … 250 K
-DHW,Tn,12185,12184,600,600 s,ok,1 … 999 s
-DHW,Motor running time,12186,12185,70,70 s,ok,5 … 250 s
-DHW,Neutral zone,12187,12186,3,3 K,ok,1 … 9 K
-DHW,Min. running time,12189,12188,3,3 x20ms,ok,2 … 50 x20ms
-DHW,Desired DHW comfort,12190,12189,530,53.0 °C,ok,10.0 … 110.0 °C
-DHW,Desired DHW saving,12191,12190,450,45.0 °C,ok,10.0 … 110.0 °C
-DHW,Send desired T,12500,12499,1,ON,ok,OFF | ON
+gruppe,navn,pnu,addr,raw,værdi,status,område
+Føler,S1 ude rå,10201,10200,2059,20.59 °C,ok,-60 … 150 °C
+Føler,S2 rum rå,10202,10201,19200,åben,åben,-60 … 150 °C
+Føler,S3 frem varme rå,10203,10202,2570,25.70 °C,ok,-60 … 150 °C
+Føler,S4 frem/beholder VV rå,10204,10203,5060,50.60 °C,ok,-60 … 150 °C
+Føler,S5 retur varme rå,10205,10204,19200,åben,åben,-60 … 150 °C
+Føler,S6 retur VV rå,10206,10205,19200,åben,åben,-60 … 150 °C
+Føler,S7 rå,10207,10206,0,0.00 °C,ok,-60 … 150 °C
+Føler,S8 rå,10208,10207,1,0.01 °C,ok,-60 … 150 °C
+Føler,S9 rå,10209,10208,19200,åben,åben,-60 … 150 °C
+Føler,S10 rå,10210,10209,19200,åben,åben,-60 … 150 °C
+Føler,S1 kredsvisning,11201,11200,2059,20.59 °C,ok,-60 … 150 °C
+Føler,S2 kredsvisning,11202,11201,19200,åben,åben,-60 … 150 °C
+Føler,S3 kredsvisning,11203,11202,,n/a,findes ikke,-60 … 150 °C
+Føler,S4 kredsvisning,11204,11203,,n/a,findes ikke,-60 … 150 °C
+Føler,S5 kredsvisning,11205,11204,,n/a,findes ikke,-60 … 150 °C
+Føler,S6 kredsvisning,11206,11205,,n/a,findes ikke,-60 … 150 °C
+Føler,S3 ønsket frem,11253,11252,1000,10.00 °C,ok,0 … 150 °C
+Føler,S4 ønsket frem,11254,11253,,n/a,findes ikke,0 … 150 °C
+Udgang,ECA32 AO1 status %,4016,4015,359,35.9 %,ok,0 … 100 %
+Udgang,ECA32 AO2 status %,4017,4016,0,0.0 %,ok,0 … 100 %
+Udgang,ECA32 AO3 status %,4018,4017,0,0.0 %,ok,0 … 100 %
+Udgang,Triac 1,4000,3999,0,OFF,ok,OFF | ON
+Udgang,Triac 2,4001,4000,0,OFF,ok,OFF | ON
+Udgang,Triac 3,4002,4001,0,OFF,ok,OFF | ON
+Udgang,Triac 4,4003,4002,1,ON,ok,OFF | ON
+Udgang,Relæ 1,4006,4005,1,ON,ok,OFF | ON
+Udgang,Relæ 2,4007,4006,0,OFF,ok,OFF | ON
+Udgang,Relæ 3,4008,4007,0,OFF,ok,OFF | ON
+Udgang,Relæ 4,4009,4008,0,OFF,ok,OFF | ON
+Udgang,Digital udgang bitmaske 3998,3998,3997,0,0,,
+Udgang,Digital udgang bitmaske 3999,3999,3998,72,72,,
+Drift,Mode kreds 1,4201,4200,1,1,,
+Drift,Mode kreds 2,4202,4201,2,2,,
+Drift,Status kreds 1,4211,4210,2,2,,
+Drift,Status kreds 2,4212,4211,2,2,,
+System,Modbus-adresse,38,37,1,1,ok,1 … 247
+System,Softwareversion,35,34,557,557,,
+System,Hardware-revision,34,33,18692,18692,,
+Gulvtørring,Programafvikling,10512,10511,0,OFF,ok,OFF | ON
+Gulvtørring,Maks. pwr. fejl,10514,10513,30,30 min,ok,5 … 3000 min
+Gulvtørring,Rampe X5-X6,10903,10902,5,5,ok,OFF 1 … 20
+Gulvtørring,Rampe X7-X8,10904,10903,5,5,ok,OFF 1 … 20
+Gulvtørring,Appl. fortsat,10912,10911,0,OFF,ok,OFF | ON
+Gulvtørring,Efter strømsvigt,10913,10912,0,STOP,ok,STOP | START
+Gulvtørring,X1,10930,10929,0,0 h,ok,0 … 1200 h
+Gulvtørring,X2,10931,10930,0,0 h,ok,0 … 1200 h
+Gulvtørring,X3,10932,10931,0,0 h,ok,0 … 1200 h
+Gulvtørring,X4,10933,10932,0,0 h,ok,0 … 1200 h
+Gulvtørring,X5,10934,10933,0,0 h,ok,0 … 1200 h
+Gulvtørring,X6,10935,10934,360,360 h,ok,0 … 1200 h
+Gulvtørring,X7,10936,10935,720,720 h,ok,0 … 1200 h
+Gulvtørring,X8,10937,10936,1080,1080 h,ok,0 … 1200 h
+Varme,Ønsket T,11004,11003,50,50 °C,ok,5 … 150 °C
+Varme,ECA-adresse,11010,11009,0,OFF,ok,OFF | A | B
+Varme,Auto-spare,11011,11010,65521,-15 °C,ok,-29 … 10 °C
+Varme,Boost,11012,11011,0,OFF,OFF,OFF 1 … 99 %
+Varme,Rampe,11013,11012,0,OFF,OFF,OFF 1 … 99 min
+Varme,Optimizer,11014,11013,9,OFF,OFF,OFF 10 … 59
+Varme,Intgr. tid 11015,11015,11014,0,OFF,OFF,OFF 1 … 50 s
+Varme,Slave differens,11017,11016,0,OFF,OFF,OFF 1 … 20 K
+Varme,Baseret på,11020,11019,0,OUT,ok,OUT | ROOM
+Varme,Totalstop,11021,11020,0,OFF,ok,OFF | ON
+Varme,Pumpe-motion,11022,11021,1,ON,ok,OFF | ON
+Varme,Ventil-motion,11023,11022,0,OFF,ok,OFF | ON
+Varme,Motortype,11024,11023,1,GEAR,ok,ABV | GEAR
+Varme,Pre-stop,11026,11025,1,ON,ok,OFF | ON
+Varme,Kon. T retur T gr.,11028,11027,70,70 °C,ok,10 … 110 °C
+Varme,VV retur T grænse,11029,11028,9,OFF,OFF,OFF 10 … 110 °C
+Varme,Høj ude T X1,11031,11030,15,15 °C,ok,-60 … 20 °C
+Varme,Nedre grænse Y1,11032,11031,50,50 °C,ok,10 … 150 °C
+Varme,Lav ude T X2,11033,11032,65521,-15 °C,ok,-60 … 20 °C
+Varme,Øvre grænse Y2,11034,11033,60,60 °C,ok,10 … 150 °C
+Varme,Maks. forstærkn. 11035,11035,11034,65516,-2.0,ok,-9.9 … 9.9
+Varme,Min. forstærkn. 11036,11036,11035,0,0.0,ok,-9.9 … 9.9
+Varme,Intgr. tid 11037,11037,11036,25,25 s,ok,OFF 1 … 50 s
+Varme,Pumpe efterløb,11040,11039,3,3 min,ok,0 … 99 min
+Varme,Parallel drift,11043,11042,0,OFF,OFF,OFF 1 … 99 K
+Varme,Pumpe krav,11050,11049,0,OFF,ok,OFF | ON
+Varme,VV-prioritet,11052,11051,0,OFF,ok,OFF | ON
+Varme,Pumpe frost T,11077,11076,2,2 °C,ok,-10 … 20 °C
+Varme,Pumpe start T,11078,11077,20,20 °C,ok,5 … 40 °C
+Varme,Maks. frem T,11079,11078,,n/a,findes ikke,10 … 110 °C
+Varme,Forsinkelse 11080,11080,11079,,n/a,findes ikke,5 … 250 s
+Varme,Prioritet 11085,11085,11084,0,OFF,ok,OFF | ON
+Varme,Frostbeskyt. T,11093,11092,10,10 °C,ok,5 … 40 °C
+Varme,Input type,11109,11108,0,OFF,ok,OFF | IM1 | IM2 | IM3 | IM4 | EM1 | EM2 | EM3 | EM4 | EM5
+Varme,Intgr. tid 11112,11112,11111,0,OFF,OFF,OFF 1 … 50 s
+Varme,Filter konstant,11113,11112,10,10,ok,1 … 50
+Varme,Puls,11114,11113,0,OFF,OFF,OFF 1 … 9999
+Varme,Enheder,11115,11114,0,"ml, l/h",ok,"ml, l/h | l, l/h | ml, m³/h | l, m³/h | Wh, kW | kWh, kW | kWh, MW | MWh, MW | GWh, GW"
+Varme,Øvre grænse Y2 flow,11116,11115,9999,999.9,ok,0.0 … 999.9
+Varme,Nedre grænse Y1 flow,11117,11116,9999,999.9,ok,0.0 … 999.9
+Varme,Lav ude T X2 flow,11118,11117,65521,-15 °C,ok,-60 … 20 °C
+Varme,Høj ude T X1 flow,11119,11118,15,15 °C,ok,-60 … 20 °C
+Varme,Ekst. overstyring,11141,11140,0,OFF,ok,OFF | S1 | S2 | S3 | S4 | S5 | S6 | S7 | S8 | S9 | S10 | S11 | S12 | S13 | S14 | S15 | S16
+Varme,Ekst. drift,11142,11141,0,COMFORT,ok,COMFORT | SAVING | FROST PR. | CONST. T
+Varme,Øvre differens,11147,11146,0,OFF,OFF,OFF 1 … 30 K
+Varme,Nedre differens,11148,11147,0,OFF,OFF,OFF 1 … 30 K
+Varme,Forsinkelse 11149,11149,11148,10,10 min,ok,1 … 99 min
+Varme,Annullerings T,11150,11149,30,30 °C,ok,10 … 50 °C
+Varme,Motorbeskyttelse,11174,11173,9,OFF,OFF,OFF 10 … 59 min
+Varme,Varmekurve hældning,11175,11174,12,1.2,ok,0.1 … 4.0
+Varme,Min. temperatur,11177,11176,28,28 °C,ok,10 … 150 °C
+Varme,Maks. temperatur,11178,11177,70,70 °C,ok,10 … 150 °C
+Varme,Varme-udkobling,11179,11178,20,20 °C,ok,OFF 1 … 50 °C
+Varme,Ønsket rum komfort,11180,11179,200,20.0 °C,ok,5.0 … 40.0 °C
+Varme,Ønsket rum spare,11181,11180,170,17.0 °C,ok,5.0 … 40.0 °C
+Varme,Maks. forstærkn. 11182,11182,11181,65496,-4.0,ok,-9.9 … 0.0
+Varme,Min. forstærkn. 11183,11183,11182,0,0.0,ok,0.0 … 9.9
+Varme,Xp,11184,11183,40,40 K,ok,5 … 250 K
+Varme,Tn,11185,11184,500,500 s,ok,1 … 999 s
+Varme,Motor-køretid,11186,11185,70,70 s,ok,5 … 250 s
+Varme,Neutralzone,11187,11186,1,1 K,ok,1 … 9 K
+Varme,Min. køretid,11189,11188,5,5 x20ms,ok,2 … 50 x20ms
+Varme,Sommer start mm,11392,11391,5,5,ok,1 … 12
+Varme,Sommer start dd,11393,11392,20,20,ok,1 … 31
+Varme,Sommer filter,11395,11394,250,250,ok,OFF 1 … 300
+Varme,Vinter start mm,11396,11395,5,5,ok,1 … 12
+Varme,Vinter start dd,11397,11396,20,20,ok,1 … 31
+Varme,Vinter udk. T,11398,11397,20,20 °C,ok,OFF 1 … 50 °C
+Varme,Vinter filter,11399,11398,250,250,ok,OFF 1 … 300
+Varme,Send ønsket T,11500,11499,1,ON,ok,OFF | ON
+Varme,Kreds Estrich,11910,11909,1,ON,ok,OFF | ON
+VV,Pumpe-motion,12022,12021,0,OFF,ok,OFF | ON
+VV,Ventil-motion,12023,12022,0,OFF,ok,OFF | ON
+VV,Motortype,12024,12023,1,GEAR,ok,ABV | GEAR
+VV,Grænse retur,12030,12029,60,60 °C,ok,10 … 120 °C
+VV,Maks. forstærkn.,12035,12034,65516,-2.0,ok,-9.9 … 9.9
+VV,Min. forstærkn.,12036,12035,0,0.0,ok,-9.9 … 9.9
+VV,Intgr. tid 12037,12037,12036,25,25 s,ok,OFF 1 … 50 s
+VV,Pumpe efterløb,12040,12039,3,3 min,ok,0 … 99 min
+VV,Pumpe frost T,12077,12076,2,2 °C,ok,-10 … 20 °C
+VV,Pumpe start T,12078,12077,20,20 °C,ok,5 … 80 °C
+VV,Prioritet,12085,12084,0,OFF,ok,OFF | ON
+VV,Frostbeskyt. T,12093,12092,10,10 °C,ok,5 … 40 °C
+VV,Åbne-tid,12094,12093,,n/a,findes ikke,OFF 0.1 … 25.0 s
+VV,Lukke-tid,12095,12094,,n/a,findes ikke,OFF 0.1 … 25.0 s
+VV,Tn tomgang,12096,12095,,n/a,findes ikke,1 … 999 s
+VV,Forsyn. T tomgang,12097,12096,,n/a,findes ikke,OFF | ON
+VV,Input type,12109,12108,0,OFF,ok,OFF | IM1 | IM2 | IM3 | IM4 | EM1 | EM2 | EM3 | EM4 | EM5
+VV,Grænse 12111,12111,12110,9999,999.9,ok,0.0 … 999.9
+VV,Intgr. tid 12112,12112,12111,0,OFF,OFF,OFF 1 … 50 s
+VV,Filter konstant,12113,12112,10,10,ok,1 … 50
+VV,Puls,12114,12113,0,OFF,OFF,OFF 1 … 9999
+VV,Enheder,12115,12114,0,"ml, l/h",ok,"ml, l/h | l, l/h | ml, m³/h | l, m³/h | Wh, kW | kWh, kW | kWh, MW | MWh, MW | GWh, GW"
+VV,Anti-bakt. dag,12122,12121,0,0,ok,0 … 127
+VV,Anti-bakt. start,12123,12122,0,0,ok,0 … 47
+VV,Anti-bakt. varighed,12124,12123,120,120 min,ok,10 … 600 min
+VV,Anti-bakt. ønsket T,12125,12124,9,OFF,OFF,OFF 10 … 110 °C
+VV,Ekst. overstyring,12141,12140,0,OFF,ok,OFF | S1 | S2 | S3 | S4 | S5 | S6 | S7 | S8 | S9 | S10 | S11 | S12 | S13 | S14 | S15 | S16
+VV,Ekst. drift,12142,12141,0,COMFORT,ok,COMFORT | SAVING | FROST PR.
+VV,Øvre differens,12147,12146,0,OFF,OFF,OFF 1 … 30 K
+VV,Nedre differens,12148,12147,0,OFF,OFF,OFF 1 … 30 K
+VV,Forsinkelse,12149,12148,10,10 min,ok,1 … 99 min
+VV,Annullerings T,12150,12149,30,30 °C,ok,10 … 50 °C
+VV,Autotuning,12173,12172,0,OFF,ok,OFF | ON
+VV,Motorbeskyttelse,12174,12173,9,OFF,OFF,OFF 10 … 59 min
+VV,Min. temperatur,12177,12176,10,10 °C,ok,10 … 150 °C
+VV,Maks. temperatur,12178,12177,90,90 °C,ok,10 … 150 °C
+VV,Xp,12184,12183,35,35 K,ok,5 … 250 K
+VV,Tn,12185,12184,600,600 s,ok,1 … 999 s
+VV,Motor-køretid,12186,12185,70,70 s,ok,5 … 250 s
+VV,Neutralzone,12187,12186,3,3 K,ok,1 … 9 K
+VV,Min. køretid,12189,12188,3,3 x20ms,ok,2 … 50 x20ms
+VV,Ønsket VV komfort,12190,12189,530,53.0 °C,ok,10.0 … 110.0 °C
+VV,Ønsket VV spare,12191,12190,450,45.0 °C,ok,10.0 … 110.0 °C
+VV,Send ønsket T,12500,12499,1,ON,ok,OFF | ON
