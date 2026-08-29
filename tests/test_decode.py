@@ -1,4 +1,4 @@
-from danfoss_ecl.dump import format_value, to_int16
+from danfoss_ecl.decode import format_value, to_int16
 from danfoss_ecl.registers_a266 import Register
 
 
