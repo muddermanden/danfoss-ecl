@@ -7,6 +7,7 @@ vmin/vmax: valid range in display unit (after scale).
 off: display value meaning OFF (9 when ON-range starts at 10).
 choices: raw 0..n-1 as enum. Overrides numeric display.
 available_on: A266-undertype ("1","2","9","10"). None = all. Empty tuple = not on A266.1.
+encoding: scaled (default), majmin (byte.byte), year_week (PNU 2099), ascii (PNU 2060).
 """
 
 from __future__ import annotations
@@ -27,6 +28,7 @@ class Register:
     off: float | None = None
     choices: tuple[str, ...] | None = None
     available_on: tuple[str, ...] | None = None
+    encoding: str = "scaled"
 
 
 OFF_ON = ("OFF", "ON")
@@ -114,8 +116,16 @@ REGISTERS: list[Register] = [
     Register("Operation", "Status circuit 1", 4211),
     Register("Operation", "Status circuit 2", 4212),
     Register("System", "Modbus address", 38, vmin=1, vmax=247),
-    Register("System", "Software version", 35),
-    Register("System", "Hardware revision", 34),
+    Register("System", "Software version", 35, encoding="majmin"),
+    Register("System", "Hardware revision", 34, encoding="majmin"),
+    Register("System", "Software build", 8),
+    Register("System", "Serial high", 36),
+    Register("System", "Serial low", 37),
+    Register("System", "Production week/year", 2099, encoding="year_week"),
+    Register("System", "Application prefix", 2060, encoding="ascii"),
+    Register("System", "Application type", 2061),
+    Register("System", "Application subtype", 2062),
+    Register("System", "Application version", 2063, encoding="majmin"),
     Register("Floor drying", "Program running", 10512, choices=OFF_ON),
     Register("Floor drying", "Max. power failure", 10514, unit="min", vmin=5, vmax=3000),
     Register("Floor drying", "Ramp X5-X6", 10903, vmin=1, vmax=20, off=0),

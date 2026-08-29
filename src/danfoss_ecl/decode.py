@@ -21,6 +21,15 @@ def format_value(raw: int, reg: Register, *, translate: Translate | None = None)
             return _(reg.choices[value])
         return f"? ({value})"
 
+    if reg.encoding == "majmin":
+        return f"{value >> 8}.{value & 0xFF:02d}"
+    if reg.encoding == "year_week":
+        year = 2000 + (value >> 8)
+        week = value & 0xFF
+        return f"{week}.{year}"
+    if reg.encoding == "ascii":
+        return chr(value) if 32 <= value <= 126 else str(value)
+
     scaled = value if reg.scale == 1 else value / reg.scale
 
     if reg.off is not None and scaled == reg.off:
@@ -61,6 +70,8 @@ def in_range(raw: int, reg: Register, *, translate: Translate | None = None) -> 
     value = to_int16(raw) if reg.signed else raw
     if reg.choices is not None:
         return _("ok") if 0 <= value < len(reg.choices) else _("out of range")
+    if reg.encoding in {"majmin", "year_week", "ascii"}:
+        return _("ok")
     scaled = value if reg.scale == 1 else value / reg.scale
     if reg.off is not None and scaled == reg.off:
         return _("OFF")
