@@ -1,0 +1,13 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.env
+ecl310_a266.env
+ecl310_a266_dump_*.csv
+.idea/
+.vscode/
+.DS_Store

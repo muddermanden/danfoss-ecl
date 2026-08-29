@@ -1,0 +1,252 @@
+"""PNU-liste fra Danfoss A266 §7.8 + kommunikationsbeskrivelsen.
+
+Modbus-adresse = PNU - 1.
+scale: divider raw med denne værdi (1 = heltal).
+vmin/vmax: gyldigt område i visningsenhed (efter scale).
+off: visningsværdi der betyder OFF (9 når ON-området starter ved 10).
+choices: raw 0..n-1 som enum. Overstyrer numerisk visning.
+available_on: A266-undertype ("1","2","9","10"). None = alle. Tom tuple = ikke på A266.1.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class Register:
+    group: str
+    name: str
+    pnu: int
+    scale: int = 1
+    unit: str = ""
+    signed: bool = False
+    vmin: float | None = None
+    vmax: float | None = None
+    off: float | None = None
+    choices: tuple[str, ...] | None = None
+    available_on: tuple[str, ...] | None = None
+
+
+OFF_ON = ("OFF", "ON")
+ABV_GEAR = ("ABV", "GEAR")
+UNITS_FLOW = (
+    "ml, l/h",
+    "l, l/h",
+    "ml, m³/h",
+    "l, m³/h",
+    "Wh, kW",
+    "kWh, kW",
+    "kWh, MW",
+    "MWh, MW",
+    "GWh, GW",
+)
+INPUT_TYPE = (
+    "OFF",
+    "IM1",
+    "IM2",
+    "IM3",
+    "IM4",
+    "EM1",
+    "EM2",
+    "EM3",
+    "EM4",
+    "EM5",
+)
+EXT_OVERRIDE = (
+    "OFF",
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "S5",
+    "S6",
+    "S7",
+    "S8",
+    "S9",
+    "S10",
+    "S11",
+    "S12",
+    "S13",
+    "S14",
+    "S15",
+    "S16",
+)
+EXT_MODE_HEAT = ("COMFORT", "SAVING", "FROST PR.", "CONST. T")
+EXT_MODE_DHW = ("COMFORT", "SAVING", "FROST PR.")
+
+
+REGISTERS: list[Register] = [
+    # --- Live følere (skala 100). 192 °C = åbent kredsløb ---
+    Register("Føler", "S1 ude rå", 10201, 100, "°C", True, -60, 150),
+    Register("Føler", "S2 rum rå", 10202, 100, "°C", True, -60, 150),
+    Register("Føler", "S3 frem varme rå", 10203, 100, "°C", True, -60, 150),
+    Register("Føler", "S4 frem/beholder VV rå", 10204, 100, "°C", True, -60, 150),
+    Register("Føler", "S5 retur varme rå", 10205, 100, "°C", True, -60, 150),
+    Register("Føler", "S6 retur VV rå", 10206, 100, "°C", True, -60, 150),
+    Register("Føler", "S7 rå", 10207, 100, "°C", True, -60, 150),
+    Register("Føler", "S8 rå", 10208, 100, "°C", True, -60, 150),
+    Register("Føler", "S9 rå", 10209, 100, "°C", True, -60, 150),
+    Register("Føler", "S10 rå", 10210, 100, "°C", True, -60, 150),
+    Register("Føler", "S1 kredsvisning", 11201, 100, "°C", True, -60, 150),
+    Register("Føler", "S2 kredsvisning", 11202, 100, "°C", True, -60, 150),
+    Register("Føler", "S3 kredsvisning", 11203, 100, "°C", True, -60, 150, available_on=()),
+    Register("Føler", "S4 kredsvisning", 11204, 100, "°C", True, -60, 150, available_on=()),
+    Register("Føler", "S5 kredsvisning", 11205, 100, "°C", True, -60, 150, available_on=()),
+    Register("Føler", "S6 kredsvisning", 11206, 100, "°C", True, -60, 150, available_on=()),
+    Register("Føler", "S3 ønsket frem ref", 11253, 100, "°C", True, 0, 150),
+    Register("Føler", "S4 ønsket frem ref", 11254, 100, "°C", True, 0, 150, available_on=()),
+    # --- Udgang ---
+    Register("Udgang", "ECA32 AO1 status %", 4016, 10, "%", False, 0, 100),
+    Register("Udgang", "ECA32 AO2 status %", 4017, 10, "%", False, 0, 100),
+    Register("Udgang", "ECA32 AO3 status %", 4018, 10, "%", False, 0, 100),
+    Register("Udgang", "Triac 1", 4000, choices=OFF_ON),
+    Register("Udgang", "Triac 2", 4001, choices=OFF_ON),
+    Register("Udgang", "Triac 3", 4002, choices=OFF_ON),
+    Register("Udgang", "Triac 4", 4003, choices=OFF_ON),
+    Register("Udgang", "Relay 1", 4006, choices=OFF_ON),
+    Register("Udgang", "Relay 2", 4007, choices=OFF_ON),
+    Register("Udgang", "Relay 3", 4008, choices=OFF_ON),
+    Register("Udgang", "Relay 4", 4009, choices=OFF_ON),
+    Register("Udgang", "Digital udgang bitmaske 3998", 3998),
+    Register("Udgang", "Digital udgang bitmaske 3999", 3999),
+    Register("Drift", "Mode kreds 1", 4201),
+    Register("Drift", "Mode kreds 2", 4202),
+    Register("Drift", "Status kreds 1", 4211),
+    Register("Drift", "Status kreds 2", 4212),
+    Register("System", "Modbus addr PNU38", 38, vmin=1, vmax=247),
+    Register("System", "Softwareversion PNU35", 35),
+    Register("System", "Hardware rev PNU34", 34),
+    # --- Gulvtørring ---
+    Register("Gulvtørring", "Programafvikling", 10512, choices=OFF_ON),
+    Register("Gulvtørring", "Maks. pwr. fejl", 10514, unit="min", vmin=5, vmax=3000),
+    Register("Gulvtørring", "Rampe X5-X6", 10903, vmin=1, vmax=20, off=0),
+    Register("Gulvtørring", "Rampe X7-X8", 10904, vmin=1, vmax=20, off=0),
+    Register("Gulvtørring", "Appl. fortsat", 10912, choices=OFF_ON),
+    Register("Gulvtørring", "Efter strømsvigt", 10913, choices=("STOP", "START")),
+    Register("Gulvtørring", "X1", 10930, unit="h", vmin=0, vmax=1200),
+    Register("Gulvtørring", "X2", 10931, unit="h", vmin=0, vmax=1200),
+    Register("Gulvtørring", "X3", 10932, unit="h", vmin=0, vmax=1200),
+    Register("Gulvtørring", "X4", 10933, unit="h", vmin=0, vmax=1200),
+    Register("Gulvtørring", "X5", 10934, unit="h", vmin=0, vmax=1200),
+    Register("Gulvtørring", "X6", 10935, unit="h", vmin=0, vmax=1200),
+    Register("Gulvtørring", "X7", 10936, unit="h", vmin=0, vmax=1200),
+    Register("Gulvtørring", "X8", 10937, unit="h", vmin=0, vmax=1200),
+    # --- Kreds 1 varme ---
+    Register("Varme", "Ønsket T", 11004, unit="°C", signed=True, vmin=5, vmax=150),
+    Register("Varme", "ECA adresse", 11010, choices=("OFF", "A", "B")),
+    Register("Varme", "Auto-spare", 11011, unit="°C", signed=True, vmin=-29, vmax=10),
+    Register("Varme", "Boost", 11012, unit="%", vmin=1, vmax=99, off=0),
+    Register("Varme", "Rampe", 11013, unit="min", vmin=1, vmax=99, off=0),
+    Register("Varme", "Optimizer", 11014, vmin=10, vmax=59, off=9),
+    Register("Varme", "Intgr. tid 11015", 11015, unit="s", vmin=1, vmax=50, off=0),
+    Register("Varme", "Slave differens", 11017, unit="K", vmin=1, vmax=20, off=0),
+    Register("Varme", "Baseret på", 11020, choices=("OUT", "ROOM")),
+    Register("Varme", "Totalstop", 11021, choices=OFF_ON),
+    Register("Varme", "Pumpe-motion", 11022, choices=OFF_ON),
+    Register("Varme", "Ventil-motion", 11023, choices=OFF_ON),
+    Register("Varme", "Motortype", 11024, choices=ABV_GEAR),
+    Register("Varme", "Pre-stop", 11026, choices=OFF_ON),
+    Register("Varme", "Kon. T retur T gr", 11028, unit="°C", signed=True, vmin=10, vmax=110),
+    Register("Varme", "VV retur T grænse", 11029, unit="°C", signed=True, vmin=10, vmax=110, off=9),
+    Register("Varme", "Høj ude T X1", 11031, unit="°C", signed=True, vmin=-60, vmax=20),
+    Register("Varme", "Nedre grænse Y1", 11032, unit="°C", signed=True, vmin=10, vmax=150),
+    Register("Varme", "Lav ude T X2", 11033, unit="°C", signed=True, vmin=-60, vmax=20),
+    Register("Varme", "Øvre grænse Y2", 11034, unit="°C", signed=True, vmin=10, vmax=150),
+    Register("Varme", "Maks. forstærkn 11035", 11035, 10, signed=True, vmin=-9.9, vmax=9.9),
+    Register("Varme", "Min. forstærkn 11036", 11036, 10, signed=True, vmin=-9.9, vmax=9.9),
+    Register("Varme", "Intgr. tid 11037", 11037, unit="s", vmin=1, vmax=50, off=0),
+    Register("Varme", "Pumpe efterløb", 11040, unit="min", vmin=0, vmax=99),
+    Register("Varme", "Parallel drift", 11043, unit="K", vmin=1, vmax=99, off=0),
+    Register("Varme", "Pumpe krav", 11050, choices=OFF_ON),
+    Register("Varme", "VV prioritet", 11052, choices=OFF_ON),
+    Register("Varme", "Pumpe frost T", 11077, unit="°C", signed=True, vmin=-10, vmax=20),
+    Register("Varme", "Pumpe start T", 11078, unit="°C", signed=True, vmin=5, vmax=40),
+    Register("Varme", "Maks. frem T", 11079, unit="°C", signed=True, vmin=10, vmax=110, available_on=("2", "9", "10")),
+    Register("Varme", "Forsinkelse 11080", 11080, unit="s", vmin=5, vmax=250, available_on=("2", "9", "10")),
+    Register("Varme", "Prioritet 11085", 11085, choices=OFF_ON),
+    Register("Varme", "Frostbeskyt T", 11093, unit="°C", signed=True, vmin=5, vmax=40),
+    Register("Varme", "Input type", 11109, choices=INPUT_TYPE),
+    Register("Varme", "Intgr. tid 11112", 11112, unit="s", vmin=1, vmax=50, off=0),
+    Register("Varme", "Filter konstant", 11113, vmin=1, vmax=50),
+    Register("Varme", "Puls", 11114, vmin=1, vmax=9999, off=0),
+    Register("Varme", "Enheder", 11115, choices=UNITS_FLOW),
+    Register("Varme", "Øvre grænse Y2 flow", 11116, 10, vmin=0.0, vmax=999.9),
+    Register("Varme", "Nedre grænse Y1 flow", 11117, 10, vmin=0.0, vmax=999.9),
+    Register("Varme", "Lav ude T X2 flow", 11118, unit="°C", signed=True, vmin=-60, vmax=20),
+    Register("Varme", "Høj ude T X1 flow", 11119, unit="°C", signed=True, vmin=-60, vmax=20),
+    Register("Varme", "Ekst. overstyring", 11141, choices=EXT_OVERRIDE),
+    Register("Varme", "Ekst. drift", 11142, choices=EXT_MODE_HEAT),
+    Register("Varme", "Øvre differens", 11147, unit="K", vmin=1, vmax=30, off=0),
+    Register("Varme", "Nedre differens", 11148, unit="K", vmin=1, vmax=30, off=0),
+    Register("Varme", "Forsinkelse 11149", 11149, unit="min", vmin=1, vmax=99),
+    Register("Varme", "Annullerings T", 11150, unit="°C", signed=True, vmin=10, vmax=50),
+    Register("Varme", "Motorbeskyttelse", 11174, unit="min", vmin=10, vmax=59, off=9),
+    Register("Varme", "Varmekurve hældning", 11175, 10, signed=True, vmin=0.1, vmax=4.0),
+    Register("Varme", "Min. temperatur", 11177, unit="°C", signed=True, vmin=10, vmax=150),
+    Register("Varme", "Maks. temperatur", 11178, unit="°C", signed=True, vmin=10, vmax=150),
+    Register("Varme", "Varme-udkobling", 11179, unit="°C", signed=True, vmin=1, vmax=50, off=0),
+    Register("Varme", "Ønsket rum komfort", 11180, 10, "°C", True, 5.0, 40.0),
+    Register("Varme", "Ønsket rum spare", 11181, 10, "°C", True, 5.0, 40.0),
+    Register("Varme", "Maks. forstærkn 11182", 11182, 10, signed=True, vmin=-9.9, vmax=0.0),
+    Register("Varme", "Min. forstærkn 11183", 11183, 10, signed=True, vmin=0.0, vmax=9.9),
+    Register("Varme", "Xp", 11184, unit="K", vmin=5, vmax=250),
+    Register("Varme", "Tn", 11185, unit="s", vmin=1, vmax=999),
+    Register("Varme", "Motor-køretid", 11186, unit="s", vmin=5, vmax=250),
+    Register("Varme", "Neutralzone", 11187, unit="K", vmin=1, vmax=9),
+    Register("Varme", "Min. køretid", 11189, unit="x20ms", vmin=2, vmax=50),
+    Register("Varme", "Sommer start mm", 11392, vmin=1, vmax=12),
+    Register("Varme", "Sommer start dd", 11393, vmin=1, vmax=31),
+    Register("Varme", "Sommer filter", 11395, vmin=1, vmax=300, off=0),
+    Register("Varme", "Vinter start mm", 11396, vmin=1, vmax=12),
+    Register("Varme", "Vinter start dd", 11397, vmin=1, vmax=31),
+    Register("Varme", "Vinter udk T", 11398, unit="°C", signed=True, vmin=1, vmax=50, off=0),
+    Register("Varme", "Vinter filter", 11399, vmin=1, vmax=300, off=0),
+    Register("Varme", "Send ønsket T", 11500, choices=OFF_ON),
+    Register("Varme", "Kreds Estrich", 11910, choices=OFF_ON),
+    # --- Kreds 2 varmtvand ---
+    Register("VV", "Pumpe-motion", 12022, choices=OFF_ON),
+    Register("VV", "Ventil-motion", 12023, choices=OFF_ON),
+    Register("VV", "Motortype", 12024, choices=ABV_GEAR),
+    Register("VV", "Grænse retur", 12030, unit="°C", signed=True, vmin=10, vmax=120),
+    Register("VV", "Maks. forstærkn", 12035, 10, signed=True, vmin=-9.9, vmax=9.9),
+    Register("VV", "Min. forstærkn", 12036, 10, signed=True, vmin=-9.9, vmax=9.9),
+    Register("VV", "Intgr. tid 12037", 12037, unit="s", vmin=1, vmax=50, off=0),
+    Register("VV", "Pumpe efterløb", 12040, unit="min", vmin=0, vmax=99),
+    Register("VV", "Pumpe frost T", 12077, unit="°C", signed=True, vmin=-10, vmax=20),
+    Register("VV", "Pumpe start T", 12078, unit="°C", signed=True, vmin=5, vmax=80),
+    Register("VV", "Prioritet", 12085, choices=OFF_ON),
+    Register("VV", "Frostbeskyt T", 12093, unit="°C", signed=True, vmin=5, vmax=40),
+    Register("VV", "Åbne-tid", 12094, 10, "s", vmin=0.1, vmax=25.0, off=0, available_on=("2",)),
+    Register("VV", "Lukke-tid", 12095, 10, "s", vmin=0.1, vmax=25.0, off=0, available_on=("2",)),
+    Register("VV", "Tn tomgang", 12096, unit="s", vmin=1, vmax=999, available_on=("2",)),
+    Register("VV", "Forsyn T tomgang", 12097, choices=OFF_ON, available_on=("2",)),
+    Register("VV", "Input type", 12109, choices=INPUT_TYPE),
+    Register("VV", "Grænse 12111", 12111, 10, vmin=0.0, vmax=999.9),
+    Register("VV", "Intgr. tid 12112", 12112, unit="s", vmin=1, vmax=50, off=0),
+    Register("VV", "Filter konstant", 12113, vmin=1, vmax=50),
+    Register("VV", "Puls", 12114, vmin=1, vmax=9999, off=0),
+    Register("VV", "Enheder", 12115, choices=UNITS_FLOW),
+    Register("VV", "Anti-bakt dag", 12122, vmin=0, vmax=127),
+    Register("VV", "Anti-bakt start", 12123, vmin=0, vmax=47),
+    Register("VV", "Anti-bakt varighed", 12124, unit="min", vmin=10, vmax=600),
+    Register("VV", "Anti-bakt ønsket T", 12125, unit="°C", signed=True, vmin=10, vmax=110, off=9),
+    Register("VV", "Ekst. overstyring", 12141, choices=EXT_OVERRIDE),
+    Register("VV", "Ekst. drift", 12142, choices=EXT_MODE_DHW),
+    Register("VV", "Øvre differens", 12147, unit="K", vmin=1, vmax=30, off=0),
+    Register("VV", "Nedre differens", 12148, unit="K", vmin=1, vmax=30, off=0),
+    Register("VV", "Forsinkelse", 12149, unit="min", vmin=1, vmax=99),
+    Register("VV", "Annullerings T", 12150, unit="°C", signed=True, vmin=10, vmax=50),
+    Register("VV", "Autotuning", 12173, choices=OFF_ON),
+    Register("VV", "Motorbeskyttelse", 12174, unit="min", vmin=10, vmax=59, off=9),
+    Register("VV", "Min. temperatur", 12177, unit="°C", signed=True, vmin=10, vmax=150),
+    Register("VV", "Maks. temperatur", 12178, unit="°C", signed=True, vmin=10, vmax=150),
+    Register("VV", "Xp", 12184, unit="K", vmin=5, vmax=250),
+    Register("VV", "Tn", 12185, unit="s", vmin=1, vmax=999),
+    Register("VV", "Motor-køretid", 12186, unit="s", vmin=5, vmax=250),
+    Register("VV", "Neutralzone", 12187, unit="K", vmin=1, vmax=9),
+    Register("VV", "Min. køretid", 12189, unit="x20ms", vmin=2, vmax=50),
+    Register("VV", "Ønsket VV komfort", 12190, 10, "°C", True, 10.0, 110.0),
+    Register("VV", "Ønsket VV spare", 12191, 10, "°C", True, 10.0, 110.0),
+    Register("VV", "Send ønsket T", 12500, choices=OFF_ON),
+]
