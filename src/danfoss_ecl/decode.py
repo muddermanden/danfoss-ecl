@@ -1,27 +1,33 @@
 from __future__ import annotations
 
+from collections.abc import Callable
+
+from danfoss_ecl.i18n import gettext as default_gettext
 from danfoss_ecl.registers_a266 import Register
+
+Translate = Callable[[str], str]
 
 
 def to_int16(value: int) -> int:
     return value - 65536 if value >= 32768 else value
 
 
-def format_value(raw: int, reg: Register) -> str:
+def format_value(raw: int, reg: Register, *, translate: Translate | None = None) -> str:
+    _ = translate or default_gettext
     value = to_int16(raw) if reg.signed else raw
 
     if reg.choices is not None:
         if 0 <= value < len(reg.choices):
-            return reg.choices[value]
+            return _(reg.choices[value])
         return f"? ({value})"
 
     scaled = value if reg.scale == 1 else value / reg.scale
 
     if reg.off is not None and scaled == reg.off:
-        return "OFF"
+        return _("OFF")
 
     if reg.scale == 100 and scaled >= 180:
-        return "åben"
+        return _("open")
 
     if reg.scale == 1:
         text = f"{int(scaled)}"
@@ -32,12 +38,13 @@ def format_value(raw: int, reg: Register) -> str:
     return f"{text} {reg.unit}".strip()
 
 
-def range_text(reg: Register) -> str:
+def range_text(reg: Register, *, translate: Translate | None = None) -> str:
+    _ = translate or default_gettext
     if reg.choices is not None:
-        return " | ".join(reg.choices)
+        return " | ".join(_(choice) for choice in reg.choices)
     parts: list[str] = []
     if reg.off is not None:
-        parts.append("OFF")
+        parts.append(_("OFF"))
     if reg.vmin is not None and reg.vmax is not None:
         parts.append(f"{reg.vmin} … {reg.vmax}")
     elif reg.vmin is not None:
@@ -49,19 +56,20 @@ def range_text(reg: Register) -> str:
     return " ".join(parts)
 
 
-def in_range(raw: int, reg: Register) -> str:
+def in_range(raw: int, reg: Register, *, translate: Translate | None = None) -> str:
+    _ = translate or default_gettext
     value = to_int16(raw) if reg.signed else raw
     if reg.choices is not None:
-        return "ok" if 0 <= value < len(reg.choices) else "udenfor"
+        return _("ok") if 0 <= value < len(reg.choices) else _("out of range")
     scaled = value if reg.scale == 1 else value / reg.scale
     if reg.off is not None and scaled == reg.off:
-        return "OFF"
+        return _("OFF")
     if reg.scale == 100 and scaled >= 180:
-        return "åben"
+        return _("open")
     if reg.vmin is not None and scaled < reg.vmin:
-        return "udenfor"
+        return _("out of range")
     if reg.vmax is not None and scaled > reg.vmax:
-        return "udenfor"
+        return _("out of range")
     if reg.vmin is None and reg.vmax is None:
         return ""
-    return "ok"
+    return _("ok")

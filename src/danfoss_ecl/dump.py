@@ -4,6 +4,7 @@ import csv
 import os
 from dataclasses import dataclass
 from datetime import datetime
+from pathlib import Path
 from typing import Literal
 
 from dotenv import load_dotenv
@@ -11,6 +12,8 @@ from pymodbus.client import ModbusSerialClient, ModbusTcpClient
 from pymodbus.exceptions import ModbusException
 
 from danfoss_ecl.decode import format_value, in_range, range_text
+from danfoss_ecl.i18n import _, setup_i18n
+from danfoss_ecl.paths import dump_dir
 from danfoss_ecl.registers_a266 import REGISTERS
 
 
@@ -28,6 +31,9 @@ class ModbusSettings:
     parity: str
     stopbits: int
     bytesize: int
+    lang: str
+    output_dir: Path
+    app: str
 
 
 def env_int(name: str, default: int) -> int:
@@ -45,6 +51,7 @@ def load_settings() -> ModbusSettings:
     if mode not in {"tcp", "rtu"}:
         raise ValueError("ECL310_MODBUS_MODE must be either 'tcp' or 'rtu'")
 
+    lang = setup_i18n()
     return ModbusSettings(
         mode=mode,  # type: ignore[arg-type]
         unit_id=env_int("ECL310_UNIT_ID", 1),
@@ -55,6 +62,9 @@ def load_settings() -> ModbusSettings:
         parity=os.getenv("ECL310_PARITY", "N"),
         stopbits=env_int("ECL310_STOPBITS", 1),
         bytesize=env_int("ECL310_BYTESIZE", 8),
+        lang=lang,
+        output_dir=dump_dir(),
+        app=os.getenv("ECL310_APP", "1"),
     )
 
 
@@ -99,17 +109,27 @@ def main() -> None:
     client = build_client(settings)
     if not client.connect():
         raise ConnectionError(
-            f"Ingen forbindelse til {settings.host}:{settings.port}"
+            _("Could not connect to {host}:{port}").format(
+                host=settings.host, port=settings.port
+            )
         )
 
+    settings.output_dir.mkdir(parents=True, exist_ok=True)
     stamp = datetime.now().strftime("%Y-%m-%d_%H%M%S")
-    out_path = f"ecl310_a266_dump_{stamp}.csv"
+    out_path = settings.output_dir / f"ecl310_a266_dump_{stamp}.csv"
     rows: list[dict[str, str | int]] = []
-    app = os.getenv("ECL310_APP", "1")
+    app = settings.app
+
+    col_group = _("group")
+    col_name = _("name")
+    col_value = _("value")
+    col_status = _("status")
+    col_range = _("range")
 
     print(
-        f"ECL 310 A266.{app}  {settings.host}:{settings.port}  unit {settings.unit_id}  "
-        f"{len(REGISTERS)} PNU'er\n"
+        f"ECL 310 A266.{app}  {settings.host}:{settings.port}  "
+        f"{_('unit')} {settings.unit_id}  "
+        f"{_('{count} PNUs').format(count=len(REGISTERS))}  [{settings.lang}]\n"
     )
     current_group = ""
     ok = 0
@@ -117,21 +137,25 @@ def main() -> None:
 
     try:
         for reg in REGISTERS:
+            group = _(reg.group)
+            name = _(reg.name)
             if reg.group != current_group:
                 current_group = reg.group
-                print(f"\n=== {reg.group} ===")
+                print(f"\n=== {group} ===")
             if reg.available_on is not None and app not in reg.available_on:
-                print(f"  {reg.pnu:5d}  {reg.name:<28} n/a             n/a       {range_text(reg)}")
+                status = _("not available")
+                value = _("n/a")
+                print(f"  {reg.pnu:5d}  {name:<28} {value:<16} {status:<12}  {range_text(reg)}")
                 rows.append(
                     {
-                        "gruppe": reg.group,
-                        "navn": reg.name,
+                        col_group: group,
+                        col_name: name,
                         "pnu": reg.pnu,
                         "addr": reg.pnu - 1,
                         "raw": "",
-                        "vaerdi": "n/a",
-                        "status": "findes ikke",
-                        "omraade": range_text(reg),
+                        col_value: value,
+                        col_status: status,
+                        col_range: range_text(reg),
                     }
                 )
                 continue
@@ -140,64 +164,67 @@ def main() -> None:
                 scaled_text = format_value(raw, reg)
                 status = in_range(raw, reg)
                 print(
-                    f"  {reg.pnu:5d}  {reg.name:<28} {scaled_text:<16} "
-                    f"{status:<8}  {range_text(reg)}"
+                    f"  {reg.pnu:5d}  {name:<28} {scaled_text:<16} "
+                    f"{status:<12}  {range_text(reg)}"
                 )
                 rows.append(
                     {
-                        "gruppe": reg.group,
-                        "navn": reg.name,
+                        col_group: group,
+                        col_name: name,
                         "pnu": reg.pnu,
                         "addr": reg.pnu - 1,
                         "raw": raw,
-                        "vaerdi": scaled_text,
-                        "status": status,
-                        "omraade": range_text(reg),
+                        col_value: scaled_text,
+                        col_status: status,
+                        col_range: range_text(reg),
                     }
                 )
                 ok += 1
             except Exception as exc:  # noqa: BLE001
                 msg = str(exc)
                 if "exception_code=2" in msg:
-                    vaerdi, status = "n/a", "findes ikke"
+                    value, status = _("n/a"), _("not available")
                 else:
-                    vaerdi, status = f"FEJL {exc}", "fejl"
-                print(f"  {reg.pnu:5d}  {reg.name:<28} {vaerdi}")
+                    value, status = f"{_('error')} {exc}", _("error")
+                print(f"  {reg.pnu:5d}  {name:<28} {value}")
                 rows.append(
                     {
-                        "gruppe": reg.group,
-                        "navn": reg.name,
+                        col_group: group,
+                        col_name: name,
                         "pnu": reg.pnu,
                         "addr": reg.pnu - 1,
                         "raw": "",
-                        "vaerdi": vaerdi,
-                        "status": status,
-                        "omraade": range_text(reg),
+                        col_value: value,
+                        col_status: status,
+                        col_range: range_text(reg),
                     }
                 )
-                if status == "fejl":
+                if status == _("error"):
                     fail += 1
     finally:
         client.close()
 
-    with open(out_path, "w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(
-            handle,
-            fieldnames=[
-                "gruppe",
-                "navn",
-                "pnu",
-                "addr",
-                "raw",
-                "vaerdi",
-                "status",
-                "omraade",
-            ],
-        )
+    fieldnames = [
+        col_group,
+        col_name,
+        "pnu",
+        "addr",
+        "raw",
+        col_value,
+        col_status,
+        col_range,
+    ]
+    with out_path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)
 
-    print(f"\nFærdig: {ok} ok, {fail} fejl. Gemt i {out_path}")
+    print(
+        "\n"
+        + _("Done: {ok} ok, {fail} errors. Saved to {path}").format(
+            ok=ok, fail=fail, path=out_path
+        )
+    )
 
 
 if __name__ == "__main__":

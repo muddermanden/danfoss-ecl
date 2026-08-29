@@ -9,9 +9,10 @@ Addressing rule from Danfoss: **Modbus register = PNU − 1**.
 ## Current status (v0.1)
 
 - Read-only dump of A266.1 holding registers
-- Scaled values, enums (`ON`/`OFF`/`GEAR`), sensor open-circuit (`åben` = 192 °C)
-- Marks PNUs that do not exist on A266.1 as `n/a` instead of Modbus exception 2
-- TCP (and RTU stubs in settings)
+- Scaled values, enums (`ON`/`OFF`/`GEAR`), open sensor = 192 °C
+- PNUs that do not exist on A266.1 are `n/a`
+- UI language: Danish and English (gettext `.po` files)
+- CSV written to a data directory, not the repo root
 
 Tested against a live ECL 310 at firmware PNU35 = 557.
 
@@ -20,12 +21,46 @@ Tested against a live ECL 310 at firmware PNU35 = 557.
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -e .
-cp .env.example ecl310_a266.env   # edit host / unit id
+pip install -e ".[dev]"
+cp .env.example ecl310_a266.env   # edit host / unit id / language
 ecl-dump
 ```
 
 Unit ID is normally `1`. If the read fails, try `254` (Danfoss service address).
+
+### Language
+
+Source strings are English (gettext). Translations live in:
+
+```
+src/danfoss_ecl/locale/<lang>/LC_MESSAGES/danfoss_ecl.po
+```
+
+Set in `ecl310_a266.env`:
+
+```
+ECL310_LANG=da
+```
+
+or `en`. If unset, `LANG` / `LC_MESSAGES` is used (`da_DK.UTF-8` → `da`). Unknown codes fall back to English.
+
+To add a language, copy the Danish `.po` file to e.g. `locale/de/LC_MESSAGES/danfoss_ecl.po` and translate `msgstr`. Then add the code to `SUPPORTED` in `i18n.py`. Regenerate register strings with `python3 scripts/write_locales.py` after renaming PNUs.
+
+### CSV output directory
+
+Default (via [platformdirs](https://pypi.org/project/platformdirs/)):
+
+| OS | Path |
+|---|---|
+| macOS | `~/Library/Application Support/danfoss-ecl/dumps` |
+| Linux | `~/.local/share/danfoss-ecl/dumps` |
+| Windows | `%APPDATA%\danfoss-ecl\danfoss-ecl\dumps` |
+
+Override:
+
+```
+ECL310_OUTPUT_DIR=~/varme/dumps
+```
 
 ## What already exists in Home Assistant
 

@@ -1,0 +1,514 @@
+# Danish translations for danfoss-ecl.
+# Copyright (C) 2026 danfoss-ecl contributors
+# This file is distributed under the same license as the danfoss-ecl package.
+msgid ""
+msgstr ""
+"Project-Id-Version: danfoss-ecl 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-29 12:34+0000\n"
+"PO-Revision-Date: 2026-08-29 12:34+0000\n"
+"Last-Translator: \n"
+"Language-Team: da\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "open"
+msgstr "åben"
+
+msgid "ok"
+msgstr "ok"
+
+msgid "out of range"
+msgstr "udenfor"
+
+msgid "n/a"
+msgstr "n/a"
+
+msgid "not available"
+msgstr "findes ikke"
+
+msgid "error"
+msgstr "fejl"
+
+msgid "OFF"
+msgstr "OFF"
+
+msgid "ON"
+msgstr "ON"
+
+msgid "group"
+msgstr "gruppe"
+
+msgid "name"
+msgstr "navn"
+
+msgid "value"
+msgstr "værdi"
+
+msgid "status"
+msgstr "status"
+
+msgid "range"
+msgstr "område"
+
+msgid "Could not connect to {host}:{port}"
+msgstr "Ingen forbindelse til {host}:{port}"
+
+msgid "Done: {ok} ok, {fail} errors. Saved to {path}"
+msgstr "Færdig: {ok} ok, {fail} fejl. Gemt i {path}"
+
+msgid "{count} PNUs"
+msgstr "{count} PNU'er"
+
+msgid "unit"
+msgstr "unit"
+
+msgid "X1"
+msgstr "X1"
+
+msgid "X2"
+msgstr "X2"
+
+msgid "X3"
+msgstr "X3"
+
+msgid "X4"
+msgstr "X4"
+
+msgid "X5"
+msgstr "X5"
+
+msgid "X6"
+msgstr "X6"
+
+msgid "X7"
+msgstr "X7"
+
+msgid "X8"
+msgstr "X8"
+
+msgid "Xp"
+msgstr "Xp"
+
+msgid "Tn"
+msgstr "Tn"
+
+msgid "Boost"
+msgstr "Boost"
+
+msgid "Ramp"
+msgstr "Rampe"
+
+msgid "Optimizer"
+msgstr "Optimizer"
+
+msgid "Pre-stop"
+msgstr "Pre-stop"
+
+msgid "Input type"
+msgstr "Input type"
+
+msgid "Filter constant"
+msgstr "Filter konstant"
+
+msgid "Pulse"
+msgstr "Puls"
+
+msgid "Units"
+msgstr "Enheder"
+
+msgid "Autotuning"
+msgstr "Autotuning"
+
+msgid "Sensors"
+msgstr "Føler"
+
+msgid "S1 outdoor raw"
+msgstr "S1 ude rå"
+
+msgid "S2 room raw"
+msgstr "S2 rum rå"
+
+msgid "S3 heating flow raw"
+msgstr "S3 frem varme rå"
+
+msgid "S4 DHW / tank raw"
+msgstr "S4 frem/beholder VV rå"
+
+msgid "S5 heating return raw"
+msgstr "S5 retur varme rå"
+
+msgid "S6 DHW return raw"
+msgstr "S6 retur VV rå"
+
+msgid "S7 raw"
+msgstr "S7 rå"
+
+msgid "S8 raw"
+msgstr "S8 rå"
+
+msgid "S9 raw"
+msgstr "S9 rå"
+
+msgid "S10 raw"
+msgstr "S10 rå"
+
+msgid "S1 circuit view"
+msgstr "S1 kredsvisning"
+
+msgid "S2 circuit view"
+msgstr "S2 kredsvisning"
+
+msgid "S3 circuit view"
+msgstr "S3 kredsvisning"
+
+msgid "S4 circuit view"
+msgstr "S4 kredsvisning"
+
+msgid "S5 circuit view"
+msgstr "S5 kredsvisning"
+
+msgid "S6 circuit view"
+msgstr "S6 kredsvisning"
+
+msgid "S3 desired flow"
+msgstr "S3 ønsket frem"
+
+msgid "S4 desired flow"
+msgstr "S4 ønsket frem"
+
+msgid "Outputs"
+msgstr "Udgang"
+
+msgid "ECA32 AO1 status %"
+msgstr "ECA32 AO1 status %"
+
+msgid "ECA32 AO2 status %"
+msgstr "ECA32 AO2 status %"
+
+msgid "ECA32 AO3 status %"
+msgstr "ECA32 AO3 status %"
+
+msgid "Triac 1"
+msgstr "Triac 1"
+
+msgid "Triac 2"
+msgstr "Triac 2"
+
+msgid "Triac 3"
+msgstr "Triac 3"
+
+msgid "Triac 4"
+msgstr "Triac 4"
+
+msgid "Relay 1"
+msgstr "Relæ 1"
+
+msgid "Relay 2"
+msgstr "Relæ 2"
+
+msgid "Relay 3"
+msgstr "Relæ 3"
+
+msgid "Relay 4"
+msgstr "Relæ 4"
+
+msgid "Digital output bitmask 3998"
+msgstr "Digital udgang bitmaske 3998"
+
+msgid "Digital output bitmask 3999"
+msgstr "Digital udgang bitmaske 3999"
+
+msgid "Operation"
+msgstr "Drift"
+
+msgid "Mode circuit 1"
+msgstr "Mode kreds 1"
+
+msgid "Mode circuit 2"
+msgstr "Mode kreds 2"
+
+msgid "Status circuit 1"
+msgstr "Status kreds 1"
+
+msgid "Status circuit 2"
+msgstr "Status kreds 2"
+
+msgid "System"
+msgstr "System"
+
+msgid "Modbus address"
+msgstr "Modbus-adresse"
+
+msgid "Software version"
+msgstr "Softwareversion"
+
+msgid "Hardware revision"
+msgstr "Hardware-revision"
+
+msgid "Floor drying"
+msgstr "Gulvtørring"
+
+msgid "Program running"
+msgstr "Programafvikling"
+
+msgid "Max. power failure"
+msgstr "Maks. pwr. fejl"
+
+msgid "Ramp X5-X6"
+msgstr "Rampe X5-X6"
+
+msgid "Ramp X7-X8"
+msgstr "Rampe X7-X8"
+
+msgid "Application continued"
+msgstr "Appl. fortsat"
+
+msgid "After power failure"
+msgstr "Efter strømsvigt"
+
+msgid "Heating"
+msgstr "Varme"
+
+msgid "Desired T"
+msgstr "Ønsket T"
+
+msgid "ECA address"
+msgstr "ECA-adresse"
+
+msgid "Auto saving"
+msgstr "Auto-spare"
+
+msgid "Integrator time 11015"
+msgstr "Intgr. tid 11015"
+
+msgid "Slave difference"
+msgstr "Slave differens"
+
+msgid "Based on"
+msgstr "Baseret på"
+
+msgid "Total stop"
+msgstr "Totalstop"
+
+msgid "Pump exercise"
+msgstr "Pumpe-motion"
+
+msgid "Valve exercise"
+msgstr "Ventil-motion"
+
+msgid "Actuator type"
+msgstr "Motortype"
+
+msgid "Const. T return limit"
+msgstr "Kon. T retur T gr."
+
+msgid "DHW return limit"
+msgstr "VV retur T grænse"
+
+msgid "High outdoor T X1"
+msgstr "Høj ude T X1"
+
+msgid "Low limit Y1"
+msgstr "Nedre grænse Y1"
+
+msgid "Low outdoor T X2"
+msgstr "Lav ude T X2"
+
+msgid "High limit Y2"
+msgstr "Øvre grænse Y2"
+
+msgid "Max. influence 11035"
+msgstr "Maks. forstærkn. 11035"
+
+msgid "Min. influence 11036"
+msgstr "Min. forstærkn. 11036"
+
+msgid "Integrator time 11037"
+msgstr "Intgr. tid 11037"
+
+msgid "Pump postrun"
+msgstr "Pumpe efterløb"
+
+msgid "Parallel operation"
+msgstr "Parallel drift"
+
+msgid "Pump demand"
+msgstr "Pumpe krav"
+
+msgid "DHW priority"
+msgstr "VV-prioritet"
+
+msgid "Pump frost T"
+msgstr "Pumpe frost T"
+
+msgid "Pump start T"
+msgstr "Pumpe start T"
+
+msgid "Max. flow T"
+msgstr "Maks. frem T"
+
+msgid "Delay 11080"
+msgstr "Forsinkelse 11080"
+
+msgid "Priority 11085"
+msgstr "Prioritet 11085"
+
+msgid "Frost protection T"
+msgstr "Frostbeskyt. T"
+
+msgid "Integrator time 11112"
+msgstr "Intgr. tid 11112"
+
+msgid "High limit Y2 flow"
+msgstr "Øvre grænse Y2 flow"
+
+msgid "Low limit Y1 flow"
+msgstr "Nedre grænse Y1 flow"
+
+msgid "Low outdoor T X2 flow"
+msgstr "Lav ude T X2 flow"
+
+msgid "High outdoor T X1 flow"
+msgstr "Høj ude T X1 flow"
+
+msgid "External override"
+msgstr "Ekst. overstyring"
+
+msgid "External mode"
+msgstr "Ekst. drift"
+
+msgid "Upper difference"
+msgstr "Øvre differens"
+
+msgid "Lower difference"
+msgstr "Nedre differens"
+
+msgid "Delay 11149"
+msgstr "Forsinkelse 11149"
+
+msgid "Cancel T"
+msgstr "Annullerings T"
+
+msgid "Motor protection"
+msgstr "Motorbeskyttelse"
+
+msgid "Heat curve slope"
+msgstr "Varmekurve hældning"
+
+msgid "Min. temperature"
+msgstr "Min. temperatur"
+
+msgid "Max. temperature"
+msgstr "Maks. temperatur"
+
+msgid "Heat cut-out"
+msgstr "Varme-udkobling"
+
+msgid "Desired room comfort"
+msgstr "Ønsket rum komfort"
+
+msgid "Desired room saving"
+msgstr "Ønsket rum spare"
+
+msgid "Max. influence 11182"
+msgstr "Maks. forstærkn. 11182"
+
+msgid "Min. influence 11183"
+msgstr "Min. forstærkn. 11183"
+
+msgid "Motor running time"
+msgstr "Motor-køretid"
+
+msgid "Neutral zone"
+msgstr "Neutralzone"
+
+msgid "Min. running time"
+msgstr "Min. køretid"
+
+msgid "Summer start mm"
+msgstr "Sommer start mm"
+
+msgid "Summer start dd"
+msgstr "Sommer start dd"
+
+msgid "Summer filter"
+msgstr "Sommer filter"
+
+msgid "Winter start mm"
+msgstr "Vinter start mm"
+
+msgid "Winter start dd"
+msgstr "Vinter start dd"
+
+msgid "Winter cut-out T"
+msgstr "Vinter udk. T"
+
+msgid "Winter filter"
+msgstr "Vinter filter"
+
+msgid "Send desired T"
+msgstr "Send ønsket T"
+
+msgid "Screed circuit"
+msgstr "Kreds Estrich"
+
+msgid "DHW"
+msgstr "VV"
+
+msgid "Return limit"
+msgstr "Grænse retur"
+
+msgid "Max. influence"
+msgstr "Maks. forstærkn."
+
+msgid "Min. influence"
+msgstr "Min. forstærkn."
+
+msgid "Integrator time 12037"
+msgstr "Intgr. tid 12037"
+
+msgid "Priority"
+msgstr "Prioritet"
+
+msgid "Opening time"
+msgstr "Åbne-tid"
+
+msgid "Closing time"
+msgstr "Lukke-tid"
+
+msgid "Tn idle"
+msgstr "Tn tomgang"
+
+msgid "Supply T idle"
+msgstr "Forsyn. T tomgang"
+
+msgid "Limit 12111"
+msgstr "Grænse 12111"
+
+msgid "Integrator time 12112"
+msgstr "Intgr. tid 12112"
+
+msgid "Anti-bacteria day"
+msgstr "Anti-bakt. dag"
+
+msgid "Anti-bacteria start"
+msgstr "Anti-bakt. start"
+
+msgid "Anti-bacteria duration"
+msgstr "Anti-bakt. varighed"
+
+msgid "Anti-bacteria desired T"
+msgstr "Anti-bakt. ønsket T"
+
+msgid "Delay"
+msgstr "Forsinkelse"
+
+msgid "Desired DHW comfort"
+msgstr "Ønsket VV komfort"
+
+msgid "Desired DHW saving"
+msgstr "Ønsket VV spare"
+
