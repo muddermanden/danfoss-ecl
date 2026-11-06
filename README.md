@@ -69,21 +69,21 @@ Put personal additions in `.envrc.local` (git-ignored). Run `direnv allow` again
 | What | Details |
 |---|---|
 | Controller | Danfoss **ECL Comfort 310** running application **A266.x**. Other applications have other registers |
-| Connection | Modbus TCP over the controller's Ethernet (TCP port **502**), or Modbus RTU over RS-485 |
-| Address | A known IP address for the controller; a DHCP reservation in your router keeps it fixed |
+| Connection | Modbus TCP over the controller's Ethernet port (ECL Comfort 296, 310 and 310B; TCP port **502**), or Modbus RTU over RS-485 |
+| Address | The controller's IP address. Set or read it under *Common controller settings → System → Ethernet*, or in your router's list of DHCP clients; a DHCP reservation keeps it fixed |
 | Python | 3.11 or newer |
 
 ### Words you'll meet
 
 | Term | Meaning |
 |---|---|
-| **A266.x** | The ECL *application*: the program the controller runs. A266 is space heating plus domestic hot water (DHW); `.1`, `.2`, `.9` and `.10` are variants of it |
-| **PNU** | Danfoss *parameter number*, as listed in the ECL documentation. The Modbus register is **PNU − 1** |
+| **A266.x** | The ECL *application*: the program the controller runs. A266 is space heating plus domestic hot water (DHW), in four subtypes: A266.1, .2, .9 and .10 |
+| **PNU** | The parameter's *ID no.* in the Danfoss Operating Guide, for example `11177`; the second digit is the circuit. The Modbus register is **PNU − 1** (verified on the author's controller; the guide doesn't cover Modbus addressing) |
 | **Factory value** | The setting as delivered, from the Operating Guide appendix *Parameter ID overview* |
-| **`-||-` row** | In that Danfoss table, a row that repeats the parameter above with another factory value or range for another A266 variant. The catalog stores these as *variants* |
-| **S1–S10** | Temperature sensor inputs. In A266.1: S1 outdoor, S2 room, S3 heating flow, S4 DHW flow, S5/S6 return |
-| **M1/M2, P1/P2, A1** | Valve motors, circulation pumps and alarm relay |
-| **Unit id** | The Modbus address of the controller: normally `1`, or `254` (the Danfoss service address) |
+| **`-||-` row** | In that Danfoss table, a row that repeats the parameter above with another factory value or range for other A266 subtypes. The catalog stores these as *variants* |
+| **S1–S10** | Temperature sensor inputs. In A266: S1 outdoor, S3 heating flow, S4 DHW flow, and the optional S2 room, S5 heating return and S6 DHW return |
+| **M1/M2, P1/P2, A1** | 3-point valve motors (M1 DHW circuit 2, M2 heating circuit 1), circulation pumps (P1 DHW, P2 heating) and the alarm (relay 4) |
+| **Unit id** | The controller's Modbus address: setting *Modbus addr.* (ID 38) under *Common controller settings → System → Communication*, 1–247, factory setting `1` |
 
 ## Configuration
 
@@ -94,8 +94,8 @@ Settings are `ECL310_*` variables, set in `ecl310_a266.env` (see
 |---|---|---|
 | `ECL310_HOST` | **required** for TCP | Controller IP address or hostname |
 | `ECL310_PORT` | `502` | Modbus TCP port |
-| `ECL310_UNIT_ID` | `1` | Modbus unit id; try `254` if reads fail |
-| `ECL310_APP` | `1` | A266 variant: `1`, `2`, `9` or `10` |
+| `ECL310_UNIT_ID` | `1` | Modbus unit id: the controller's *Modbus addr.* (ID 38) |
+| `ECL310_APP` | `1` | A266 subtype: `1`, `2`, `9` or `10` |
 | `ECL310_LANG` | from `LANG` | Output language, `en` or `da` |
 | `ECL310_OUTPUT_DIR` | see [Output](#output) | Folder for the CSV files |
 | `ECL310_MODBUS_MODE` | `tcp` | `tcp`, or `rtu` for RS-485 |
@@ -134,11 +134,11 @@ Heating,Temp. min.,Minimum flow temperature,setting,11177,11176,28,1,scaled,28 �
 | `raw`, `scale`, `encoding` | The register value as read, and how it is turned into `value` |
 | `value`, `unit` | The decoded value, for example `7.30 °C`, `ON` or `2.45` |
 | `factory`, `deviation` | The factory value, and `changed` when the setting differs from it |
-| `range`, `a266` | Allowed range, and the A266 variants that have this register |
+| `range`, `a266` | Allowed range, and the A266 subtypes that have this register |
 | `page`, `status`, `description` | Page in the Operating Guide; `ok`, `open`, `out of range`, `n/a` or `error`; and what the register does |
 
-`open` means an unconnected sensor (the ECL reads 192 °C). `n/a` means the register doesn't exist in your A266
-variant.
+`open` means an unconnected sensor: the controller's display shows `- -`, and Modbus returns 192 °C (observed; the
+guide doesn't describe Modbus values). `n/a` means the register doesn't exist in your A266 subtype.
 
 Sample dumps from an A266.1 controller, in an older column layout and with the serial number blanked:
 [English](examples/a266.1-sample.en.csv), [Danish](examples/a266.1-sample.da.csv).
@@ -153,14 +153,15 @@ The controller doesn't answer on that address. Check the IP, that it answers a p
 port 502 between your computer and the controller (a firewall or a separate VLAN, for example).
 
 **It connects, but every register shows `error`.**
-Try the Danfoss service address: `ECL310_UNIT_ID=254 ecl-dump`.
+The unit id doesn't match the controller's Modbus address. Check *Modbus addr.* (ID 38) under *Common controller
+settings → System → Communication*, and run `ECL310_UNIT_ID=<that address> ecl-dump`.
 
 **Many registers show `n/a`.**
 `ECL310_APP` doesn't match your controller. The *Application* rows in the System group show the real one, for
 example `A`, `266`, `1` for A266.1.
 
 **The connection drops when idle.**
-The ECL closes idle TCP connections after about 75 seconds. `ecl-dump` reads everything in one go, so this only
+The ECL closed idle TCP connections after about 75 seconds in testing. `ecl-dump` reads everything in one go, so this only
 matters if you build on the library.
 
 ## Languages
@@ -187,20 +188,37 @@ The tests run without a controller.
 
 ## Protocol notes
 
+These notes come from reading the author's controller (software 2.45), not from the Operating Guide:
+
 - Modbus register = PNU − 1. `ecl-dump` reads holding registers only (function code 03).
 - Live sensors use scale 100, room and DHW setpoints and gains scale 10, most other temperatures scale 1.
-- The catalog follows the Operating Guide appendix *Parameter ID overview*. Factory value and range can differ
-  between A266 variants (`-||-` rows).
+- An unconnected sensor reads 19200 (192 °C). The value for a short-circuited sensor hasn't been verified.
+- The catalog's names, ranges and factory values follow the Operating Guide appendix 7.8 *Parameter ID overview*. Factory value and range can differ
+  between A266 subtypes (`-||-` rows).
 - Identification registers are packed bytes, not scaled values:
   - PNU 35 software: `557` → `2.45` (`major = raw >> 8`, `minor = raw & 0xFF`)
   - PNU 34 hardware: the same packing (`18692` → `73.04`); it is **not** the production date
   - PNU 2099 production date: high byte = year − 2000, low byte = ISO week → `32.2025`
-  - PNU 2060–2063 application: prefix `'A'`, type `266`, variant `1`, version packed like the software
+  - PNU 2060–2063 application: prefix `'A'`, type `266`, subtype `1`, version packed like the software
   - PNU 36 and 37: serial number, high and low word
 - `OFF` is `0` when the ON range starts at 1, and `9` when it starts at 10.
 - M1/M2 are 3-point valve motors: the valve position Leanheat shows is an estimate. Don't read ECA32 analog
   outputs AO1–AO3 as V1/V2 unless analog actuators are actually wired to them.
 - Writing is deliberately out of scope: for example, a wrong motor running time drives a valve into its end stop.
+
+## Sources
+
+- Danfoss **Operating Guide ECL Comfort 210 / 296 / 310, application A266**, document AQ156586461753en-010601
+  (2021.06). Download it from danfoss.com → Service and support → Downloads. The catalog's parameter names, setting
+  ranges and factory values come from its appendix 7.8 *Parameter ID overview*. Sections 2.1 (sensors and outputs),
+  6.8.3 (Ethernet) and 6.8.10 (Modbus address) explain the rest. The guide isn't included here, because it is
+  Danfoss's copyright.
+- Everything about Modbus (addresses, scales, packed values, 192 °C for an open sensor) was observed on the
+  author's ECL Comfort 310 with A266.1 and software 2.45.
+
+**Another ECL model or application?** For example an ECL Comfort 110/120, or another application key such as
+A247: Danfoss publishes an Operating Guide for each, with its own *Parameter ID overview*. That gives you the IDs;
+check what your controller actually returns for them before you rely on the mapping.
 
 ## Home Assistant
 
