@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: danfoss-ecl 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-29 21:15+0000\n"
-"PO-Revision-Date: 2026-08-29 21:15+0000\n"
+"POT-Creation-Date: 2026-11-06 14:10+0000\n"
+"PO-Revision-Date: 2026-11-06 14:10+0000\n"
 "Last-Translator: \n"
 "Language-Team: en\n"
 "Language: en\n"
@@ -106,6 +106,12 @@ msgstr "{count} PNUs"
 
 msgid "Parameter ID overview"
 msgstr "Parameter ID overview"
+
+msgid "Settings: {files}"
+msgstr "Settings: {files}"
+
+msgid "Settings: no settings file found, using environment variables only"
+msgstr "Settings: no settings file found, using environment variables only"
 
 msgid "Sensors"
 msgstr "Sensors"
