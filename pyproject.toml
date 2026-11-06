@@ -9,7 +9,7 @@ description = "Read-only register catalog and dump CLI for the Danfoss ECL Comfo
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
-authors = [{ name = "Morten Henrichsen" }]
+authors = [{ name = "muddermanden" }]
 keywords = ["danfoss", "ecl", "modbus", "district-heating", "a266"]
 classifiers = [
     "Development Status :: 3 - Alpha",
