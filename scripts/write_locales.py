@@ -70,6 +70,8 @@ DA = {
     "Triac 4": "Triac 4",
     "Relay 1": "Relæ 1",
     "Relay 2": "Relæ 2",
+    "Relay 1: P1 circulation pump, DHW, circuit 2": "Relæ 1: P1 cirkulationspumpe, brugsvand, kreds 2",
+    "Relay 2: P2 circulation pump, heating, circuit 1": "Relæ 2: P2 cirkulationspumpe, varme, kreds 1",
     "Relay 3": "Relæ 3",
     "Relay 4": "Relæ 4",
     "Digital output bitmask 3998": "Digital udgang bitmaske 3998",

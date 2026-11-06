@@ -1,176 +1,254 @@
 # danfoss-ecl
 
-Register catalog and read-only dump tool for the **Danfoss ECL Comfort 310**, application **A266.x**
-(weather-compensated heating + DHW storage tank), over **Modbus TCP** (or RTU).
+**See everything your Danfoss ECL Comfort 310 knows, and which settings differ from factory, with one read-only
+command.**
 
-It documents what the controller exposes: live sensors, outputs, identification and every setting from the
-Operating Guide appendix *Parameter ID overview*, with scale, range, OFF encoding and factory value.
-`ecl-dump` reads all of it and writes a CSV, so you can see what your controller actually reports and which
-settings differ from factory.
+```text
+$ ecl-dump
+Settings: /home/you/danfoss-ecl/ecl310_a266.env
+ECL 310 A266.1  192.168.1.100:502  unit 1  186 PNUs  [en]
 
-It is **not** a Home Assistant integration (see below).
+=== Sensors ===
+  10201  S1 outdoor raw           7.30 °C          ok            -60 … 150 °C
+  10202  S2 room raw              open             open          -60 … 150 °C
+  10203  S3 heating flow raw      40.48 °C         ok            -60 … 150 °C
+  10204  S4 DHW / tank raw        58.38 °C         ok            -60 … 150 °C
+…
+=== Heating ===
+ *11177  Temp. min.               28 °C            changed       10 … 150 °C  factory 10 °C
+ *11178  Temp. max.               70 °C            changed       10 … 150 °C  factory 90 °C
+…
+Done: 164 ok, 0 errors, 11 changed from factory. Saved to …/dumps/ecl310_a266_dump_2026-11-06_161718.csv
+```
 
-Addressing rule from Danfoss: **Modbus register = PNU − 1**.
+`danfoss-ecl` is a register catalog and a dump tool for the **ECL Comfort 310** district-heating controller running
+application **A266.x**. It reads every live value and setting over **Modbus**, scales and decodes them, compares
+each setting with its factory value, and saves it all as a CSV. `*` marks a setting that differs from factory.
 
-## Two repositories, one controller
-
-The ECL Comfort 310 work is split into two independent repositories:
-
-| Repository | What it is | Use it when |
-|---|---|---|
-| [danfoss-ecl](https://github.com/muddermanden/danfoss-ecl) | Python register catalog + `ecl-dump` CLI. Reads every A266.x register over Modbus, writes a CSV and compares settings with factory values | You want to analyse or document a controller, check which registers it really has, or find a register before using it elsewhere |
-| [homeassistant-danfoss-ecl310](https://github.com/muddermanden/homeassistant-danfoss-ecl310) | Ready-to-use Home Assistant YAML package: a `modbus:` hub plus template sensors | You want the ECL in Home Assistant for daily monitoring, history and dashboards |
-
-**How they relate:** the Home Assistant package's register addresses, scales and decoding were taken from the
-danfoss-ecl catalog (Home Assistant `address` = PNU − 1). Use danfoss-ecl to verify your controller, or to look up
-a register before adding it to the package.
-
-**Independent:** you can use either one on its own. They share no code, neither needs the other at runtime, and
-each is versioned separately. The package needs no Python. The tool needs no Home Assistant.
+It only **reads**: it never writes to the controller. Tested on one ECL Comfort 310 with A266.1 (software 2.45).
 
 ## Quick start
 
+You need Python 3.11 or newer, and the controller on your network (see [Requirements](#requirements)).
+
 ```bash
+git clone https://github.com/muddermanden/danfoss-ecl.git
+cd danfoss-ecl
 python3 -m venv .venv
-source .venv/bin/activate
-pip install -e ".[dev]"
-cp ecl310_a266.env.example ecl310_a266.env   # set ECL310_HOST to your controller's IP
-ecl-dump
+.venv/bin/pip install -e .
+.venv/bin/ecl-dump --host 192.168.1.100      # your controller's IP address
 ```
 
-Run `ecl-dump` from the folder that holds `ecl310_a266.env`, or point to the file:
+The table above is printed to the terminal, and the CSV path is on the last line.
+
+To skip `--host` next time, save your settings in a file:
 
 ```bash
-ecl-dump --env-file ~/path/to/ecl310_a266.env
-ecl-dump --host 192.168.1.100                # no settings file needed
+cp ecl310_a266.env.example ecl310_a266.env   # then set ECL310_HOST in it
+.venv/bin/ecl-dump
 ```
 
-The first line of output says which settings file was used. Without a host, `ecl-dump` stops with an error
-instead of guessing.
+`ecl310_a266.env` is git-ignored, so your IP address stays private. `ecl-dump` reads it from the folder you run it
+in, and the first line of output tells you which file it used.
 
 ### With direnv (optional)
 
-The repo ships an [`.envrc`](.envrc) for [direnv](https://direnv.net/). It puts `.venv/bin` on `PATH` and loads
-`ecl310_a266.env` whenever you `cd` into the repo, so `ecl-dump` works from any subfolder without activating the venv.
+The repo includes an [`.envrc`](.envrc) for [direnv](https://direnv.net/). With it, entering the repo folder puts
+`.venv/bin` on your `PATH` and loads `ecl310_a266.env`, so plain `ecl-dump` works in any subfolder.
 
 ```bash
-brew install direnv                                # or your package manager
-echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc       # bash: direnv hook bash
-direnv allow                                       # once, in the repo folder
+brew install direnv                              # or your package manager
+echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc     # bash: eval "$(direnv hook bash)" in ~/.bashrc
+direnv allow                                     # once, in the repo folder
 ```
 
-Personal extras go in `.envrc.local` (git-ignored). Run `direnv allow` again after `.envrc` changes.
+Put personal additions in `.envrc.local` (git-ignored). Run `direnv allow` again after `.envrc` changes.
+
+## Requirements
+
+| What | Details |
+|---|---|
+| Controller | Danfoss **ECL Comfort 310** running application **A266.x**. Other applications have other registers |
+| Connection | Modbus TCP over the controller's Ethernet port (ECL Comfort 296, 310 and 310B; TCP port **502**), or Modbus RTU over RS-485 |
+| Address | The controller's IP address. Set or read it under *Common controller settings → System → Ethernet*, or in your router's list of DHCP clients; a DHCP reservation keeps it fixed |
+| Python | 3.11 or newer |
+
+### Words you'll meet
+
+| Term | Meaning |
+|---|---|
+| **A266.x** | The ECL *application*: the program the controller runs. A266 is space heating plus domestic hot water (DHW), in four subtypes: A266.1, .2, .9 and .10 |
+| **PNU** | The parameter's *ID no.* in the Danfoss Operating Guide, for example `11177`; the second digit is the circuit. The Modbus register is **PNU − 1** (verified on the author's controller; the guide doesn't cover Modbus addressing) |
+| **Factory value** | The setting as delivered, from the Operating Guide appendix *Parameter ID overview* |
+| **`-||-` row** | In that Danfoss table, a row that repeats the parameter above with another factory value or range for other A266 subtypes. The catalog stores these as *variants* |
+| **S1–S10** | Temperature sensor inputs. In A266: S1 outdoor, S3 heating flow, S4 DHW flow, and the optional S2 room, S5 heating return and S6 DHW return |
+| **M1/M2, P1/P2, A1** | 3-point valve motors (M1 DHW circuit 2, M2 heating circuit 1), circulation pumps (P1 DHW, P2 heating) and the alarm (relay 4) |
+| **Unit id** | The controller's Modbus address: setting *Modbus addr.* (ID 38) under *Common controller settings → System → Communication*, 1–247, factory setting `1` |
 
 ## Configuration
 
-Settings are `ECL310_*` variables. Highest priority wins:
-
-1. Command line: `--host`
-2. Environment variables set in your shell (with direnv, this includes the values from `ecl310_a266.env`)
-3. `--env-file FILE`, or otherwise `./ecl310_a266.env` and then `./.env` in the **current folder**
-4. Built-in defaults below
-
-`ecl310_a266.env` and `.env` are git-ignored. Only [`ecl310_a266.env.example`](ecl310_a266.env.example) is tracked.
+Settings are `ECL310_*` variables, set in `ecl310_a266.env` (see
+[`ecl310_a266.env.example`](ecl310_a266.env.example)) or in your shell.
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `ECL310_MODBUS_MODE` | `tcp` | `tcp` or `rtu` |
-| `ECL310_HOST` | **required for tcp** | Controller IP or hostname |
+| `ECL310_HOST` | **required** for TCP | Controller IP address or hostname |
 | `ECL310_PORT` | `502` | Modbus TCP port |
-| `ECL310_UNIT_ID` | `1` | Unit/slave id. Try `254` (Danfoss service address) if reads fail |
-| `ECL310_SERIAL_PORT` | `/dev/tty.usbserial-0001` | RTU only |
-| `ECL310_BAUDRATE` / `_PARITY` / `_STOPBITS` / `_BYTESIZE` | `38400` / `N` / `1` / `8` | RTU only |
+| `ECL310_UNIT_ID` | `1` | Modbus unit id: the controller's *Modbus addr.* (ID 38) |
 | `ECL310_APP` | `1` | A266 subtype: `1`, `2`, `9` or `10` |
-| `ECL310_LANG` | from `LANG` | `da` or `en` |
-| `ECL310_OUTPUT_DIR` | platform data dir | Where CSV dumps go |
+| `ECL310_LANG` | from `LANG` | Output language, `en` or `da` |
+| `ECL310_OUTPUT_DIR` | see [Output](#output) | Folder for the CSV files |
+| `ECL310_MODBUS_MODE` | `tcp` | `tcp`, or `rtu` for RS-485 |
+| `ECL310_SERIAL_PORT`, `_BAUDRATE`, `_PARITY`, `_STOPBITS`, `_BYTESIZE` | `/dev/tty.usbserial-0001`, `38400`, `N`, `1`, `8` | RTU only |
+
+When the same setting comes from several places, the first one wins:
+
+1. `--host` on the command line
+2. Variables already set in your shell (with direnv, that includes `ecl310_a266.env`)
+3. `--env-file FILE`, or else `./ecl310_a266.env` and then `./.env` in the current folder
+4. The defaults above
 
 ## Output
 
-Each run writes `ecl310_a266_dump_<date>_<time>.csv` with these columns: group, name, title, kind, PNU, address,
-raw, scale, encoding, value, unit, factory, deviation, range, A266 subtypes, page, status and description.
+Each run saves `ecl310_a266_dump_<date>_<time>.csv` in:
 
-- Values are scaled and decoded: enums (`ON`/`OFF`/`GEAR`), packed versions, open sensor = 192 °C → `open`
-- Settings are compared with the factory value; `-||-` rows in the Danfoss table are subtype variants
-- PNUs that do not exist on the selected A266.x are `n/a`
-
-Default output folder (via [platformdirs](https://pypi.org/project/platformdirs/)):
-
-| OS | Path |
+| OS | Folder |
 |---|---|
 | macOS | `~/Library/Application Support/danfoss-ecl/dumps` |
 | Linux | `~/.local/share/danfoss-ecl/dumps` |
 | Windows | `%APPDATA%\danfoss-ecl\danfoss-ecl\dumps` |
 
-Sample dumps from an A266.1 controller (29 Aug 2026, older column layout, serial number blanked):
+A few rows:
+
+```csv
+group,name,title,kind,pnu,addr,raw,scale,encoding,value,unit,factory,deviation,range,a266,page,status,description
+Sensors,S1 outdoor raw,Outdoor temperature,live,10201,10200,730,100,scaled,7.30 °C,°C,,,-60 … 150 °C,"1, 2, 9, 10",,ok,"Pt 1000 outdoor sensor, raw."
+Heating,Temp. min.,Minimum flow temperature,setting,11177,11176,28,1,scaled,28 °C,°C,10 °C,changed,10 … 150 °C,"1, 2, 9, 10",74,ok,Desired flow will not go below this. Has higher priority than the heat curve.
+```
+
+| Column | Meaning |
+|---|---|
+| `group`, `name`, `title` | Where the register belongs, its short name as on the ECL display, and a longer title |
+| `kind` | `live` (measured), `output` (relay, valve), `setting` or `ident` (identification) |
+| `pnu`, `addr` | Danfoss parameter number and Modbus register (PNU − 1) |
+| `raw`, `scale`, `encoding` | The register value as read, and how it is turned into `value` |
+| `value`, `unit` | The decoded value, for example `7.30 °C`, `ON` or `2.45` |
+| `factory`, `deviation` | The factory value, and `changed` when the setting differs from it |
+| `range`, `a266` | Allowed range, and the A266 subtypes that have this register |
+| `page`, `status`, `description` | Page in the Operating Guide; `ok`, `open`, `out of range`, `n/a` or `error`; and what the register does |
+
+`open` means an unconnected sensor: the controller's display shows `- -`, and Modbus returns 192 °C (observed; the
+guide doesn't describe Modbus values). `n/a` means the register doesn't exist in your A266 subtype.
+
+Sample dumps from an A266.1 controller, in an older column layout and with the serial number blanked:
 [English](examples/a266.1-sample.en.csv), [Danish](examples/a266.1-sample.da.csv).
-Tested against a live ECL 310 with software version 2.45 (PNU 35 = 557).
+
+## Troubleshooting
+
+**`ecl-dump: No controller address`**
+Pass `--host`, or set `ECL310_HOST` in `ecl310_a266.env` in the folder you run from.
+
+**`Could not connect to 192.168.1.100:502`**
+The controller doesn't answer on that address. Check the IP, that it answers a ping, and that nothing blocks TCP
+port 502 between your computer and the controller (a firewall or a separate VLAN, for example).
+
+**It connects, but every register shows `error`.**
+The unit id doesn't match the controller's Modbus address. Check *Modbus addr.* (ID 38) under *Common controller
+settings → System → Communication*, and run `ECL310_UNIT_ID=<that address> ecl-dump`.
+
+**Many registers show `n/a`.**
+`ECL310_APP` doesn't match your controller. The *Application* rows in the System group show the real one, for
+example `A`, `266`, `1` for A266.1.
+
+**The connection drops when idle.**
+The ECL closed idle TCP connections after about 75 seconds in testing. `ecl-dump` reads everything in one go, so this only
+matters if you build on the library.
 
 ## Languages
 
-Source strings are English (gettext). Translations live in
-`src/danfoss_ecl/locale/<lang>/LC_MESSAGES/danfoss_ecl.po`; Danish and English are included.
+Output is in English or Danish: `ECL310_LANG=en` or `da`. If it isn't set, your system's `LANG` decides
+(`da_DK.UTF-8` gives Danish), and anything else falls back to English.
 
-Set `ECL310_LANG=da` or `en`. If it is unset, `LANG` / `LC_MESSAGES` decides (`da_DK.UTF-8` → `da`).
-Unknown codes fall back to English.
+To add a language:
 
-To add a language, copy the Danish `.po` file to e.g. `locale/de/LC_MESSAGES/danfoss_ecl.po` and translate
-`msgstr`. Then add the code to `SUPPORTED` in `i18n.py`. Regenerate the register strings with
-`python3 scripts/write_locales.py` after renaming PNUs.
+1. Copy `src/danfoss_ecl/locale/da/LC_MESSAGES/danfoss_ecl.po` to `locale/<code>/LC_MESSAGES/` and translate each
+   `msgstr`.
+2. Add the code to `SUPPORTED` in `src/danfoss_ecl/i18n.py`.
+
+After renaming registers, regenerate the strings with `python3 scripts/write_locales.py`.
+
+## Development
+
+```bash
+.venv/bin/pip install -e ".[dev]"
+.venv/bin/python -m pytest
+```
+
+The tests run without a controller.
 
 ## Protocol notes
 
-- Function codes: 03 / 04 / 06
-- Idle TCP connections are closed by the ECL after ~75 s
-- Live sensors: scale 100. Room/DHW setpoints and gains: scale 10. Most other temperatures: scale 1
-- Settings in the catalog follow *Parameter ID overview* (not “§7.8”). Factory and range can both change with `-||-` / A266.x
-- Identification registers are packed bytes, not a scale factor:
+These notes come from reading the author's controller (software 2.45), not from the Operating Guide:
 
-  - PNU 35 software `557` → `2.45` (`major = raw >> 8`, `minor = raw & 0xFF`)
-  - PNU 34 hardware same packing (`18692` → `73.04`), **not** the production date
-  - PNU 2099 production: high byte = year−2000, low byte = ISO week → Leanheat `32.2025`
-  - PNU 2060–2063 application: prefix `'A'`, type `266`, subtype `1`, version packed like software
-  - PNU 36+37 serial (high/low)
-- `OFF` is `0` when the ON range starts at 1, and `9` when it starts at 10
-- Writing is out of scope: a wrong motor running time stalls a valve in its end stop
+- Modbus register = PNU − 1. `ecl-dump` reads holding registers only (function code 03).
+- Live sensors use scale 100, room and DHW setpoints and gains scale 10, most other temperatures scale 1.
+- An unconnected sensor reads 19200 (192 °C). The value for a short-circuited sensor hasn't been verified.
+- The catalog's names, ranges and factory values follow the Operating Guide appendix 7.8 *Parameter ID overview*. Factory value and range can differ
+  between A266 subtypes (`-||-` rows).
+- Identification registers are packed bytes, not scaled values:
+  - PNU 35 software: `557` → `2.45` (`major = raw >> 8`, `minor = raw & 0xFF`)
+  - PNU 34 hardware: the same packing (`18692` → `73.04`); it is **not** the production date
+  - PNU 2099 production date: high byte = year − 2000, low byte = ISO week → `32.2025`
+  - PNU 2060–2063 application: prefix `'A'`, type `266`, subtype `1`, version packed like the software
+  - PNU 36 and 37: serial number, high and low word
+- `OFF` is `0` when the ON range starts at 1, and `9` when it starts at 10.
+- M1/M2 are 3-point valve motors: the valve position Leanheat shows is an estimate. Don't read ECA32 analog
+  outputs AO1–AO3 as V1/V2 unless analog actuators are actually wired to them.
+- Writing is deliberately out of scope: for example, a wrong motor running time drives a valve into its end stop.
+
+## Sources
+
+- Danfoss **Operating Guide ECL Comfort 210 / 296 / 310, application A266**, document AQ156586461753en-010601
+  (2021.06). Download it from danfoss.com → Service and support → Downloads. The catalog's parameter names, setting
+  ranges and factory values come from its appendix 7.8 *Parameter ID overview*. Sections 2.1 (sensors and outputs),
+  6.8.3 (Ethernet) and 6.8.10 (Modbus address) explain the rest. The guide isn't included here, because it is
+  Danfoss's copyright.
+- Everything about Modbus (addresses, scales, packed values, 192 °C for an open sensor) was observed on the
+  author's ECL Comfort 310 with A266.1 and software 2.45.
+
+**Another ECL model or application?** For example an ECL Comfort 110/120, or another application key such as
+A247: Danfoss publishes an Operating Guide for each, with its own *Parameter ID overview*. That gives you the IDs;
+check what your controller actually returns for them before you rely on the mapping.
 
 ## Home Assistant
 
-Existing work:
+This tool doesn't need Home Assistant. To get the ECL into Home Assistant, use the companion repository:
 
-| Project | Covers | Gap |
+| Repository | What it is | Use it when |
 |---|---|---|
-| [HA YAML `modbus`](https://www.home-assistant.io/integrations/modbus/) | Generic registers | You must hand-write every PNU |
-| [muddermanden/homeassistant-danfoss-ecl310](https://github.com/muddermanden/homeassistant-danfoss-ecl310) | ECL 310 **A266.x**, YAML package built from this register map | Read-only, plain `modbus:` YAML (not an integration) |
-| [acdcnow/Danfoss-ECL-310-for-Home-Assistant](https://github.com/acdcnow/Danfoss-ECL-310-for-Home-Assistant) | ECL 310 **A247.1** | Different application key |
-| [JohNan/homeassistant-danfoss_ecl_modbus](https://github.com/JohNan/homeassistant-danfoss_ecl_modbus) | ECL **110** | Different controller |
+| **danfoss-ecl** (this one) | Python register catalog and `ecl-dump` command | You want to check a controller, document its settings or look up a register |
+| [homeassistant-danfoss-ecl310](https://github.com/muddermanden/homeassistant-danfoss-ecl310) | Home Assistant YAML package and dashboards | You want the ECL in Home Assistant |
 
-For a first-class integration, Home Assistant is moving device integrations onto a shared Modbus connection:
+The package's register addresses, scales and decoding come from this catalog. The two are **independent**: they
+share no code, and neither needs the other to run. `ecl-dump` is a quick way to check that a controller answers
+before you set up the package.
 
-- [Developer docs (2026)](https://developers.home-assistant.io/docs/modbus/introduction/)
-- [Modernizing Modbus](https://developers.home-assistant.io/blog/2026/07/05/modernizing-modbus/)
-- Reference device library: [trovis-modbus](https://github.com/Tom-Bom-badil/trovis-modbus)
+Other projects for Danfoss ECL in Home Assistant cover other hardware:
+[acdcnow/Danfoss-ECL-310-for-Home-Assistant](https://github.com/acdcnow/Danfoss-ECL-310-for-Home-Assistant)
+(ECL 310, application A247.1) and
+[JohNan/homeassistant-danfoss_ecl_modbus](https://github.com/JohNan/homeassistant-danfoss_ecl_modbus) (ECL 110).
 
 ## Roadmap
 
-1. **Keep this repo Home Assistant-free:** register map, CLI, and pytest against recorded dumps.
-2. **Device library** (`modbus-connection` models: gauges, enums, writable setpoints). No Home Assistant imports.
-3. **HACS custom component** that vendors the library, with a config flow for host/port/unit/application key.
-4. **Core PR** only after the Home Assistant `modbus_connection` API settles.
-
-Useful first entities for A266.1:
-
-| Entity | PNU | Notes |
-|---|---|---|
-| Outdoor / flow / tank | 10201, 10203, 10204 | scale 100 |
-| Desired flow | 11253 | scale 100 |
-| Room / DHW setpoints | 11180, 12190 | scale 10, writable later |
-| Heat curve, min/max flow | 11175, 11177, 11178 | |
-| Motor running time / NZ | 11186, 11187, 12186, 12187 | the humming-valve pair |
-| Pumps | relays 4006, 4007 | |
-| Valve estimate | not ECA32 AO | 3-point gear motors; Leanheat % is estimated |
-
-Do not treat ECA32 AO1–AO3 as V1/V2 unless analog actuators are actually wired.
+1. Keep this repository free of Home Assistant code: register catalog, CLI, and tests against recorded dumps.
+2. A device library on Home Assistant's shared Modbus connection
+   ([developer docs](https://developers.home-assistant.io/docs/modbus/introduction/),
+   [background](https://developers.home-assistant.io/blog/2026/07/05/modernizing-modbus/)), in the style of
+   [trovis-modbus](https://github.com/Tom-Bom-badil/trovis-modbus).
+3. A HACS integration with a config flow (host, port, unit id, application), and later a Home Assistant core
+   contribution once that Modbus API has settled.
 
 ## License
 
-MIT. Danfoss, ECL Comfort and Leanheat are trademarks of their owners. This project is not affiliated with Danfoss.
+MIT, see [LICENSE](LICENSE). Danfoss, ECL Comfort and Leanheat are trademarks of their owners. This project is not
+affiliated with Danfoss.
