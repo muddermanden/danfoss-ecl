@@ -1,58 +1,71 @@
 # danfoss-ecl
 
-Python register map and dump CLI for **Danfoss ECL Comfort 310**, application **A266.1** (weather-compensated heating + DHW storage tank) over **Modbus TCP**.
+Register catalog and read-only dump tool for the **Danfoss ECL Comfort 310**, application **A266.x**
+(weather-compensated heating + DHW storage tank), over **Modbus TCP** (or RTU).
 
-This is not a Home Assistant integration yet. It is the **device catalog** other tools will share: live sensors, outputs, identification, and settings from the Operating Guide appendix *Parameter ID overview* (Danfoss: *Parameter-ID, oversigt*).
+It documents what the controller exposes: live sensors, outputs, identification and every setting from the
+Operating Guide appendix *Parameter ID overview*, with scale, range, OFF encoding and factory value.
+`ecl-dump` reads all of it and writes a CSV, so you can see what your controller actually reports and which
+settings differ from factory.
 
+It is **not** a Home Assistant integration. For a ready-to-use Home Assistant YAML package built from this
+register map, see [muddermanden/homeassistant-danfoss-ecl310](https://github.com/muddermanden/homeassistant-danfoss-ecl310).
 
 Addressing rule from Danfoss: **Modbus register = PNU − 1**.
 
-## Current status (v0.1)
-
-- Read-only dump of A266 holding registers (live + settings)
-- Settings compared with factory from *Parameter ID overview*; `-||-` rows are subtype variants
-- Scaled values, enums (`ON`/`OFF`/`GEAR`), open sensor = 192 °C
-- PNUs that do not exist on the selected A266.x are `n/a`
-- CSV includes raw, scale, encoding, display value, unit, factory, deviation
-
-- UI language: Danish and English (gettext `.po` files)
-- CSV written to a data directory, not the repo root
-
-Tested against a live ECL 310 at firmware PNU35 = 557.
-
-## Install and dump
+## Quick start
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev]"
-cp .env.example ecl310_a266.env   # edit host / unit id / language
+cp ecl310_a266.env.example ecl310_a266.env   # set ECL310_HOST to your controller's IP
 ecl-dump
 ```
 
-Unit ID is normally `1`. If the read fails, try `254` (Danfoss service address).
+Run `ecl-dump` from the folder that holds `ecl310_a266.env`, or point to the file:
 
-### Language
-
-Source strings are English (gettext). Translations live in:
-
-```
-src/danfoss_ecl/locale/<lang>/LC_MESSAGES/danfoss_ecl.po
+```bash
+ecl-dump --env-file ~/path/to/ecl310_a266.env
+ecl-dump --host 192.168.1.100                # no settings file needed
 ```
 
-Set in `ecl310_a266.env`:
+The first line of output says which settings file was used. Without a host, `ecl-dump` stops with an error
+instead of guessing.
 
-```
-ECL310_LANG=da
-```
+## Configuration
 
-or `en`. If unset, `LANG` / `LC_MESSAGES` is used (`da_DK.UTF-8` → `da`). Unknown codes fall back to English.
+Settings are `ECL310_*` variables. Highest priority wins:
 
-To add a language, copy the Danish `.po` file to e.g. `locale/de/LC_MESSAGES/danfoss_ecl.po` and translate `msgstr`. Then add the code to `SUPPORTED` in `i18n.py`. Regenerate register strings with `python3 scripts/write_locales.py` after renaming PNUs.
+1. Command line: `--host`
+2. Environment variables set in your shell
+3. `--env-file FILE`, or otherwise `./ecl310_a266.env` and then `./.env` in the **current folder**
+4. Built-in defaults below
 
-### CSV output directory
+`ecl310_a266.env` and `.env` are git-ignored. Only [`ecl310_a266.env.example`](ecl310_a266.env.example) is tracked.
 
-Default (via [platformdirs](https://pypi.org/project/platformdirs/)):
+| Variable | Default | Meaning |
+|---|---|---|
+| `ECL310_MODBUS_MODE` | `tcp` | `tcp` or `rtu` |
+| `ECL310_HOST` | **required for tcp** | Controller IP or hostname |
+| `ECL310_PORT` | `502` | Modbus TCP port |
+| `ECL310_UNIT_ID` | `1` | Unit/slave id. Try `254` (Danfoss service address) if reads fail |
+| `ECL310_SERIAL_PORT` | `/dev/tty.usbserial-0001` | RTU only |
+| `ECL310_BAUDRATE` / `_PARITY` / `_STOPBITS` / `_BYTESIZE` | `38400` / `N` / `1` / `8` | RTU only |
+| `ECL310_APP` | `1` | A266 subtype: `1`, `2`, `9` or `10` |
+| `ECL310_LANG` | from `LANG` | `da` or `en` |
+| `ECL310_OUTPUT_DIR` | platform data dir | Where CSV dumps go |
+
+## Output
+
+Each run writes `ecl310_a266_dump_<date>_<time>.csv` with these columns: group, name, title, kind, PNU, address,
+raw, scale, encoding, value, unit, factory, deviation, range, A266 subtypes, page, status and description.
+
+- Values are scaled and decoded: enums (`ON`/`OFF`/`GEAR`), packed versions, open sensor = 192 °C → `open`
+- Settings are compared with the factory value; `-||-` rows in the Danfoss table are subtype variants
+- PNUs that do not exist on the selected A266.x are `n/a`
+
+Default output folder (via [platformdirs](https://pypi.org/project/platformdirs/)):
 
 | OS | Path |
 |---|---|
@@ -60,51 +73,21 @@ Default (via [platformdirs](https://pypi.org/project/platformdirs/)):
 | Linux | `~/.local/share/danfoss-ecl/dumps` |
 | Windows | `%APPDATA%\danfoss-ecl\danfoss-ecl\dumps` |
 
-Override:
+Sample dumps from an A266.1 controller (29 Aug 2026, older column layout, serial number blanked):
+[English](examples/a266.1-sample.en.csv), [Danish](examples/a266.1-sample.da.csv).
+Tested against a live ECL 310 with software version 2.45 (PNU 35 = 557).
 
-```
-ECL310_OUTPUT_DIR=~/varme/dumps
-```
+## Languages
 
-A checked-in snapshot (Danish headers, A266.1, 29 Aug 2026) is in [examples/a266.1-sample.da.csv](examples/a266.1-sample.da.csv).
+Source strings are English (gettext). Translations live in
+`src/danfoss_ecl/locale/<lang>/LC_MESSAGES/danfoss_ecl.po`; Danish and English are included.
 
-## What already exists in Home Assistant
+Set `ECL310_LANG=da` or `en`. If it is unset, `LANG` / `LC_MESSAGES` decides (`da_DK.UTF-8` → `da`).
+Unknown codes fall back to English.
 
-A proper A266.1 integration is still missing. Nearby work:
-
-| Project | Covers | Gap |
-|---|---|---|
-| [HA YAML `modbus`](https://www.home-assistant.io/integrations/modbus/) | Generic registers | You must hand-write every PNU |
-| [muddermanden/homeassistant-danfoss-ecl310](https://github.com/muddermanden/homeassistant-danfoss-ecl310) | ECL 310 **A266.x**, YAML package built from this register map | Read-only, plain `modbus:` YAML (not an integration) |
-| [acdcnow/Danfoss-ECL-310-for-Home-Assistant](https://github.com/acdcnow/Danfoss-ECL-310-for-Home-Assistant) | ECL 310 **A247.1** | Different application key |
-| [JohNan/homeassistant-danfoss_ecl_modbus](https://github.com/JohNan/homeassistant-danfoss_ecl_modbus) | ECL **110** | Different controller |
-
-Do not start from YAML `modbus:` if the goal is a first-class integration. HA is moving device integrations onto a shared Modbus connection:
-
-- [Developer docs (2026)](https://developers.home-assistant.io/docs/modbus/introduction/)
-- [Modernizing Modbus](https://developers.home-assistant.io/blog/2026/07/05/modernizing-modbus/)
-- Reference device library: [trovis-modbus](https://github.com/Tom-Bom-badil/trovis-modbus)
-
-## Winter roadmap
-
-1. **Keep this repo HA-free.** Register map + CLI + pytest against recorded dumps.
-2. **Device library** (`modbus-connection` models: gauges, enums, writeable setpoints). No Home Assistant imports.
-3. **HACS custom component** that vendors the library, config flow for host/port/unit/application key.
-4. **Core PR** only after the HA `modbus_connection` API settles (their own blog currently says to wait on wiring).
-
-Useful first entities for A266.1:
-
-| Entity | PNU | Notes |
-|---|---|---|
-| Outdoor / flow / tank | 10201, 10203, 10204 | scale 100 |
-| Desired flow | 11253 | scale 100 |
-| Room / DHW setpoints | 11180, 12190 | scale 10, writable later |
-| Heat curve, min/max flow | 11175, 11177, 11178 | |
-| Motor running time / NZ | 11186, 11187, 12186, 12187 | the humming-valve pair |
-| Pumps | relays 4006, 4007 | |
-| Valve estimate | not ECA32 AO | 3-point gear motors; Leanheat % is estimated |
-
-Do not treat ECA32 AO1–AO3 as V1/V2 unless analog actuators are actually wired.
+To add a language, copy the Danish `.po` file to e.g. `locale/de/LC_MESSAGES/danfoss_ecl.po` and translate
+`msgstr`. Then add the code to `SUPPORTED` in `i18n.py`. Regenerate the register strings with
+`python3 scripts/write_locales.py` after renaming PNUs.
 
 ## Protocol notes
 
@@ -120,7 +103,45 @@ Do not treat ECA32 AO1–AO3 as V1/V2 unless analog actuators are actually wired
   - PNU 2060–2063 application: prefix `'A'`, type `266`, subtype `1`, version packed like software
   - PNU 36+37 serial (high/low)
 - `OFF` is `0` when the ON range starts at 1, and `9` when it starts at 10
-- Write support is out of scope for v0.1 (wrong motor runtime will stall a valve in end stop)
+- Writing is out of scope: a wrong motor running time stalls a valve in its end stop
+
+## Home Assistant
+
+Existing work:
+
+| Project | Covers | Gap |
+|---|---|---|
+| [HA YAML `modbus`](https://www.home-assistant.io/integrations/modbus/) | Generic registers | You must hand-write every PNU |
+| [muddermanden/homeassistant-danfoss-ecl310](https://github.com/muddermanden/homeassistant-danfoss-ecl310) | ECL 310 **A266.x**, YAML package built from this register map | Read-only, plain `modbus:` YAML (not an integration) |
+| [acdcnow/Danfoss-ECL-310-for-Home-Assistant](https://github.com/acdcnow/Danfoss-ECL-310-for-Home-Assistant) | ECL 310 **A247.1** | Different application key |
+| [JohNan/homeassistant-danfoss_ecl_modbus](https://github.com/JohNan/homeassistant-danfoss_ecl_modbus) | ECL **110** | Different controller |
+
+For a first-class integration, Home Assistant is moving device integrations onto a shared Modbus connection:
+
+- [Developer docs (2026)](https://developers.home-assistant.io/docs/modbus/introduction/)
+- [Modernizing Modbus](https://developers.home-assistant.io/blog/2026/07/05/modernizing-modbus/)
+- Reference device library: [trovis-modbus](https://github.com/Tom-Bom-badil/trovis-modbus)
+
+## Roadmap
+
+1. **Keep this repo Home Assistant-free:** register map, CLI, and pytest against recorded dumps.
+2. **Device library** (`modbus-connection` models: gauges, enums, writable setpoints). No Home Assistant imports.
+3. **HACS custom component** that vendors the library, with a config flow for host/port/unit/application key.
+4. **Core PR** only after the Home Assistant `modbus_connection` API settles.
+
+Useful first entities for A266.1:
+
+| Entity | PNU | Notes |
+|---|---|---|
+| Outdoor / flow / tank | 10201, 10203, 10204 | scale 100 |
+| Desired flow | 11253 | scale 100 |
+| Room / DHW setpoints | 11180, 12190 | scale 10, writable later |
+| Heat curve, min/max flow | 11175, 11177, 11178 | |
+| Motor running time / NZ | 11186, 11187, 12186, 12187 | the humming-valve pair |
+| Pumps | relays 4006, 4007 | |
+| Valve estimate | not ECA32 AO | 3-point gear motors; Leanheat % is estimated |
+
+Do not treat ECA32 AO1–AO3 as V1/V2 unless analog actuators are actually wired.
 
 ## License
 
