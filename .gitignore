@@ -12,3 +12,5 @@ ecl310_a266_dump_*.csv
 .vscode/
 .DS_Store
 danfoss-ecl.code-workspace
+.envrc.local
+.direnv/

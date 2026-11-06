@@ -33,12 +33,25 @@ ecl-dump --host 192.168.1.100                # no settings file needed
 The first line of output says which settings file was used. Without a host, `ecl-dump` stops with an error
 instead of guessing.
 
+### With direnv (optional)
+
+The repo ships an [`.envrc`](.envrc) for [direnv](https://direnv.net/). It puts `.venv/bin` on `PATH` and loads
+`ecl310_a266.env` whenever you `cd` into the repo, so `ecl-dump` works from any subfolder without activating the venv.
+
+```bash
+brew install direnv                                # or your package manager
+echo 'eval "$(direnv hook zsh)"' >> ~/.zshrc       # bash: direnv hook bash
+direnv allow                                       # once, in the repo folder
+```
+
+Personal extras go in `.envrc.local` (git-ignored). Run `direnv allow` again after `.envrc` changes.
+
 ## Configuration
 
 Settings are `ECL310_*` variables. Highest priority wins:
 
 1. Command line: `--host`
-2. Environment variables set in your shell
+2. Environment variables set in your shell (with direnv, this includes the values from `ecl310_a266.env`)
 3. `--env-file FILE`, or otherwise `./ecl310_a266.env` and then `./.env` in the **current folder**
 4. Built-in defaults below
 
