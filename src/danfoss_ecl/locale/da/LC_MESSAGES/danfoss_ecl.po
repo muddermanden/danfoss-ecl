@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: danfoss-ecl 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-29 12:34+0000\n"
-"PO-Revision-Date: 2026-08-29 12:34+0000\n"
+"POT-Creation-Date: 2026-08-29 21:15+0000\n"
+"PO-Revision-Date: 2026-08-29 21:15+0000\n"
 "Last-Translator: \n"
 "Language-Team: da\n"
 "Language: da\n"
@@ -38,89 +38,74 @@ msgstr "OFF"
 msgid "ON"
 msgstr "ON"
 
+msgid "factory"
+msgstr "fabrik"
+
+msgid "changed"
+msgstr "ændret"
+
 msgid "group"
 msgstr "gruppe"
 
 msgid "name"
 msgstr "navn"
 
+msgid "title"
+msgstr "titel"
+
+msgid "kind"
+msgstr "type"
+
 msgid "value"
 msgstr "værdi"
 
-msgid "status"
-msgstr "status"
+msgid "unit"
+msgstr "enhed"
+
+msgid "scale"
+msgstr "skala"
+
+msgid "encoding"
+msgstr "encoding"
+
+msgid "deviation"
+msgstr "afvigelse"
 
 msgid "range"
 msgstr "område"
 
+msgid "page"
+msgstr "side"
+
+msgid "status"
+msgstr "status"
+
+msgid "description"
+msgstr "beskrivelse"
+
+msgid "setting"
+msgstr "indstilling"
+
+msgid "live"
+msgstr "live"
+
+msgid "output"
+msgstr "udgang"
+
+msgid "ident"
+msgstr "identitet"
+
 msgid "Could not connect to {host}:{port}"
 msgstr "Ingen forbindelse til {host}:{port}"
 
-msgid "Done: {ok} ok, {fail} errors. Saved to {path}"
-msgstr "Færdig: {ok} ok, {fail} fejl. Gemt i {path}"
+msgid "Done: {ok} ok, {fail} errors, {changed} changed from factory. Saved to {path}"
+msgstr "Færdig: {ok} ok, {fail} fejl, {changed} afviger fra fabrik. Gemt i {path}"
 
 msgid "{count} PNUs"
 msgstr "{count} PNU'er"
 
-msgid "unit"
-msgstr "unit"
-
-msgid "X1"
-msgstr "X1"
-
-msgid "X2"
-msgstr "X2"
-
-msgid "X3"
-msgstr "X3"
-
-msgid "X4"
-msgstr "X4"
-
-msgid "X5"
-msgstr "X5"
-
-msgid "X6"
-msgstr "X6"
-
-msgid "X7"
-msgstr "X7"
-
-msgid "X8"
-msgstr "X8"
-
-msgid "Xp"
-msgstr "Xp"
-
-msgid "Tn"
-msgstr "Tn"
-
-msgid "Boost"
-msgstr "Boost"
-
-msgid "Ramp"
-msgstr "Rampe"
-
-msgid "Optimizer"
-msgstr "Optimizer"
-
-msgid "Pre-stop"
-msgstr "Pre-stop"
-
-msgid "Input type"
-msgstr "Input type"
-
-msgid "Filter constant"
-msgstr "Filter konstant"
-
-msgid "Pulse"
-msgstr "Puls"
-
-msgid "Units"
-msgstr "Enheder"
-
-msgid "Autotuning"
-msgstr "Autotuning"
+msgid "Parameter ID overview"
+msgstr "Parameter-ID, oversigt"
 
 msgid "Sensors"
 msgstr "Føler"
@@ -128,56 +113,149 @@ msgstr "Føler"
 msgid "S1 outdoor raw"
 msgstr "S1 ude rå"
 
+msgid "Outdoor temperature"
+msgstr "Outdoor temperature"
+
+msgid "Pt 1000 outdoor sensor, raw."
+msgstr "Pt 1000 outdoor sensor, raw."
+
 msgid "S2 room raw"
 msgstr "S2 rum rå"
+
+msgid "Room temperature"
+msgstr "Room temperature"
+
+msgid "Pt 1000 room sensor, raw. 192 °C means the sensor is open."
+msgstr "Pt 1000 room sensor, raw. 192 °C means the sensor is open."
 
 msgid "S3 heating flow raw"
 msgstr "S3 frem varme rå"
 
+msgid "Heating flow temperature"
+msgstr "Heating flow temperature"
+
+msgid "Pt 1000 heating flow sensor, raw."
+msgstr "Pt 1000 heating flow sensor, raw."
+
 msgid "S4 DHW / tank raw"
 msgstr "S4 frem/beholder VV rå"
+
+msgid "DHW / tank temperature"
+msgstr "DHW / tank temperature"
+
+msgid "Pt 1000 DHW or storage-tank sensor, raw."
+msgstr "Pt 1000 DHW or storage-tank sensor, raw."
 
 msgid "S5 heating return raw"
 msgstr "S5 retur varme rå"
 
+msgid "Heating return temperature"
+msgstr "Heating return temperature"
+
+msgid "Pt 1000 heating return sensor, raw."
+msgstr "Pt 1000 heating return sensor, raw."
+
 msgid "S6 DHW return raw"
 msgstr "S6 retur VV rå"
+
+msgid "DHW return temperature"
+msgstr "DHW return temperature"
+
+msgid "Pt 1000 DHW return sensor, raw."
+msgstr "Pt 1000 DHW return sensor, raw."
 
 msgid "S7 raw"
 msgstr "S7 rå"
 
+msgid "Sensor S7"
+msgstr "Sensor S7"
+
+msgid "Pt 1000 input S7, raw."
+msgstr "Pt 1000 input S7, raw."
+
 msgid "S8 raw"
 msgstr "S8 rå"
+
+msgid "Sensor S8"
+msgstr "Sensor S8"
+
+msgid "Pt 1000 input S8, raw."
+msgstr "Pt 1000 input S8, raw."
 
 msgid "S9 raw"
 msgstr "S9 rå"
 
+msgid "Sensor S9"
+msgstr "Sensor S9"
+
+msgid "Pt 1000 input S9, raw."
+msgstr "Pt 1000 input S9, raw."
+
 msgid "S10 raw"
 msgstr "S10 rå"
+
+msgid "Sensor S10"
+msgstr "Sensor S10"
+
+msgid "Pt 1000 input S10, raw."
+msgstr "Pt 1000 input S10, raw."
 
 msgid "S1 circuit view"
 msgstr "S1 kredsvisning"
 
+msgid "S1 as shown in the circuit display"
+msgstr "S1 as shown in the circuit display"
+
 msgid "S2 circuit view"
 msgstr "S2 kredsvisning"
+
+msgid "S2 as shown in the circuit display"
+msgstr "S2 as shown in the circuit display"
 
 msgid "S3 circuit view"
 msgstr "S3 kredsvisning"
 
+msgid "S3 as shown in the circuit display"
+msgstr "S3 as shown in the circuit display"
+
+msgid "Not present on A266.1."
+msgstr "Not present on A266.1."
+
 msgid "S4 circuit view"
 msgstr "S4 kredsvisning"
+
+msgid "S4 as shown in the circuit display"
+msgstr "S4 as shown in the circuit display"
 
 msgid "S5 circuit view"
 msgstr "S5 kredsvisning"
 
+msgid "S5 as shown in the circuit display"
+msgstr "S5 as shown in the circuit display"
+
 msgid "S6 circuit view"
 msgstr "S6 kredsvisning"
+
+msgid "S6 as shown in the circuit display"
+msgstr "S6 as shown in the circuit display"
 
 msgid "S3 desired flow"
 msgstr "S3 ønsket frem"
 
+msgid "Desired heating flow temperature"
+msgstr "Desired heating flow temperature"
+
+msgid "Controller reference for the heating flow. This is what the 3-point valve is chasing."
+msgstr "Controller reference for the heating flow. This is what the 3-point valve is chasing."
+
 msgid "S4 desired flow"
 msgstr "S4 ønsket frem"
+
+msgid "Desired DHW flow temperature"
+msgstr "Desired DHW flow temperature"
+
+msgid "Not present on A266.1 (storage tank uses S4 as tank sensor)."
+msgstr "Not present on A266.1 (storage tank uses S4 as tank sensor)."
 
 msgid "Outputs"
 msgstr "Udgang"
@@ -185,11 +263,23 @@ msgstr "Udgang"
 msgid "ECA32 AO1 status %"
 msgstr "ECA32 AO1 status %"
 
+msgid "ECA 32 analogue output 1"
+msgstr "ECA 32 analogue output 1"
+
+msgid "0-10 V status. Not the 3-point gear motor position."
+msgstr "0-10 V status. Not the 3-point gear motor position."
+
 msgid "ECA32 AO2 status %"
 msgstr "ECA32 AO2 status %"
 
+msgid "ECA 32 analogue output 2"
+msgstr "ECA 32 analogue output 2"
+
 msgid "ECA32 AO3 status %"
 msgstr "ECA32 AO3 status %"
+
+msgid "ECA 32 analogue output 3"
+msgstr "ECA 32 analogue output 3"
 
 msgid "Triac 1"
 msgstr "Triac 1"
@@ -206,8 +296,14 @@ msgstr "Triac 4"
 msgid "Relay 1"
 msgstr "Relæ 1"
 
+msgid "Relay 1 (typically heating pump)"
+msgstr "Relay 1 (typically heating pump)"
+
 msgid "Relay 2"
 msgstr "Relæ 2"
+
+msgid "Relay 2 (typically DHW pump)"
+msgstr "Relay 2 (typically DHW pump)"
 
 msgid "Relay 3"
 msgstr "Relæ 3"
@@ -218,6 +314,9 @@ msgstr "Relæ 4"
 msgid "Digital output bitmask 3998"
 msgstr "Digital udgang bitmaske 3998"
 
+msgid "Digital output bitmask"
+msgstr "Digital output bitmask"
+
 msgid "Digital output bitmask 3999"
 msgstr "Digital udgang bitmaske 3999"
 
@@ -227,14 +326,26 @@ msgstr "Drift"
 msgid "Mode circuit 1"
 msgstr "Mode kreds 1"
 
+msgid "Operating mode, heating circuit"
+msgstr "Operating mode, heating circuit"
+
 msgid "Mode circuit 2"
 msgstr "Mode kreds 2"
+
+msgid "Operating mode, DHW circuit"
+msgstr "Operating mode, DHW circuit"
 
 msgid "Status circuit 1"
 msgstr "Status kreds 1"
 
+msgid "Status, heating circuit"
+msgstr "Status, heating circuit"
+
 msgid "Status circuit 2"
 msgstr "Status kreds 2"
+
+msgid "Status, DHW circuit"
+msgstr "Status, DHW circuit"
 
 msgid "System"
 msgstr "System"
@@ -242,32 +353,173 @@ msgstr "System"
 msgid "Modbus address"
 msgstr "Modbus-adresse"
 
+msgid "Modbus slave address"
+msgstr "Modbus slave address"
+
 msgid "Software version"
 msgstr "Softwareversion"
+
+msgid "Controller software version"
+msgstr "Controller software version"
+
+msgid "Packed as major<<8|minor. 557 is 2.45."
+msgstr "Packed as major<<8|minor. 557 is 2.45."
 
 msgid "Hardware revision"
 msgstr "Hardware-revision"
 
+msgid "Controller hardware revision"
+msgstr "Controller hardware revision"
+
+msgid "Packed major.minor. Not the production date."
+msgstr "Packed major.minor. Not the production date."
+
+msgid "Software build"
+msgstr "Software-build"
+
+msgid "Software build number"
+msgstr "Software build number"
+
+msgid "Serial high"
+msgstr "Serienummer høj"
+
+msgid "Serial number, high word"
+msgstr "Serial number, high word"
+
+msgid "Serial low"
+msgstr "Serienummer lav"
+
+msgid "Serial number, low word"
+msgstr "Serial number, low word"
+
+msgid "Production week/year"
+msgstr "Produktionsdato"
+
+msgid "Production week and year"
+msgstr "Production week and year"
+
+msgid "High byte = year-2000, low byte = ISO week. Shown as week.year (32.2025)."
+msgstr "High byte = year-2000, low byte = ISO week. Shown as week.year (32.2025)."
+
+msgid "Application prefix"
+msgstr "Applikationspræfiks"
+
+msgid "Application prefix (A)"
+msgstr "Application prefix (A)"
+
+msgid "Application type"
+msgstr "Applikationstype"
+
+msgid "Application type number (266)"
+msgstr "Application type number (266)"
+
+msgid "Application subtype"
+msgstr "Applikationsundertype"
+
+msgid "Application subtype (.1 / .2 / .9 / .10)"
+msgstr "Application subtype (.1 / .2 / .9 / .10)"
+
+msgid "Application version"
+msgstr "Applikationsversion"
+
 msgid "Floor drying"
 msgstr "Gulvtørring"
 
-msgid "Program running"
-msgstr "Programafvikling"
+msgid "Prog. execution"
+msgstr "Prog. afvikling"
 
-msgid "Max. power failure"
+msgid "Programme execution"
+msgstr "Programme execution"
+
+msgid "Floor (screed) drying programme running."
+msgstr "Floor (screed) drying programme running."
+
+msgid "Max. pwr. failure"
 msgstr "Maks. pwr. fejl"
+
+msgid "Maximum power failure"
+msgstr "Maximum power failure"
 
 msgid "Ramp X5-X6"
 msgstr "Rampe X5-X6"
 
+msgid "Ramp between X5 and X6"
+msgstr "Ramp between X5 and X6"
+
 msgid "Ramp X7-X8"
 msgstr "Rampe X7-X8"
 
-msgid "Application continued"
+msgid "Ramp between X7 and X8"
+msgstr "Ramp between X7 and X8"
+
+msgid "Appl. continue"
 msgstr "Appl. fortsat"
 
-msgid "After power failure"
+msgid "Application continued"
+msgstr "Application continued"
+
+msgid "After power fail."
 msgstr "Efter strømsvigt"
+
+msgid "After power failure"
+msgstr "After power failure"
+
+msgid "Appendix factory is OFF even though the range is STOP / START."
+msgstr "Appendix factory is OFF even though the range is STOP / START."
+
+msgid "STOP"
+msgstr "STOP"
+
+msgid "START"
+msgstr "START"
+
+msgid "X1"
+msgstr "X1"
+
+msgid "Screed drying X1"
+msgstr "Screed drying X1"
+
+msgid "X2"
+msgstr "X2"
+
+msgid "Screed drying X2"
+msgstr "Screed drying X2"
+
+msgid "X3"
+msgstr "X3"
+
+msgid "Screed drying X3"
+msgstr "Screed drying X3"
+
+msgid "X4"
+msgstr "X4"
+
+msgid "Screed drying X4"
+msgstr "Screed drying X4"
+
+msgid "X5"
+msgstr "X5"
+
+msgid "Screed drying X5"
+msgstr "Screed drying X5"
+
+msgid "X6"
+msgstr "X6"
+
+msgid "Screed drying X6"
+msgstr "Screed drying X6"
+
+msgid "X7"
+msgstr "X7"
+
+msgid "Screed drying X7"
+msgstr "Screed drying X7"
+
+msgid "X8"
+msgstr "X8"
+
+msgid "Screed drying X8"
+msgstr "Screed drying X8"
 
 msgid "Heating"
 msgstr "Varme"
@@ -275,263 +527,780 @@ msgstr "Varme"
 msgid "Desired T"
 msgstr "Ønsket T"
 
-msgid "ECA address"
-msgstr "ECA-adresse"
+msgid "Desired flow temperature"
+msgstr "Desired flow temperature"
+
+msgid "Used in constant-temperature mode."
+msgstr "Used in constant-temperature mode."
+
+msgid "ECA addr."
+msgstr "ECA-adr."
+
+msgid "ECA address, choice of Remote Control Unit"
+msgstr "ECA address, choice of Remote Control Unit"
+
+msgid "OFF: no ECA. A or B must match the address set on the remote."
+msgstr "OFF: no ECA. A or B must match the address set on the remote."
+
+msgid "A"
+msgstr "A"
+
+msgid "B"
+msgstr "B"
 
 msgid "Auto saving"
 msgstr "Auto-spare"
 
-msgid "Integrator time 11015"
-msgstr "Intgr. tid 11015"
+msgid "Saving temperature dependent on outdoor temperature"
+msgstr "Saving temperature dependent on outdoor temperature"
 
-msgid "Slave difference"
-msgstr "Slave differens"
+msgid "Boost"
+msgstr "Boost"
+
+msgid "Temporarily raises desired flow after a saving period. OFF: not active."
+msgstr "Temporarily raises desired flow after a saving period. OFF: not active."
+
+msgid "Ramp"
+msgstr "Rampe"
+
+msgid "Reference ramping"
+msgstr "Reference ramping"
+
+msgid "Desired flow increases gradually to avoid load peaks. OFF: not active."
+msgstr "Desired flow increases gradually to avoid load peaks. OFF: not active."
+
+msgid "Optimizer"
+msgstr "Optimizer"
+
+msgid "Optimizing time constant"
+msgstr "Optimizing time constant"
+
+msgid "Adapt. time"
+msgstr "Adapt. tid"
+
+msgid "Adaptation time"
+msgstr "Adaptation time"
+
+msgid "Room-temperature adaptation. Too low a value can make control unstable."
+msgstr "Room-temperature adaptation. Too low a value can make control unstable."
+
+msgid "Demand offset"
+msgstr "Demand offset"
 
 msgid "Based on"
 msgstr "Baseret på"
 
+msgid "Optimization based on room / outdoor temperature"
+msgstr "Optimization based on room / outdoor temperature"
+
+msgid "OUT if no room sensor is measured."
+msgstr "OUT if no room sensor is measured."
+
+msgid "OUT"
+msgstr "OUT"
+
+msgid "ROOM"
+msgstr "ROOM"
+
 msgid "Total stop"
 msgstr "Totalstop"
 
+msgid "Total stop during saving"
+msgstr "Total stop during saving"
+
+msgid "P exercise"
+msgstr "P-motion"
+
 msgid "Pump exercise"
-msgstr "Pumpe-motion"
+msgstr "Pump exercise"
+
+msgid "Runs the pump 1 minute every third day to avoid seizure."
+msgstr "Runs the pump 1 minute every third day to avoid seizure."
+
+msgid "M exercise"
+msgstr "M-motion"
 
 msgid "Valve exercise"
-msgstr "Ventil-motion"
+msgstr "Valve exercise"
 
-msgid "Actuator type"
-msgstr "Motortype"
+msgid "Opens 7 minutes and closes 7 minutes in periods without heat demand."
+msgstr "Opens 7 minutes and closes 7 minutes in periods without heat demand."
 
-msgid "Const. T return limit"
-msgstr "Kon. T retur T gr."
+msgid "Actuator"
+msgstr "Aktuator"
 
-msgid "DHW return limit"
+msgid "ABV: thermo actuator. GEAR: gear motor. GEAR uses M run, Nz, Xp, Tn."
+msgstr "ABV: thermo actuator. GEAR: gear motor. GEAR uses M run, Nz, Xp, Tn."
+
+msgid "ABV"
+msgstr "ABV"
+
+msgid "GEAR"
+msgstr "GEAR"
+
+msgid "Pre-stop"
+msgstr "Pre-stop"
+
+msgid "Optimized stop time"
+msgstr "Optimized stop time"
+
+msgid "Con. T, ret. T lim."
+msgstr "Kon. T, ret. T gr."
+
+msgid "Constant temperature mode, return temperature limitation"
+msgstr "Constant temperature mode, return temperature limitation"
+
+msgid "DHW, ret. T limit"
 msgstr "VV retur T grænse"
 
-msgid "High outdoor T X1"
+msgid "DHW return temperature limitation"
+msgstr "DHW return temperature limitation"
+
+msgid "High T out X1"
 msgstr "Høj ude T X1"
+
+msgid "Return temp. limitation, high outdoor T, X-axis"
+msgstr "Return temp. limitation, high outdoor T, X-axis"
 
 msgid "Low limit Y1"
 msgstr "Nedre grænse Y1"
 
-msgid "Low outdoor T X2"
+msgid "Return temp. limitation, low limit, Y-axis"
+msgstr "Return temp. limitation, low limit, Y-axis"
+
+msgid "Low T out X2"
 msgstr "Lav ude T X2"
+
+msgid "Return temp. limitation, low outdoor T, X-axis"
+msgstr "Return temp. limitation, low outdoor T, X-axis"
 
 msgid "High limit Y2"
 msgstr "Øvre grænse Y2"
 
-msgid "Max. influence 11035"
-msgstr "Maks. forstærkn. 11035"
+msgid "Return temp. limitation, high limit, Y-axis"
+msgstr "Return temp. limitation, high limit, Y-axis"
 
-msgid "Min. influence 11036"
-msgstr "Min. forstærkn. 11036"
+msgid "Infl. - max."
+msgstr "Forst. - maks."
 
-msgid "Integrator time 11037"
-msgstr "Intgr. tid 11037"
+msgid "Return temp. limitation — max. influence"
+msgstr "Return temp. limitation — max. influence"
 
-msgid "Pump postrun"
-msgstr "Pumpe efterløb"
+msgid "Infl. - min."
+msgstr "Forst. - min."
+
+msgid "Return temp. limitation — min. influence"
+msgstr "Return temp. limitation — min. influence"
+
+msgid "Adapt. time (return)"
+msgstr "Adapt. tid (retur)"
+
+msgid "Return limitation adaptation time"
+msgstr "Return limitation adaptation time"
+
+msgid "OFF: return limitation is not adapted. Too low a value risks unstable control."
+msgstr "OFF: return limitation is not adapted. Too low a value risks unstable control."
+
+msgid "P post-run"
+msgstr "P-efterløb"
+
+msgid "Pump post-run"
+msgstr "Pump post-run"
+
+msgid "0: pump stops immediately. Value: remaining heat in the exchanger is used."
+msgstr "0: pump stops immediately. Value: remaining heat in the exchanger is used."
 
 msgid "Parallel operation"
 msgstr "Parallel drift"
 
+msgid "OFF: DHW and heating independent. Value: heating reduced while DHW is charging."
+msgstr "OFF: DHW and heating independent. Value: heating reduced while DHW is charging."
+
+msgid "P demand"
+msgstr "P-krav"
+
 msgid "Pump demand"
-msgstr "Pumpe krav"
+msgstr "Pump demand"
 
 msgid "DHW priority"
 msgstr "VV-prioritet"
 
-msgid "Pump frost T"
-msgstr "Pumpe frost T"
+msgid "DHW priority (closed valve / normal operation)"
+msgstr "DHW priority (closed valve / normal operation)"
 
-msgid "Pump start T"
-msgstr "Pumpe start T"
+msgid "P frost T"
+msgstr "P-frost T"
+
+msgid "Circulation pump, frost protection temperature"
+msgstr "Circulation pump, frost protection temperature"
+
+msgid "Pump is ON when outdoor temperature is below this value. 2 °C is recommended."
+msgstr "Pump is ON when outdoor temperature is below this value. 2 °C is recommended."
+
+msgid "P heat T"
+msgstr "P-varme T"
+
+msgid "Pump heat demand"
+msgstr "Pump heat demand"
+
+msgid "Pump ON when desired flow is above this value. Valve stays closed while the pump is off."
+msgstr "Pump ON when desired flow is above this value. Valve stays closed while the pump is off."
 
 msgid "Max. flow T"
 msgstr "Maks. frem T"
 
-msgid "Delay 11080"
-msgstr "Forsinkelse 11080"
-
-msgid "Priority 11085"
-msgstr "Prioritet 11085"
-
-msgid "Frost protection T"
-msgstr "Frostbeskyt. T"
-
-msgid "Integrator time 11112"
-msgstr "Intgr. tid 11112"
-
-msgid "High limit Y2 flow"
-msgstr "Øvre grænse Y2 flow"
-
-msgid "Low limit Y1 flow"
-msgstr "Nedre grænse Y1 flow"
-
-msgid "Low outdoor T X2 flow"
-msgstr "Lav ude T X2 flow"
-
-msgid "High outdoor T X1 flow"
-msgstr "Høj ude T X1 flow"
-
-msgid "External override"
-msgstr "Ekst. overstyring"
-
-msgid "External mode"
-msgstr "Ekst. drift"
-
-msgid "Upper difference"
-msgstr "Øvre differens"
-
-msgid "Lower difference"
-msgstr "Nedre differens"
-
-msgid "Delay 11149"
-msgstr "Forsinkelse 11149"
-
-msgid "Cancel T"
-msgstr "Annullerings T"
-
-msgid "Motor protection"
-msgstr "Motorbeskyttelse"
-
-msgid "Heat curve slope"
-msgstr "Varmekurve hældning"
-
-msgid "Min. temperature"
-msgstr "Min. temperatur"
-
-msgid "Max. temperature"
-msgstr "Maks. temperatur"
-
-msgid "Heat cut-out"
-msgstr "Varme-udkobling"
-
-msgid "Desired room comfort"
-msgstr "Ønsket rum komfort"
-
-msgid "Desired room saving"
-msgstr "Ønsket rum spare"
-
-msgid "Max. influence 11182"
-msgstr "Maks. forstærkn. 11182"
-
-msgid "Min. influence 11183"
-msgstr "Min. forstærkn. 11183"
-
-msgid "Motor running time"
-msgstr "Motor-køretid"
-
-msgid "Neutral zone"
-msgstr "Neutralzone"
-
-msgid "Min. running time"
-msgstr "Min. køretid"
-
-msgid "Summer start mm"
-msgstr "Sommer start mm"
-
-msgid "Summer start dd"
-msgstr "Sommer start dd"
-
-msgid "Summer filter"
-msgstr "Sommer filter"
-
-msgid "Winter start mm"
-msgstr "Vinter start mm"
-
-msgid "Winter start dd"
-msgstr "Vinter start dd"
-
-msgid "Winter cut-out T"
-msgstr "Vinter udk. T"
-
-msgid "Winter filter"
-msgstr "Vinter filter"
-
-msgid "Send desired T"
-msgstr "Send ønsket T"
-
-msgid "Screed circuit"
-msgstr "Kreds Estrich"
-
-msgid "DHW"
-msgstr "VV"
-
-msgid "Return limit"
-msgstr "Grænse retur"
-
-msgid "Max. influence"
-msgstr "Maks. forstærkn."
-
-msgid "Min. influence"
-msgstr "Min. forstærkn."
-
-msgid "Integrator time 12037"
-msgstr "Intgr. tid 12037"
-
-msgid "Priority"
-msgstr "Prioritet"
-
-msgid "Opening time"
-msgstr "Åbne-tid"
-
-msgid "Closing time"
-msgstr "Lukke-tid"
-
-msgid "Tn idle"
-msgstr "Tn tomgang"
-
-msgid "Supply T idle"
-msgstr "Forsyn. T tomgang"
-
-msgid "Limit 12111"
-msgstr "Grænse 12111"
-
-msgid "Integrator time 12112"
-msgstr "Intgr. tid 12112"
-
-msgid "Anti-bacteria day"
-msgstr "Anti-bakt. dag"
-
-msgid "Anti-bacteria start"
-msgstr "Anti-bakt. start"
-
-msgid "Anti-bacteria duration"
-msgstr "Anti-bakt. varighed"
-
-msgid "Anti-bacteria desired T"
-msgstr "Anti-bakt. ønsket T"
+msgid "Maximum flow temperature alarm"
+msgstr "Maximum flow temperature alarm"
 
 msgid "Delay"
 msgstr "Forsinkelse"
 
+msgid "Alarm delay"
+msgstr "Alarm delay"
+
+msgid "Priority"
+msgstr "Prioritet"
+
+msgid "Priority for return temp. limitation"
+msgstr "Priority for return temp. limitation"
+
+msgid "Frost pr. T"
+msgstr "Frostbesk. T"
+
+msgid "Frost protection temperature"
+msgstr "Frost protection temperature"
+
+msgid "Input type"
+msgstr "Input type"
+
+msgid "Flow / energy meter input type"
+msgstr "Flow / energy meter input type"
+
+msgid "IM1"
+msgstr "IM1"
+
+msgid "IM2"
+msgstr "IM2"
+
+msgid "IM3"
+msgstr "IM3"
+
+msgid "IM4"
+msgstr "IM4"
+
+msgid "EM1"
+msgstr "EM1"
+
+msgid "EM2"
+msgstr "EM2"
+
+msgid "EM3"
+msgstr "EM3"
+
+msgid "EM4"
+msgstr "EM4"
+
+msgid "EM5"
+msgstr "EM5"
+
+msgid "Adapt. time (flow)"
+msgstr "Adapt. tid (flow)"
+
+msgid "Flow / power limitation adaptation time"
+msgstr "Flow / power limitation adaptation time"
+
+msgid "Filter constant"
+msgstr "Filter konstant"
+
+msgid "Higher value damps the measured flow/power more."
+msgstr "Higher value damps the measured flow/power more."
+
+msgid "Pulse"
+msgstr "Puls"
+
+msgid "Pulse value from flow / energy meter"
+msgstr "Pulse value from flow / energy meter"
+
+msgid "Units"
+msgstr "Enheder"
+
+msgid "Units for measured values"
+msgstr "Units for measured values"
+
+msgid "ml, l/h"
+msgstr "ml, l/h"
+
+msgid "l, l/h"
+msgstr "l, l/h"
+
+msgid "ml, m³/h"
+msgstr "ml, m³/h"
+
+msgid "l, m³/h"
+msgstr "l, m³/h"
+
+msgid "Wh, kW"
+msgstr "Wh, kW"
+
+msgid "kWh, kW"
+msgstr "kWh, kW"
+
+msgid "kWh, MW"
+msgstr "kWh, MW"
+
+msgid "MWh, MW"
+msgstr "MWh, MW"
+
+msgid "GWh, GW"
+msgstr "GWh, GW"
+
+msgid "High limit Y2 (flow)"
+msgstr "Øvre grænse Y2 (flow)"
+
+msgid "Flow / power limitation, high limit, Y-axis"
+msgstr "Flow / power limitation, high limit, Y-axis"
+
+msgid "Low limit Y1 (flow)"
+msgstr "Nedre grænse Y1 (flow)"
+
+msgid "Flow / power limitation, low limit, Y-axis"
+msgstr "Flow / power limitation, low limit, Y-axis"
+
+msgid "Low T out X2 (flow)"
+msgstr "Lav ude T X2 (flow)"
+
+msgid "Flow / power limitation, low outdoor T, X-axis"
+msgstr "Flow / power limitation, low outdoor T, X-axis"
+
+msgid "High T out X1 (flow)"
+msgstr "Høj ude T X1 (flow)"
+
+msgid "Flow / power limitation, high outdoor T, X-axis"
+msgstr "Flow / power limitation, high outdoor T, X-axis"
+
+msgid "Ext. input"
+msgstr "Ext. indgang"
+
+msgid "External override input"
+msgstr "External override input"
+
+msgid "S1"
+msgstr "S1"
+
+msgid "S2"
+msgstr "S2"
+
+msgid "S3"
+msgstr "S3"
+
+msgid "S4"
+msgstr "S4"
+
+msgid "S5"
+msgstr "S5"
+
+msgid "S6"
+msgstr "S6"
+
+msgid "S7"
+msgstr "S7"
+
+msgid "S8"
+msgstr "S8"
+
+msgid "S9"
+msgstr "S9"
+
+msgid "S10"
+msgstr "S10"
+
+msgid "S11"
+msgstr "S11"
+
+msgid "S12"
+msgstr "S12"
+
+msgid "S13"
+msgstr "S13"
+
+msgid "S14"
+msgstr "S14"
+
+msgid "S15"
+msgstr "S15"
+
+msgid "S16"
+msgstr "S16"
+
+msgid "Ext. mode"
+msgstr "Ext. tilstand"
+
+msgid "External override mode"
+msgstr "External override mode"
+
+msgid "Only applies when the circuit is in scheduled mode."
+msgstr "Only applies when the circuit is in scheduled mode."
+
+msgid "COMFORT"
+msgstr "COMFORT"
+
+msgid "SAVING"
+msgstr "SAVING"
+
+msgid "FROST PR."
+msgstr "FROST PR."
+
+msgid "CONST. T"
+msgstr "CONST. T"
+
+msgid "Upper difference"
+msgstr "Øvre differens"
+
+msgid "Upper difference (alarm)"
+msgstr "Upper difference (alarm)"
+
+msgid "Lower difference"
+msgstr "Nedre differens"
+
+msgid "Lower difference (alarm)"
+msgstr "Lower difference (alarm)"
+
+msgid "Delay (alarm)"
+msgstr "Forsinkelse (alarm)"
+
+msgid "Lowest temp."
+msgstr "Laveste temp."
+
+msgid "Lowest temperature (cancel alarm)"
+msgstr "Lowest temperature (cancel alarm)"
+
+msgid "Motor pr."
+msgstr "Motorbesk."
+
+msgid "Motor protection"
+msgstr "Motor protection"
+
+msgid "Prevents actuator oscillation at very low load. Increases lifetime of valve and motor."
+msgstr "Prevents actuator oscillation at very low load. Increases lifetime of valve and motor."
+
+msgid "Heat curve"
+msgstr "Varmekurve"
+
+msgid "Heat curve slope"
+msgstr "Heat curve slope"
+
+msgid "Not listed in Parameter ID overview. Weather-compensation slope."
+msgstr "Not listed in Parameter ID overview. Weather-compensation slope."
+
+msgid "Temp. min."
+msgstr "Temp. min."
+
+msgid "Minimum flow temperature"
+msgstr "Minimum flow temperature"
+
+msgid "Desired flow will not go below this. Has higher priority than the heat curve."
+msgstr "Desired flow will not go below this. Has higher priority than the heat curve."
+
+msgid "Temp. max."
+msgstr "Temp. maks."
+
+msgid "Maximum flow temperature"
+msgstr "Maximum flow temperature"
+
+msgid "Desired flow will not go above this."
+msgstr "Desired flow will not go above this."
+
+msgid "Summer, cut-out"
+msgstr "Sommer, udkobling"
+
+msgid "Limit for heating cut-out"
+msgstr "Limit for heating cut-out"
+
+msgid "Heating is switched off when outdoor temperature is higher than this."
+msgstr "Heating is switched off when outdoor temperature is higher than this."
+
+msgid "Desired room comfort"
+msgstr "Ønsket rum komfort"
+
+msgid "Desired room temperature, comfort"
+msgstr "Desired room temperature, comfort"
+
+msgid "Not listed in Parameter ID overview. Comfort setpoint on the daily display."
+msgstr "Not listed in Parameter ID overview. Comfort setpoint on the daily display."
+
+msgid "Desired room saving"
+msgstr "Ønsket rum spare"
+
+msgid "Desired room temperature, saving"
+msgstr "Desired room temperature, saving"
+
+msgid "Not listed in Parameter ID overview."
+msgstr "Not listed in Parameter ID overview."
+
+msgid "Infl. - max. (room)"
+msgstr "Forst. - maks. (rum)"
+
+msgid "Room temp. limitation, max. influence"
+msgstr "Room temp. limitation, max. influence"
+
+msgid "Infl. - min. (room)"
+msgstr "Forst. - min. (rum)"
+
+msgid "Room temp. limitation, min. influence"
+msgstr "Room temp. limitation, min. influence"
+
+msgid "Xp"
+msgstr "Xp"
+
+msgid "Proportional band"
+msgstr "Proportional band"
+
+msgid "Higher value: slower, more stable flow-temperature control."
+msgstr "Higher value: slower, more stable flow-temperature control."
+
+msgid "Tn"
+msgstr "Tn"
+
+msgid "Integration time constant"
+msgstr "Integration time constant"
+
+msgid "High value: slow but stable. Low value: fast, less stable."
+msgstr "High value: slow but stable. Low value: fast, less stable."
+
+msgid "M run"
+msgstr "M-gang"
+
+msgid "Running time of the motorized control valve"
+msgstr "Running time of the motorized control valve"
+
+msgid "Seconds from fully closed to fully open. Measure with a stopwatch, or stroke x actuator speed. Too short a time keeps the motor driving in end stop."
+msgstr "Seconds from fully closed to fully open. Measure with a stopwatch, or stroke x actuator speed. Too short a time keeps the motor driving in end stop."
+
+msgid "Nz"
+msgstr "Nz"
+
+msgid "Neutral zone"
+msgstr "Neutral zone"
+
+msgid "When actual flow is within this zone the controller does not activate the valve. Symmetrical around the desired flow. Set high if you can accept more variation."
+msgstr "When actual flow is within this zone the controller does not activate the valve. Symmetrical around the desired flow. Set high if you can accept more variation."
+
+msgid "Min. act. time"
+msgstr "Min. akt. tid"
+
+msgid "Min. activation time, gear motor"
+msgstr "Min. activation time, gear motor"
+
+msgid "Keep as high as acceptable to increase actuator lifetime. Unit is 20 ms steps (10 = 200 ms)."
+msgstr "Keep as high as acceptable to increase actuator lifetime. Unit is 20 ms steps (10 = 200 ms)."
+
+msgid "Sum. start, month"
+msgstr "Som. start, måned"
+
+msgid "Summer cut-out start, month"
+msgstr "Summer cut-out start, month"
+
+msgid "Sum. start, day"
+msgstr "Som. start, dag"
+
+msgid "Summer cut-out start, day"
+msgstr "Summer cut-out start, day"
+
+msgid "Summer, filter"
+msgstr "Sommer, filter"
+
+msgid "Summer filter"
+msgstr "Summer filter"
+
+msgid "Win. start, month"
+msgstr "Vin. start, måned"
+
+msgid "Winter cut-out start, month"
+msgstr "Winter cut-out start, month"
+
+msgid "Winter start, day"
+msgstr "Vinter start, dag"
+
+msgid "Winter cut-out start, day"
+msgstr "Winter cut-out start, day"
+
+msgid "Winter, cut-out"
+msgstr "Vinter, udkobling"
+
+msgid "Winter cut-out temperature"
+msgstr "Winter cut-out temperature"
+
+msgid "Winter, filter"
+msgstr "Vinter, filter"
+
+msgid "Winter filter"
+msgstr "Winter filter"
+
+msgid "Send desired T"
+msgstr "Send ønsket T"
+
+msgid "ON: this circuit sends its desired flow to a master controller."
+msgstr "ON: this circuit sends its desired flow to a master controller."
+
+msgid "Pressure"
+msgstr "Tryk"
+
+msgid "Low X"
+msgstr "Low X"
+
+msgid "Pressure input, low X (voltage)"
+msgstr "Pressure input, low X (voltage)"
+
+msgid "High X"
+msgstr "High X"
+
+msgid "Pressure input, high X (voltage)"
+msgstr "Pressure input, high X (voltage)"
+
+msgid "Low Y"
+msgstr "Low Y"
+
+msgid "Pressure input, low Y (bar)"
+msgstr "Pressure input, low Y (bar)"
+
+msgid "High Y"
+msgstr "High Y"
+
+msgid "Pressure input, high Y (bar)"
+msgstr "Pressure input, high Y (bar)"
+
+msgid "Alarm high"
+msgstr "Alarm høj"
+
+msgid "Pressure alarm high"
+msgstr "Pressure alarm high"
+
+msgid "Alarm low"
+msgstr "Alarm lav"
+
+msgid "Pressure alarm low"
+msgstr "Pressure alarm low"
+
+msgid "Alarm time-out"
+msgstr "Alarm time-out"
+
+msgid "Pressure alarm time-out"
+msgstr "Pressure alarm time-out"
+
+msgid "Digital"
+msgstr "Digital"
+
+msgid "Digital alarm input"
+msgstr "Digital alarm input"
+
+msgid "Alarm value"
+msgstr "Alarmværdi"
+
+msgid "Digital alarm value"
+msgstr "Digital alarm value"
+
+msgid "Alarm time-out (digital)"
+msgstr "Alarm time-out (digital)"
+
+msgid "Digital alarm time-out"
+msgstr "Digital alarm time-out"
+
+msgid "Circuit, Estrich."
+msgstr "Kreds, Estrich."
+
+msgid "Screed drying circuit"
+msgstr "Screed drying circuit"
+
+msgid "DHW"
+msgstr "VV"
+
+msgid "ABV: thermo actuator. GEAR: gear motor."
+msgstr "ABV: thermo actuator. GEAR: gear motor."
+
+msgid "Limit"
+msgstr "Grænse"
+
+msgid "Return temperature limitation"
+msgstr "Return temperature limitation"
+
+msgid "Open time"
+msgstr "Åbne-tid"
+
+msgid "Open time (thermo actuator)"
+msgstr "Open time (thermo actuator)"
+
+msgid "Close time"
+msgstr "Lukke-tid"
+
+msgid "Close time (thermo actuator)"
+msgstr "Close time (thermo actuator)"
+
+msgid "Tn (idle)"
+msgstr "Tn (tomgang)"
+
+msgid "Integration time when no DHW tapping"
+msgstr "Integration time when no DHW tapping"
+
+msgid "Supply T (idle)"
+msgstr "Forsyn. T (tomgang)"
+
+msgid "Limit (flow)"
+msgstr "Grænse (flow)"
+
+msgid "Limitation value"
+msgstr "Limitation value"
+
+msgid "Day"
+msgstr "Dag"
+
+msgid "Anti-bacteria, day bitmask"
+msgstr "Anti-bacteria, day bitmask"
+
+msgid "Start time"
+msgstr "Starttid"
+
+msgid "Anti-bacteria, start time"
+msgstr "Anti-bacteria, start time"
+
+msgid "Duration"
+msgstr "Varighed"
+
+msgid "Anti-bacteria duration"
+msgstr "Anti-bacteria duration"
+
+msgid "Anti-bacteria desired DHW temperature"
+msgstr "Anti-bacteria desired DHW temperature"
+
+msgid "OFF: anti-bacteria function is not active."
+msgstr "OFF: anti-bacteria function is not active."
+
+msgid "Auto tuning"
+msgstr "Autotuning"
+
+msgid "When ON, Xp, Tn and M run are set automatically. Nz must still be set. Takes up to 25 minutes."
+msgstr "When ON, Xp, Tn and M run are set automatically. Nz must still be set. Takes up to 25 minutes."
+
+msgid "Minimum DHW / tank temperature"
+msgstr "Minimum DHW / tank temperature"
+
+msgid "Maximum DHW / tank temperature"
+msgstr "Maximum DHW / tank temperature"
+
+msgid "Seconds from fully closed to fully open. Factory is 20 s on A266.1 (heating circuit is 60 s)."
+msgstr "Seconds from fully closed to fully open. Factory is 20 s on A266.1 (heating circuit is 60 s)."
+
+msgid "When actual temperature is within this zone the controller does not activate the valve."
+msgstr "When actual temperature is within this zone the controller does not activate the valve."
+
 msgid "Desired DHW comfort"
 msgstr "Ønsket VV komfort"
+
+msgid "Desired DHW temperature, comfort"
+msgstr "Desired DHW temperature, comfort"
 
 msgid "Desired DHW saving"
 msgstr "Ønsket VV spare"
 
-msgid "Software build"
-msgstr "Software-build"
+msgid "Desired DHW temperature, saving"
+msgstr "Desired DHW temperature, saving"
 
-msgid "Serial high"
-msgstr "Serienummer høj"
-
-msgid "Serial low"
-msgstr "Serienummer lav"
-
-msgid "Production week/year"
-msgstr "Produktionsdato"
-
-msgid "Application prefix"
-msgstr "Applikationspræfiks"
-
-msgid "Application type"
-msgstr "Applikationstype"
-
-msgid "Application subtype"
-msgstr "Applikationsundertype"
-
-msgid "Application version"
-msgstr "Applikationsversion"

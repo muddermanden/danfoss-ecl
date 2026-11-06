@@ -2,15 +2,19 @@
 
 Python register map and dump CLI for **Danfoss ECL Comfort 310**, application **A266.1** (weather-compensated heating + DHW storage tank) over **Modbus TCP**.
 
-This is not a Home Assistant integration yet. It is the device knowledge (PNU → Modbus address, scale, range, OFF encoding) needed to build one.
+This is not a Home Assistant integration yet. It is the **device catalog** other tools will share: live sensors, outputs, identification, and settings from the Operating Guide appendix *Parameter ID overview* (Danfoss: *Parameter-ID, oversigt*).
+
 
 Addressing rule from Danfoss: **Modbus register = PNU − 1**.
 
 ## Current status (v0.1)
 
-- Read-only dump of A266.1 holding registers
+- Read-only dump of A266 holding registers (live + settings)
+- Settings compared with factory from *Parameter ID overview*; `-||-` rows are subtype variants
 - Scaled values, enums (`ON`/`OFF`/`GEAR`), open sensor = 192 °C
-- PNUs that do not exist on A266.1 are `n/a`
+- PNUs that do not exist on the selected A266.x are `n/a`
+- CSV includes raw, scale, encoding, display value, unit, factory, deviation
+
 - UI language: Danish and English (gettext `.po` files)
 - CSV written to a data directory, not the repo root
 
@@ -106,7 +110,9 @@ Do not treat ECA32 AO1–AO3 as V1/V2 unless analog actuators are actually wired
 - Function codes: 03 / 04 / 06
 - Idle TCP connections are closed by the ECL after ~75 s
 - Live sensors: scale 100. Room/DHW setpoints and gains: scale 10. Most other temperatures: scale 1
+- Settings in the catalog follow *Parameter ID overview* (not “§7.8”). Factory and range can both change with `-||-` / A266.x
 - Identification registers are packed bytes, not a scale factor:
+
   - PNU 35 software `557` → `2.45` (`major = raw >> 8`, `minor = raw & 0xFF`)
   - PNU 34 hardware same packing (`18692` → `73.04`), **not** the production date
   - PNU 2099 production: high byte = year−2000, low byte = ISO week → Leanheat `32.2025`

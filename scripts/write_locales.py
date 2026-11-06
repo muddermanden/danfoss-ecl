@@ -30,7 +30,7 @@ msgstr ""
 
 """
 
-# English msgid -> Danish
+# English msgid -> Danish. Appendix Parameter Name kept short like the ECL display.
 DA = {
     "Sensors": "Føler",
     "Outputs": "Udgang",
@@ -39,6 +39,10 @@ DA = {
     "Floor drying": "Gulvtørring",
     "Heating": "Varme",
     "DHW": "VV",
+    "setting": "indstilling",
+    "live": "live",
+    "output": "udgang",
+    "ident": "identitet",
     "S1 outdoor raw": "S1 ude rå",
     "S2 room raw": "S2 rum rå",
     "S3 heating flow raw": "S3 frem varme rå",
@@ -77,98 +81,112 @@ DA = {
     "Modbus address": "Modbus-adresse",
     "Software version": "Softwareversion",
     "Hardware revision": "Hardware-revision",
-    "Program running": "Programafvikling",
-    "Max. power failure": "Maks. pwr. fejl",
+    "Software build": "Software-build",
+    "Serial high": "Serienummer høj",
+    "Serial low": "Serienummer lav",
+    "Production week/year": "Produktionsdato",
+    "Application prefix": "Applikationspræfiks",
+    "Application type": "Applikationstype",
+    "Application subtype": "Applikationsundertype",
+    "Application version": "Applikationsversion",
+    "Prog. execution": "Prog. afvikling",
+    "Max. pwr. failure": "Maks. pwr. fejl",
     "Ramp X5-X6": "Rampe X5-X6",
     "Ramp X7-X8": "Rampe X7-X8",
-    "Application continued": "Appl. fortsat",
-    "After power failure": "Efter strømsvigt",
+    "Appl. continue": "Appl. fortsat",
+    "After power fail.": "Efter strømsvigt",
     "Desired T": "Ønsket T",
-    "ECA address": "ECA-adresse",
+    "ECA addr.": "ECA-adr.",
     "Auto saving": "Auto-spare",
     "Boost": "Boost",
     "Ramp": "Rampe",
     "Optimizer": "Optimizer",
-    "Integrator time 11015": "Intgr. tid 11015",
-    "Slave difference": "Slave differens",
+    "Adapt. time": "Adapt. tid",
+    "Adapt. time (return)": "Adapt. tid (retur)",
+    "Adapt. time (flow)": "Adapt. tid (flow)",
+    "Demand offset": "Demand offset",
     "Based on": "Baseret på",
     "Total stop": "Totalstop",
-    "Pump exercise": "Pumpe-motion",
-    "Valve exercise": "Ventil-motion",
-    "Actuator type": "Motortype",
+    "P exercise": "P-motion",
+    "M exercise": "M-motion",
+    "Actuator": "Aktuator",
     "Pre-stop": "Pre-stop",
-    "Const. T return limit": "Kon. T retur T gr.",
-    "DHW return limit": "VV retur T grænse",
-    "High outdoor T X1": "Høj ude T X1",
+    "Con. T, ret. T lim.": "Kon. T, ret. T gr.",
+    "DHW, ret. T limit": "VV retur T grænse",
+    "High T out X1": "Høj ude T X1",
     "Low limit Y1": "Nedre grænse Y1",
-    "Low outdoor T X2": "Lav ude T X2",
+    "Low T out X2": "Lav ude T X2",
     "High limit Y2": "Øvre grænse Y2",
-    "Max. influence 11035": "Maks. forstærkn. 11035",
-    "Min. influence 11036": "Min. forstærkn. 11036",
-    "Integrator time 11037": "Intgr. tid 11037",
-    "Pump postrun": "Pumpe efterløb",
+    "Infl. - max.": "Forst. - maks.",
+    "Infl. - min.": "Forst. - min.",
+    "Infl. - max. (room)": "Forst. - maks. (rum)",
+    "Infl. - min. (room)": "Forst. - min. (rum)",
+    "P post-run": "P-efterløb",
     "Parallel operation": "Parallel drift",
-    "Pump demand": "Pumpe krav",
+    "P demand": "P-krav",
     "DHW priority": "VV-prioritet",
-    "Pump frost T": "Pumpe frost T",
-    "Pump start T": "Pumpe start T",
+    "P frost T": "P-frost T",
+    "P heat T": "P-varme T",
     "Max. flow T": "Maks. frem T",
-    "Delay 11080": "Forsinkelse 11080",
-    "Priority 11085": "Prioritet 11085",
-    "Frost protection T": "Frostbeskyt. T",
+    "Delay": "Forsinkelse",
+    "Delay (alarm)": "Forsinkelse (alarm)",
+    "Priority": "Prioritet",
+    "Frost pr. T": "Frostbesk. T",
     "Input type": "Input type",
-    "Integrator time 11112": "Intgr. tid 11112",
     "Filter constant": "Filter konstant",
     "Pulse": "Puls",
     "Units": "Enheder",
-    "High limit Y2 flow": "Øvre grænse Y2 flow",
-    "Low limit Y1 flow": "Nedre grænse Y1 flow",
-    "Low outdoor T X2 flow": "Lav ude T X2 flow",
-    "High outdoor T X1 flow": "Høj ude T X1 flow",
-    "External override": "Ekst. overstyring",
-    "External mode": "Ekst. drift",
+    "High limit Y2 (flow)": "Øvre grænse Y2 (flow)",
+    "Low limit Y1 (flow)": "Nedre grænse Y1 (flow)",
+    "Low T out X2 (flow)": "Lav ude T X2 (flow)",
+    "High T out X1 (flow)": "Høj ude T X1 (flow)",
+    "Ext. input": "Ext. indgang",
+    "Ext. mode": "Ext. tilstand",
     "Upper difference": "Øvre differens",
     "Lower difference": "Nedre differens",
-    "Delay 11149": "Forsinkelse 11149",
-    "Cancel T": "Annullerings T",
-    "Motor protection": "Motorbeskyttelse",
-    "Heat curve slope": "Varmekurve hældning",
-    "Min. temperature": "Min. temperatur",
-    "Max. temperature": "Maks. temperatur",
-    "Heat cut-out": "Varme-udkobling",
+    "Lowest temp.": "Laveste temp.",
+    "Motor pr.": "Motorbesk.",
+    "Heat curve": "Varmekurve",
+    "Temp. min.": "Temp. min.",
+    "Temp. max.": "Temp. maks.",
+    "Summer, cut-out": "Sommer, udkobling",
     "Desired room comfort": "Ønsket rum komfort",
     "Desired room saving": "Ønsket rum spare",
-    "Max. influence 11182": "Maks. forstærkn. 11182",
-    "Min. influence 11183": "Min. forstærkn. 11183",
-    "Motor running time": "Motor-køretid",
-    "Neutral zone": "Neutralzone",
-    "Min. running time": "Min. køretid",
-    "Summer start mm": "Sommer start mm",
-    "Summer start dd": "Sommer start dd",
-    "Summer filter": "Sommer filter",
-    "Winter start mm": "Vinter start mm",
-    "Winter start dd": "Vinter start dd",
-    "Winter cut-out T": "Vinter udk. T",
-    "Winter filter": "Vinter filter",
+    "Xp": "Xp",
+    "Tn": "Tn",
+    "M run": "M-gang",
+    "Nz": "Nz",
+    "Min. act. time": "Min. akt. tid",
+    "Sum. start, month": "Som. start, måned",
+    "Sum. start, day": "Som. start, dag",
+    "Summer, filter": "Sommer, filter",
+    "Win. start, month": "Vin. start, måned",
+    "Winter start, day": "Vinter start, dag",
+    "Winter, cut-out": "Vinter, udkobling",
+    "Winter, filter": "Vinter, filter",
     "Send desired T": "Send ønsket T",
-    "Screed circuit": "Kreds Estrich",
-    "Return limit": "Grænse retur",
-    "Max. influence": "Maks. forstærkn.",
-    "Min. influence": "Min. forstærkn.",
-    "Integrator time 12037": "Intgr. tid 12037",
-    "Priority": "Prioritet",
-    "Opening time": "Åbne-tid",
-    "Closing time": "Lukke-tid",
-    "Tn idle": "Tn tomgang",
-    "Supply T idle": "Forsyn. T tomgang",
-    "Limit 12111": "Grænse 12111",
-    "Integrator time 12112": "Intgr. tid 12112",
-    "Anti-bacteria day": "Anti-bakt. dag",
-    "Anti-bacteria start": "Anti-bakt. start",
-    "Anti-bacteria duration": "Anti-bakt. varighed",
-    "Anti-bacteria desired T": "Anti-bakt. ønsket T",
-    "Delay": "Forsinkelse",
-    "Autotuning": "Autotuning",
+    "Pressure": "Tryk",
+    "Low X": "Low X",
+    "High X": "High X",
+    "Low Y": "Low Y",
+    "High Y": "High Y",
+    "Alarm high": "Alarm høj",
+    "Alarm low": "Alarm lav",
+    "Alarm time-out": "Alarm time-out",
+    "Alarm time-out (digital)": "Alarm time-out (digital)",
+    "Digital": "Digital",
+    "Alarm value": "Alarmværdi",
+    "Circuit, Estrich.": "Kreds, Estrich.",
+    "Limit": "Grænse",
+    "Limit (flow)": "Grænse (flow)",
+    "Open time": "Åbne-tid",
+    "Close time": "Lukke-tid",
+    "Tn (idle)": "Tn (tomgang)",
+    "Supply T (idle)": "Forsyn. T (tomgang)",
+    "Day": "Dag",
+    "Start time": "Starttid",
+    "Duration": "Varighed",
+    "Auto tuning": "Autotuning",
     "Desired DHW comfort": "Ønsket VV komfort",
     "Desired DHW saving": "Ønsket VV spare",
     "open": "åben",
@@ -179,77 +197,100 @@ DA = {
     "error": "fejl",
     "OFF": "OFF",
     "ON": "ON",
+    "factory": "fabrik",
+    "changed": "ændret",
     "group": "gruppe",
     "name": "navn",
+    "title": "titel",
+    "kind": "type",
     "value": "værdi",
-    "status": "status",
+    "unit": "enhed",
+    "scale": "skala",
+    "encoding": "encoding",
+    "deviation": "afvigelse",
     "range": "område",
+    "page": "side",
+    "status": "status",
+    "description": "beskrivelse",
     "Could not connect to {host}:{port}": "Ingen forbindelse til {host}:{port}",
-    "Done: {ok} ok, {fail} errors. Saved to {path}": "Færdig: {ok} ok, {fail} fejl. Gemt i {path}",
+    "Done: {ok} ok, {fail} errors, {changed} changed from factory. Saved to {path}": (
+        "Færdig: {ok} ok, {fail} fejl, {changed} afviger fra fabrik. Gemt i {path}"
+    ),
     "{count} PNUs": "{count} PNU'er",
-    "unit": "unit",
+    "Parameter ID overview": "Parameter-ID, oversigt",
 }
+
+
+EXTRA = [
+    "open",
+    "ok",
+    "out of range",
+    "n/a",
+    "not available",
+    "error",
+    "OFF",
+    "ON",
+    "factory",
+    "changed",
+    "group",
+    "name",
+    "title",
+    "kind",
+    "value",
+    "unit",
+    "scale",
+    "encoding",
+    "deviation",
+    "range",
+    "page",
+    "status",
+    "description",
+    "setting",
+    "live",
+    "output",
+    "ident",
+    "Could not connect to {host}:{port}",
+    "Done: {ok} ok, {fail} errors, {changed} changed from factory. Saved to {path}",
+    "{count} PNUs",
+    "Parameter ID overview",
+]
 
 
 def po_escape(value: str) -> str:
     return value.replace("\\", "\\\\").replace('"', '\\"')
 
 
+def collect_msgids() -> list[str]:
+    seen: set[str] = set()
+    ordered: list[str] = []
+
+    def add(msgid: str) -> None:
+        if msgid and msgid not in seen:
+            seen.add(msgid)
+            ordered.append(msgid)
+
+    for msgid in EXTRA:
+        add(msgid)
+    for reg in REGISTERS:
+        add(reg.group)
+        add(reg.name)
+        add(reg.title)
+        add(reg.description)
+        add(reg.kind)
+        for variant in reg.variants:
+            if variant.choices:
+                for choice in variant.choices:
+                    add(choice)
+    return ordered
+
+
 def write_po(path: Path, lang: str, lang_name: str, catalog: dict[str, str]) -> None:
     date = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M+0000")
-    entries: list[tuple[str, str]] = []
-    seen: set[str] = set()
-    extra = [
-        "open",
-        "ok",
-        "out of range",
-        "n/a",
-        "not available",
-        "error",
-        "OFF",
-        "ON",
-        "group",
-        "name",
-        "value",
-        "status",
-        "range",
-        "Could not connect to {host}:{port}",
-        "Done: {ok} ok, {fail} errors. Saved to {path}",
-        "{count} PNUs",
-        "unit",
-        "X1",
-        "X2",
-        "X3",
-        "X4",
-        "X5",
-        "X6",
-        "X7",
-        "X8",
-        "Xp",
-        "Tn",
-        "Boost",
-        "Ramp",
-        "Optimizer",
-        "Pre-stop",
-        "Input type",
-        "Filter constant",
-        "Pulse",
-        "Units",
-        "Autotuning",
-    ]
-    for msgid in extra:
-        if msgid not in seen:
-            entries.append((msgid, catalog.get(msgid, msgid)))
-            seen.add(msgid)
-    for reg in REGISTERS:
-        for msgid in (reg.group, reg.name):
-            if msgid not in seen:
-                entries.append((msgid, catalog.get(msgid, msgid)))
-                seen.add(msgid)
-    path.parent.mkdir(parents=True, exist_ok=True)
     chunks = [HEADER.format(lang=lang, lang_name=lang_name, date=date)]
-    for msgid, msgstr in entries:
+    for msgid in collect_msgids():
+        msgstr = catalog.get(msgid, msgid)
         chunks.append(f'msgid "{po_escape(msgid)}"\nmsgstr "{po_escape(msgstr)}"\n\n')
+    path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("".join(chunks), encoding="utf-8")
 
 
