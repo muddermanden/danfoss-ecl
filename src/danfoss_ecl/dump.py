@@ -11,10 +11,16 @@ from dotenv import load_dotenv
 from pymodbus.client import ModbusSerialClient, ModbusTcpClient
 from pymodbus.exceptions import ModbusException
 
-from danfoss_ecl.decode import format_value, in_range, range_text
+from danfoss_ecl.decode import (
+    deviation,
+    format_factory,
+    format_value,
+    in_range,
+    range_text,
+)
 from danfoss_ecl.i18n import _, setup_i18n
 from danfoss_ecl.paths import dump_dir
-from danfoss_ecl.registers_a266 import REGISTERS
+from danfoss_ecl.registers_a266 import REGISTERS, Register, Variant
 
 
 Mode = Literal["tcp", "rtu"]
@@ -104,6 +110,49 @@ def read_holding(client: ModbusTcpClient | ModbusSerialClient, pnu: int, unit_id
     raise RuntimeError(str(last_error))
 
 
+def _row(
+    *,
+    group: str,
+    name: str,
+    title: str,
+    kind: str,
+    pnu: int,
+    raw: str | int,
+    scale: int | str,
+    encoding: str,
+    value: str,
+    unit: str,
+    factory: str,
+    deviation_text: str,
+    range_s: str,
+    a266: str,
+    page: str,
+    status: str,
+    description: str,
+    columns: dict[str, str],
+) -> dict[str, str | int]:
+    return {
+        columns["group"]: group,
+        columns["name"]: name,
+        columns["title"]: title,
+        columns["kind"]: kind,
+        "pnu": pnu,
+        "addr": pnu - 1,
+        "raw": raw,
+        columns["scale"]: scale,
+        columns["encoding"]: encoding,
+        columns["value"]: value,
+        columns["unit"]: unit,
+        columns["factory"]: factory,
+        columns["deviation"]: deviation_text,
+        columns["range"]: range_s,
+        "a266": a266,
+        columns["page"]: page,
+        columns["status"]: status,
+        columns["description"]: description,
+    }
+
+
 def main() -> None:
     settings = load_settings()
     client = build_client(settings)
@@ -120,11 +169,22 @@ def main() -> None:
     rows: list[dict[str, str | int]] = []
     app = settings.app
 
-    col_group = _("group")
-    col_name = _("name")
-    col_value = _("value")
-    col_status = _("status")
-    col_range = _("range")
+    columns = {
+        "group": _("group"),
+        "name": _("name"),
+        "title": _("title"),
+        "kind": _("kind"),
+        "scale": _("scale"),
+        "encoding": _("encoding"),
+        "value": _("value"),
+        "unit": _("unit"),
+        "factory": _("factory"),
+        "deviation": _("deviation"),
+        "range": _("range"),
+        "page": _("page"),
+        "status": _("status"),
+        "description": _("description"),
+    }
 
     print(
         f"ECL 310 A266.{app}  {settings.host}:{settings.port}  "
@@ -134,6 +194,45 @@ def main() -> None:
     current_group = ""
     ok = 0
     fail = 0
+    changed = 0
+
+    def emit(
+        reg: Register,
+        variant: Variant | None,
+        *,
+        raw: str | int,
+        value: str,
+        status: str,
+        deviation_text: str,
+        description: str = "",
+    ) -> None:
+        factory = format_factory(reg, variant) if variant else ""
+        range_s = range_text(reg, variant)
+        unit = variant.unit if variant else ""
+        a266 = variant.a266_text() if variant else ""
+        page = "" if reg.guide_page is None else str(reg.guide_page)
+        rows.append(
+            _row(
+                group=_(reg.group),
+                name=_(reg.name),
+                title=_(reg.title) if reg.title else "",
+                kind=_(reg.kind),
+                pnu=reg.pnu,
+                raw=raw,
+                scale=reg.scale,
+                encoding=reg.encoding,
+                value=value,
+                unit=unit,
+                factory=factory,
+                deviation_text=deviation_text,
+                range_s=range_s,
+                a266=a266,
+                page=page,
+                status=status,
+                description=_(description) if description else (_(reg.description) if reg.description else ""),
+                columns=columns,
+            )
+        )
 
     try:
         for reg in REGISTERS:
@@ -142,77 +241,69 @@ def main() -> None:
             if reg.group != current_group:
                 current_group = reg.group
                 print(f"\n=== {group} ===")
-            if reg.available_on is not None and app not in reg.available_on:
+            variant = reg.variant_for(app)
+            if variant is None:
                 status = _("not available")
                 value = _("n/a")
-                print(f"  {reg.pnu:5d}  {name:<28} {value:<16} {status:<12}  {range_text(reg)}")
-                rows.append(
-                    {
-                        col_group: group,
-                        col_name: name,
-                        "pnu": reg.pnu,
-                        "addr": reg.pnu - 1,
-                        "raw": "",
-                        col_value: value,
-                        col_status: status,
-                        col_range: range_text(reg),
-                    }
-                )
+                print(f"  {reg.pnu:5d}  {name:<24} {value:<16} {status}")
+                emit(reg, None, raw="", value=value, status=status, deviation_text=status)
                 continue
             try:
                 raw = read_holding(client, reg.pnu, settings.unit_id)
-                scaled_text = format_value(raw, reg)
-                status = in_range(raw, reg)
+                value = format_value(raw, reg, variant)
+                status = in_range(raw, reg, variant)
+                dev = deviation(raw, reg, variant)
+                mark = "*" if dev == _("changed") else " "
+                extra = f"  {_('factory')} {format_factory(reg, variant)}" if dev == _("changed") else ""
                 print(
-                    f"  {reg.pnu:5d}  {name:<28} {scaled_text:<16} "
-                    f"{status:<12}  {range_text(reg)}"
+                    f" {mark}{reg.pnu:5d}  {name:<24} {value:<16} "
+                    f"{(dev or status):<12}  {range_text(reg, variant)}{extra}"
                 )
-                rows.append(
-                    {
-                        col_group: group,
-                        col_name: name,
-                        "pnu": reg.pnu,
-                        "addr": reg.pnu - 1,
-                        "raw": raw,
-                        col_value: scaled_text,
-                        col_status: status,
-                        col_range: range_text(reg),
-                    }
+                if dev == _("changed") and reg.description:
+                    print(f"         {_(reg.description)}")
+                emit(
+                    reg,
+                    variant,
+                    raw=raw,
+                    value=value,
+                    status=status,
+                    deviation_text=dev,
                 )
                 ok += 1
+                if dev == _("changed"):
+                    changed += 1
             except Exception as exc:  # noqa: BLE001
                 msg = str(exc)
                 if "exception_code=2" in msg:
                     value, status = _("n/a"), _("not available")
                 else:
                     value, status = f"{_('error')} {exc}", _("error")
-                print(f"  {reg.pnu:5d}  {name:<28} {value}")
-                rows.append(
-                    {
-                        col_group: group,
-                        col_name: name,
-                        "pnu": reg.pnu,
-                        "addr": reg.pnu - 1,
-                        "raw": "",
-                        col_value: value,
-                        col_status: status,
-                        col_range: range_text(reg),
-                    }
-                )
+                print(f"  {reg.pnu:5d}  {name:<24} {value}")
+                emit(reg, variant, raw="", value=value, status=status, deviation_text=status)
                 if status == _("error"):
                     fail += 1
     finally:
         client.close()
 
     fieldnames = [
-        col_group,
-        col_name,
+        columns["group"],
+        columns["name"],
+        columns["title"],
+        columns["kind"],
         "pnu",
         "addr",
         "raw",
-        col_value,
-        col_status,
-        col_range,
+        columns["scale"],
+        columns["encoding"],
+        columns["value"],
+        columns["unit"],
+        columns["factory"],
+        columns["deviation"],
+        columns["range"],
+        "a266",
+        columns["page"],
+        columns["status"],
+        columns["description"],
     ]
     with out_path.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=fieldnames)
@@ -221,8 +312,8 @@ def main() -> None:
 
     print(
         "\n"
-        + _("Done: {ok} ok, {fail} errors. Saved to {path}").format(
-            ok=ok, fail=fail, path=out_path
+        + _("Done: {ok} ok, {fail} errors, {changed} changed from factory. Saved to {path}").format(
+            ok=ok, fail=fail, changed=changed, path=out_path
         )
     )
 
