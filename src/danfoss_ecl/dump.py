@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import argparse
 import csv
 import os
+import sys
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -49,19 +51,54 @@ def env_int(name: str, default: int) -> int:
     return int(raw_value)
 
 
-def load_settings() -> ModbusSettings:
-    load_dotenv("ecl310_a266.env")
-    load_dotenv(".env")
-    load_dotenv()
+ENV_FILE_NAMES = ("ecl310_a266.env", ".env")
+
+
+class SettingsError(ValueError):
+    """Configuration is missing or invalid."""
+
+
+def load_env_files(env_file: Path | None = None, cwd: Path | None = None) -> list[Path]:
+    """Load settings files into os.environ and return the files that were loaded.
+
+    Real environment variables always win (python-dotenv never overrides them).
+    With ``env_file`` only that file is loaded and it must exist. Without it,
+    ``ecl310_a266.env`` and then ``.env`` are loaded from the current folder.
+    """
+    if env_file is not None:
+        path = env_file.expanduser()
+        if not path.is_file():
+            raise SettingsError(f"Settings file not found: {path}")
+        load_dotenv(path)
+        return [path]
+    base = cwd or Path.cwd()
+    loaded: list[Path] = []
+    for name in ENV_FILE_NAMES:
+        path = base / name
+        if path.is_file():
+            load_dotenv(path)
+            loaded.append(path)
+    return loaded
+
+
+def load_settings(host: str | None = None) -> ModbusSettings:
+    """Build settings from the environment. Call load_env_files() first."""
     mode = os.getenv("ECL310_MODBUS_MODE", "tcp").lower()
     if mode not in {"tcp", "rtu"}:
-        raise ValueError("ECL310_MODBUS_MODE must be either 'tcp' or 'rtu'")
+        raise SettingsError("ECL310_MODBUS_MODE must be either 'tcp' or 'rtu'")
+
+    resolved_host = host or os.getenv("ECL310_HOST", "")
+    if mode == "tcp" and not resolved_host:
+        raise SettingsError(
+            "No controller address: set ECL310_HOST in ecl310_a266.env "
+            "(copy ecl310_a266.env.example) or pass --host."
+        )
 
     lang = setup_i18n()
     return ModbusSettings(
         mode=mode,  # type: ignore[arg-type]
         unit_id=env_int("ECL310_UNIT_ID", 1),
-        host=os.getenv("ECL310_HOST", "192.168.1.100"),
+        host=resolved_host,
         port=env_int("ECL310_PORT", 502),
         serial_port=os.getenv("ECL310_SERIAL_PORT", "/dev/tty.usbserial-0001"),
         baudrate=env_int("ECL310_BAUDRATE", 38400),
@@ -72,6 +109,20 @@ def load_settings() -> ModbusSettings:
         output_dir=dump_dir(),
         app=os.getenv("ECL310_APP", "1"),
     )
+
+
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        prog="ecl-dump",
+        description="Read-only dump of Danfoss ECL Comfort 310 A266 holding registers to CSV.",
+    )
+    parser.add_argument(
+        "--env-file",
+        type=Path,
+        help="settings file to load instead of ./ecl310_a266.env and ./.env",
+    )
+    parser.add_argument("--host", help="controller IP or hostname (overrides ECL310_HOST)")
+    return parser.parse_args(argv)
 
 
 def build_client(settings: ModbusSettings) -> ModbusTcpClient | ModbusSerialClient:
@@ -153,8 +204,17 @@ def _row(
     }
 
 
-def main() -> None:
-    settings = load_settings()
+def main(argv: list[str] | None = None) -> None:
+    args = parse_args(argv)
+    try:
+        loaded = load_env_files(args.env_file)
+        settings = load_settings(host=args.host)
+    except SettingsError as exc:
+        sys.exit(f"ecl-dump: {exc}")
+    if loaded:
+        print(_("Settings: {files}").format(files=", ".join(str(path) for path in loaded)))
+    else:
+        print(_("Settings: no settings file found, using environment variables only"))
     client = build_client(settings)
     if not client.connect():
         raise ConnectionError(

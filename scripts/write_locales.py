@@ -217,6 +217,10 @@ DA = {
         "Færdig: {ok} ok, {fail} fejl, {changed} afviger fra fabrik. Gemt i {path}"
     ),
     "{count} PNUs": "{count} PNU'er",
+    "Settings: {files}": "Indstillinger: {files}",
+    "Settings: no settings file found, using environment variables only": (
+        "Indstillinger: ingen indstillingsfil fundet, bruger kun miljøvariabler"
+    ),
     "Parameter ID overview": "Parameter-ID, oversigt",
 }
 
@@ -253,6 +257,8 @@ EXTRA = [
     "Done: {ok} ok, {fail} errors, {changed} changed from factory. Saved to {path}",
     "{count} PNUs",
     "Parameter ID overview",
+    "Settings: {files}",
+    "Settings: no settings file found, using environment variables only",
 ]
 
 
