@@ -8,10 +8,25 @@ Operating Guide appendix *Parameter ID overview*, with scale, range, OFF encodin
 `ecl-dump` reads all of it and writes a CSV, so you can see what your controller actually reports and which
 settings differ from factory.
 
-It is **not** a Home Assistant integration. For a ready-to-use Home Assistant YAML package built from this
-register map, see [muddermanden/homeassistant-danfoss-ecl310](https://github.com/muddermanden/homeassistant-danfoss-ecl310).
+It is **not** a Home Assistant integration (see below).
 
 Addressing rule from Danfoss: **Modbus register = PNU − 1**.
+
+## Two repositories, one controller
+
+The ECL Comfort 310 work is split into two independent repositories:
+
+| Repository | What it is | Use it when |
+|---|---|---|
+| [danfoss-ecl](https://github.com/muddermanden/danfoss-ecl) | Python register catalog + `ecl-dump` CLI. Reads every A266.x register over Modbus, writes a CSV and compares settings with factory values | You want to analyse or document a controller, check which registers it really has, or find a register before using it elsewhere |
+| [homeassistant-danfoss-ecl310](https://github.com/muddermanden/homeassistant-danfoss-ecl310) | Ready-to-use Home Assistant YAML package: a `modbus:` hub plus template sensors | You want the ECL in Home Assistant for daily monitoring, history and dashboards |
+
+**How they relate:** the Home Assistant package's register addresses, scales and decoding were taken from the
+danfoss-ecl catalog (Home Assistant `address` = PNU − 1). Use danfoss-ecl to verify your controller, or to look up
+a register before adding it to the package.
+
+**Independent:** you can use either one on its own. They share no code, neither needs the other at runtime, and
+each is versioned separately. The package needs no Python. The tool needs no Home Assistant.
 
 ## Quick start
 
