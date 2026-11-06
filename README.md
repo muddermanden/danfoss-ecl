@@ -75,6 +75,7 @@ A proper A266.1 integration is still missing. Nearby work:
 | Project | Covers | Gap |
 |---|---|---|
 | [HA YAML `modbus`](https://www.home-assistant.io/integrations/modbus/) | Generic registers | You must hand-write every PNU |
+| [muddermanden/homeassistant-danfoss-ecl310](https://github.com/muddermanden/homeassistant-danfoss-ecl310) | ECL 310 **A266.x**, YAML package built from this register map | Read-only, plain `modbus:` YAML (not an integration) |
 | [acdcnow/Danfoss-ECL-310-for-Home-Assistant](https://github.com/acdcnow/Danfoss-ECL-310-for-Home-Assistant) | ECL 310 **A247.1** | Different application key |
 | [JohNan/homeassistant-danfoss_ecl_modbus](https://github.com/JohNan/homeassistant-danfoss_ecl_modbus) | ECL **110** | Different controller |
 
